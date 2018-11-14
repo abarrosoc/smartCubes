@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace smartCubes.Models
 {
-    public class ActivityModel<TResult>
+    public class ActivityModel
     {
         [JsonProperty("id")]
         public long Id { get; set; }
@@ -15,6 +12,13 @@ namespace smartCubes.Models
         public String Name { get; set; }
         [JsonProperty("devices")]
         public List<String> Devices { get; set; }
+
+        public ActivityModel(long id, String name, List<String> devices)
+        {
+            Id = id;
+            Name = name;
+            Devices = devices;
+        }
     }
 }
 

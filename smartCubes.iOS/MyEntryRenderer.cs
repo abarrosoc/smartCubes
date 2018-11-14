@@ -1,4 +1,6 @@
-﻿using smartCubes.iOS;
+﻿using CoreAnimation;
+using CoreGraphics;
+using smartCubes.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -14,9 +16,18 @@ namespace smartCubes.iOS
 
             if (Control != null)
             {
+                Control.BorderStyle = UITextBorderStyle.None;
                 // do whatever you want to the UITextField here!
-                Control.BackgroundColor = UIColor.FromRGB(204, 153, 255);
-                Control.BorderStyle = UITextBorderStyle.Line;
+                /*CALayer border = new CALayer();
+                float width = 2.0f;
+                border.BorderColor = Color.Blue.ToCGColor();
+                border.Frame = new CGRect(0, 40, 400, 2.0f);
+                border.BorderWidth = width;
+
+                Control.Layer.AddSublayer(border);
+                Control.Layer.MasksToBounds = true;*/
+
+
             }
         }
     }

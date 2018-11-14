@@ -1,15 +1,26 @@
-﻿using System;
-
+﻿using Android.Content;
+using smartCubes.Android;
+using Java.Util;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
-namespace smartCubes.Droid
+[assembly: ExportRenderer(typeof(MapEntry), typeof(MyEntryRenderer))]
+namespace smartCubes.Android
 {
-    public class MyEntryRenderer : ContentView
+    class MyEntryRenderer : EntryRenderer
     {
-        public MyEntryRenderer()
+        public MyEntryRenderer(Context context) : base(context)
         {
-            Content = new Label { Text = "Hello ContentView" };
+        }
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+        {
+            base.OnElementChanged(e);
+
+            if (Control != null)
+            {
+
+            }
         }
     }
 }
-

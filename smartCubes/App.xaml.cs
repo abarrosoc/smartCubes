@@ -1,5 +1,6 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using smartCubes.View.Menu;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace smartCubes
@@ -11,7 +12,7 @@ namespace smartCubes
         {
             InitializeComponent();
 
-            MainPage = new smartCubes.View.Menu.MainPage();
+            MainPage = new MainPage();
            // MainPage = new NavigationPage(new ActivitiesView());
         }
 

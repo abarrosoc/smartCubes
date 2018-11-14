@@ -4,7 +4,7 @@ using System.Windows.Input;
 using smartCubes.View;
 using Xamarin.Forms;
 
-namespace smartCubes.ViewModels
+namespace smartCubes.ViewModels.Menu
 {
     public class HomeViewModel : BaseViewModel
     {

@@ -5,16 +5,19 @@ using Xamarin.Forms;
 
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System.Diagnostics;
+using System.Threading;
 
-namespace smartCubes.View
+namespace smartCubes.View.Activity
 {
-    public partial class PlayView : ContentPage
+    public partial class PlayActivityView : ContentPage
     {
-        public PlayView()
+        public PlayActivityView()
         {
             InitializeComponent();
             Title = "Comenzar actividad";
 
+            BindingContext = new PlayActivityView();
         }
 
     }

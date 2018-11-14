@@ -8,9 +8,9 @@ using Xamarin.Forms;
 
 namespace smartCubes.ViewModels
 {
-    public class ActivitiesViewModel : BaseViewModel
+    public class TestViewModel : BaseViewModel
     {
-        public ActivitiesViewModel()
+        public TestViewModel()
         {
 
         }

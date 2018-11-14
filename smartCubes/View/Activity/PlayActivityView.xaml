@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="smartCubes.View.PlayView"
+             x:Class="smartCubes.View.Activity.PlayActivityView"
              Title="{Binding Title}">
     <StackLayout>
         <Label Text="Actividad 1" HorizontalOptions="CenterAndExpand" TextColor="#0E547C" FontSize="Large" Margin="0,90,0,0"/>
@@ -9,15 +9,13 @@
         <Frame  CornerRadius = "120"
             HeightRequest = "250"
             WidthRequest = "250"
-                 BackgroundColor="#0E547C"
+            BackgroundColor="#0E547C"
             HorizontalOptions = "CenterAndExpand"
             VerticalOptions = "CenterAndExpand"
             Margin = "0"
             Padding ="0"> 
-        <Label Text="00:00:00" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="0,90"/>
-
+            <Label Text="00:00:00" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="0,90"/>
         </Frame>
-        
         <Button Text="Comenzar" BackgroundColor="#0E547C" FontSize="Large" TextColor="White" VerticalOptions="EndAndExpand" Margin="30,40"/>
     </StackLayout>
 </ContentPage>

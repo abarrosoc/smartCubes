@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace smartCubes.ViewModels
+namespace smartCubes.ViewModels.Menu
 {
     public class MasterViewModel : BaseViewModel
     {

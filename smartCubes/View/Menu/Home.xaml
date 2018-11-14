@@ -1,32 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.Menu.Detail"
-             Title="Inicio">
+             x:Class="smartCubes.View.Menu.Home"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />
+        <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
          <ScrollView>
-            <Grid Margin="20,20,20,0">
+            <Grid Margin="20,20,20,20">
               <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="100" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="150" />
               </Grid.RowDefinitions>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+
               </Grid.ColumnDefinitions>
-              <Button Text = "Actividad 1" Image="play.png" Command="{Binding Path=Click_Activity}"
-                      Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" 
-                      BackgroundColor="#04B4AE" TextColor="White" Margin="0,0,5,5"/>
-              <Button Text = "Actividad 2" Image="play.png" Command="{Binding Path=Click_Activity}"
-                      Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" 
-                      BackgroundColor="#04B4AE" TextColor="White" Margin="5,0,0,5"/>
-              <Button Text = "Actividad 3" Image="play.png" Command="{Binding Path=Click_Activity}"
-                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" 
-                      BackgroundColor="#04B4AE" TextColor="White" Margin="0,5,5,0"/>
-              <Button Text = "Actividad 4" Image="play.png" Command="{Binding Path=Click_Activity}"
-                      Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" 
-                      BackgroundColor="#04B4AE" TextColor="White" Margin="5,5,0,0"/>
+               
+                  <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="0" BorderColor="#0E547C" 
+                        BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3">
+                   <Frame.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="OnTapGestureRecognizerTapped"/>
+                    </Frame.GestureRecognizers>
+                        <StackLayout Orientation="Vertical" >
+                            <Label Font="Bold,20" XAlign="Center" TextColor="White" >Sesión 1</Label>
+                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
+                            <Label TextColor="White">Actividad 1</Label>
+                            <Label TextColor="White">Creada 27/04/2018</Label>
+                            <Label TextColor="White">Última actualización 27/04/2018</Label>
+                        </StackLayout>
+                  </Frame>
+                  <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="1" BorderColor="#0E547C" 
+                        BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3">
+                        <StackLayout Orientation="Vertical">
+                            <Label Font="Bold,20" XAlign="Center" TextColor="White">Sesión 2</Label>
+                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
+                            <Label TextColor="White">Actividad 1</Label>
+                            <Label TextColor="White">Creada 27/04/2018</Label>
+                            <Label TextColor="White">Última actualización 27/04/2018</Label>
+                        </StackLayout>
+                  </Frame>
+                <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="2" BorderColor="#0E547C" 
+                        BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3">
+                        <StackLayout Orientation="Vertical">
+                            <Label Font="Bold,20" XAlign="Center" TextColor="White">Sesión 3</Label>
+                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
+                            <Label TextColor="White">Actividad 1</Label>
+                            <Label TextColor="White">Creada 27/04/2018</Label>
+                            <Label TextColor="White">Última actualización 27/04/2018</Label>
+                        </StackLayout>
+                  </Frame>
+                  <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="3" BorderColor="#0E547C" 
+                        BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3">
+                        <StackLayout Orientation="Vertical">
+                            <Label Font="Bold,20" XAlign="Center" TextColor="White">Sesión 4</Label>
+                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
+                            <Label TextColor="White">Actividad 1</Label>
+                            <Label TextColor="White">Creada 27/04/2018</Label>
+                            <Label TextColor="White">Última actualización 27/04/2018</Label>
+                        </StackLayout>
+                  </Frame>
             </Grid>
+            
          </ScrollView>
     </ContentPage.Content>
 </ContentPage>

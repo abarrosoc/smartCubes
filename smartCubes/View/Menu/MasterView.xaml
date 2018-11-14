@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.Menu.Master"
+             x:Class="smartCubes.View.Menu.MasterView"
              Title="Master"
              Icon="menu.png">
   <ContentPage.Content>
-        <Frame OutlineColor="Teal" >
-            <StackLayout VerticalOptions="FillAndExpand" Padding="30" BackgroundColor="White" >
+       <Frame Padding="0" BorderColor="#0E547C">
+         <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+
+              </Grid.ColumnDefinitions>
+             <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="#0E547C">
+                <Label Text = "Menú" TextColor="White" Font="bold,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+              </StackLayout>
+             <StackLayout VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0">
                 <ListView x:Name="listView" VerticalOptions="FillAndExpand" 
                           SeparatorVisibility="None"
                           SeparatorColor="Teal"
-                          ItemSelected="OnItemSelectedAsync"
+                          ItemSelected="OnItemSelectedAsync"                         
                           RowHeight="70">
-                    <ListView.Header >
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="Menu"
-                            TextColor="Teal" />
-                        </StackLayout>
-                    </ListView.Header>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ImageCell Text="{Binding Title}" ImageSource="{Binding IconSource}" />
@@ -25,6 +31,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-       </Frame>
+            </Grid>
+            </Frame>
     </ContentPage.Content>
 </ContentPage>

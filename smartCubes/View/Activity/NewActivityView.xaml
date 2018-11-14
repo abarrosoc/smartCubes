@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.NewActivityView"
-             Title="{Binding Title}" BackgroundColor="Gray">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:smartCubes;assembly=smartCubes"
+             x:Class="smartCubes.View.Activity.NewActivityView"
+             Title="{Binding Title}">
+    
     <StackLayout BackgroundColor="White">
-        <Label TextColor="Black" FontSize = "17" Text="Nombre actividad" Margin="30,40,30,0" />
-        <Entry Placeholder="Nombre" Margin="30,0,30,0"/>
+        <Label TextColor="Black" FontSize = "17" Text="Nombre actividad" Margin="30,40,30,10" />
+        <Entry Placeholder="Nombre" Margin="30,0,30,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
 
-        <Label TextColor="Black" FontSize = "17" Text="Descripción actividad" Margin="30,0,30,9"/>
-        <Entry Placeholder="Descripción" PlaceholderColor="Gray"  Margin="30,0,30,9"/>
-        <Label TextColor="Black" FontSize = "17" Text="Seleccione dispositivos..." Margin="30,10,0,0"/>
+
+        <Label TextColor="Black" FontSize = "17" Text="Descripción actividad" Margin="30,0,30,10"/>
+        <Entry Placeholder="Descripción" Margin="30,0,30,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+        
+        <Label TextColor="Black" FontSize = "17" Text="Seleccione dispositivos..." Margin="30,10,0,10" />
+
         <ListView x:Name="lDevices"
               ItemTapped="OnItemTapped"
               IsPullToRefreshEnabled="true"
@@ -28,10 +35,13 @@
                 <Label x:Name="State" Text="{Binding State, Mode=TwoWay, StringFormat='{0}'}" TextColor="{Binding ColorName, Mode=TwoWay}" FontSize="10" Margin="40,0,30,0"/>
                 <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="5" Margin="5"/> 
               </StackLayout>-->
-                    <StackLayout BackgroundColor="White" Orientation="Vertical">
-                        <Label x:Name="Name" Text="{Binding Name, Mode=TwoWay}" TextColor="Black" FontSize="15" Margin="15,10,30,0"/>
-                        <Label x:Name="State" Text="{Binding State, Mode=TwoWay, StringFormat='{0}'}" TextColor="{Binding ColorName, Mode=TwoWay}" FontSize="10" Margin="20,0,30,0" />
+                <StackLayout BackgroundColor="White" Orientation="Vertical">
+                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,10,30,0">
+                        <Label x:Name="Name" Text="{Binding Name, Mode=TwoWay}" TextColor="Black" FontSize="17" HorizontalOptions="StartAndExpand"/>
+                        <Image Source="info.png"  HorizontalOptions="EndAndExpand" WidthRequest="20" HeightRequest="20"/> 
                     </StackLayout>
+                    <!--<Label x:Name="State" Text="{Binding State, Mode=TwoWay, StringFormat='{0}'}" TextColor="{Binding ColorName, Mode=TwoWay}" FontSize="10" Margin="20,0,30,0" />-->
+                </StackLayout>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>
@@ -40,7 +50,7 @@
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Clicked="OnButtonSaveClicked" 
-                BackgroundColor="#04B4AE"
+                BackgroundColor="#0E547C"
                 TextColor="White"
                 FontSize="20"
                 Margin="30,0,30,0" />

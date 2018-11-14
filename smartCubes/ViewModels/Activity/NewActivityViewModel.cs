@@ -8,7 +8,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using smartCubes.Models;
 using Xamarin.Forms;
 
-namespace smartCubes.ViewModels
+namespace smartCubes.ViewModels.Activity
 {
     public class NewActivityViewModel : BaseViewModel
     {
@@ -19,7 +19,7 @@ namespace smartCubes.ViewModels
 
         public NewActivityViewModel()
         {
-            Title = "Añadir actividad";
+            Title = "Añadir";
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             //adapter.ScanTimeout = 150000;

@@ -20,6 +20,7 @@ namespace smartCubes.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            global::Rg.Plugins.Popup.Popup.Init(this, bundle);
             LoadApplication(new App());
         }
     }

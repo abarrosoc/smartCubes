@@ -7,15 +7,27 @@ namespace smartCubes.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public BaseViewModel() { }
+        public BaseViewModel()
+        {
+        }
+
+        #region INotifyPropertyChanged implementation
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this,
                     new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion
+
+        #region IsBusy
+
         private bool _IsBusy;
+
         public bool IsBusy
         {
             get
@@ -28,7 +40,13 @@ namespace smartCubes.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        #endregion
+
+        #region Title
+
         private string _Title;
+
         public string Title
         {
             get
@@ -38,9 +56,12 @@ namespace smartCubes.ViewModels
             set
             {
                 _Title = value;
-                RaisePropertyChanged();
+                RaisePropertyChanged("Title");
             }
         }
+
+        #endregion
+
     }
 }
 

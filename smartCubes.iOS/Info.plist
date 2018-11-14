@@ -25,14 +25,14 @@
 	<key>CFBundleDisplayName</key>
 	<string>smartCubes</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.livecode.testprofile.product.smartCubes</string>
+	<string>com.livecode.testprofile.product</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>CFBundleName</key>
-	<string>smartCubes</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleName</key>
+	<string>Smart</string>
 </dict>
 </plist>

@@ -4,17 +4,9 @@ using Xamarin.Forms;
 
 namespace smartCubes
 {
-    public class MyPage : ContentPage
+    public class MyEntry : Entry
     {
-        public MyPage()
-        {
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "Hello ContentPage" }
-                }
-            };
-        }
+       
     }
 }
 
