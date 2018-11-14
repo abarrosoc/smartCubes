@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.Menu.Master"
+             Title="Master"
+             Icon="menu.png">
+  <ContentPage.Content>
+        <Frame OutlineColor="Teal" >
+            <StackLayout VerticalOptions="FillAndExpand" Padding="30" BackgroundColor="White" >
+                <ListView x:Name="listView" VerticalOptions="FillAndExpand" 
+                          SeparatorVisibility="None"
+                          SeparatorColor="Teal"
+                          ItemSelected="OnItemSelectedAsync"
+                          RowHeight="70">
+                    <ListView.Header >
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Menu"
+                            TextColor="Teal" />
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ImageCell Text="{Binding Title}" ImageSource="{Binding IconSource}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+       </Frame>
+    </ContentPage.Content>
+</ContentPage>

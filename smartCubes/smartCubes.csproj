@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>smartCubes</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Plugin.BLE" Version="1.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="16.3.0.29" />
+    <PackageReference Include="SkiaSharp" Version="1.60.3" />
+    <PackageReference Include="SkiaSharp.Views" Version="1.60.3" />
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MyPage.xaml.cs" />
+    <Compile Remove="MasterPageItem.xaml.cs" />
+    <Compile Remove="Master.cs" />
+    <Compile Remove="MainPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="View\Menu\MainPage.xaml">
+      <LogicalName>smartCubes.Menu.xaml</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
+    <Folder Include="View\Menu\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Models\" />
+    <Folder Include="View\Activity\" />
+    <Folder Include="ViewModels\Activity\" />
+    <Folder Include="ViewModels\Menu\" />
+  </ItemGroup>
+</Project>

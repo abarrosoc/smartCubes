@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:smartCubes" x:Class="smartCubes.TabbedPage">
+    <NavigationPage Title="Inicio" Icon="home.png">
+        <x:Arguments>
+            <local:BLEDevices />
+        </x:Arguments>
+    </NavigationPage>
+    <!--Boton2-->
+    <NavigationPage Title="Dispositivos" Icon="ble_settings.png">
+        <x:Arguments>
+            <local:BLEDevices />
+        </x:Arguments>
+    </NavigationPage>
+    <!--Boton3-->
+    <!--<local:SchedulePage />-->
+</TabbedPage>
