@@ -11,7 +11,7 @@ namespace smartCubes.Data
         public Database(string dbPath)
         {
             database = new SQLiteConnection(dbPath);
-           // database.CreateTable<UserModel>();
+            database.CreateTable<UserModel>();
             database.CreateTable<SessionModel>();
         }
 

@@ -69,21 +69,22 @@
          </ScrollView>-->
         <ListView x:Name="lUsers"
               IsPullToRefreshEnabled="true"
-              RowHeight="160"
+              RowHeight="175"
               SeparatorVisibility="None"
               ItemsSource="{Binding lSessions}" 
               BackgroundColor="White"
+              ItemTapped="OnItemTapped"
               Margin="20,20,20,20">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <Frame BorderColor="#0E547C" BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3" Margin="0,0,0,10">
+              <Frame BorderColor="#0E547C" BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3">
                     <StackLayout Orientation="Vertical">
                         <Label Font="Bold,20" XAlign="Center" TextColor="White" Text="{Binding Name}"/>
                         <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
                         <Label TextColor="White" Text="{Binding ActivityName}"/>
-                        <Label TextColor="White" Text="{Binding CreateDate}"/>
-                        <Label TextColor="White" Text="{Binding ModifyDate}"/>
+                        <Label TextColor="White" Text="{Binding Path=CreateDate, StringFormat='Fecha creación: {0}'}"/>
+                        <Label TextColor="White" Text="{Binding Path=ModifyDate, StringFormat='Última modificación: {0}'}"/>
                     </StackLayout>
               </Frame>
             </ViewCell>

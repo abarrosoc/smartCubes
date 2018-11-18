@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
 
 namespace smartCubes.View.Session
@@ -10,6 +11,8 @@ namespace smartCubes.View.Session
         public SessionView()
         {
             InitializeComponent();
+
+            BindingContext = new SessionViewModel();
         }
 
         private void OnclickNewActivity(object sender, EventArgs e)

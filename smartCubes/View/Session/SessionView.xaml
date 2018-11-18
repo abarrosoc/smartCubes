@@ -4,13 +4,13 @@
     <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />
     <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
 </ContentPage.ToolbarItems>
-    <ListView x:Name="lActivities"
+    <ListView x:Name="lSessions"
               ItemTapped="OnItemTapped"
               IsPullToRefreshEnabled="true"
               RowHeight="60"
               SeparatorVisibility="Default"
               SeparatorColor="#E6E6E6"
-              ItemsSource="{Binding lActivities}" 
+              ItemsSource="{Binding lSessions}" 
               BackgroundColor="#E6E6E6">
         <ListView.ItemTemplate>
           <DataTemplate>

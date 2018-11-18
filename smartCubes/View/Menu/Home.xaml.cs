@@ -27,8 +27,13 @@ namespace smartCubes.View.Menu
 
         private void OnclickNewActivity(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new BLEDevices());
             Navigation.PushAsync(new NewSessionView());
+        }
+
+        private void OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+            Navigation.PushAsync(new PlaySessionView());
         }
     }
 }
