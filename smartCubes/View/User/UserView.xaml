@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.User.UserView">
+        <ContentPage.ToolbarItems>
+    <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewUser" />
+    <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
+</ContentPage.ToolbarItems>
+    <ListView x:Name="lUsers"
+              ItemTapped="OnItemTapped"
+              IsPullToRefreshEnabled="true"
+              RowHeight="60"
+              SeparatorVisibility="Default"
+              SeparatorColor="#E6E6E6"
+              ItemsSource="{Binding lUsers}" 
+              BackgroundColor="#E6E6E6">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+                <ViewCell.ContextActions>
+                    <MenuItem Text="Eliminar" IsDestructive="True" 
+                              Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lUsers}} " 
+                              CommandParameter="{Binding .}" />
+                    <MenuItem Text="Modificar" IsDestructive="True"  />
+                </ViewCell.ContextActions>
+                 <StackLayout BackgroundColor="White" Orientation="Vertical">
+                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
+                        <Label Text="{Binding UserName}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                        <Image Source="arrow.png" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"/> 
+                    </StackLayout>
+                </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

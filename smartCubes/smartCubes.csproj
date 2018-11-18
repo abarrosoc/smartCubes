@@ -18,12 +18,16 @@
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="1.60.3" />
     <PackageReference Include="Mobilist.AdvancedTimer.Forms.Plugin" Version="1.0.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MyPage.xaml.cs" />
     <Compile Remove="MasterPageItem.xaml.cs" />
     <Compile Remove="Master.cs" />
     <Compile Remove="MainPage.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\activities.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="View\Menu\MainPage.xaml">
@@ -43,5 +47,15 @@
     <Folder Include="View\Session\" />
     <Folder Include="View\User\" />
     <Folder Include="Utils\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Data\" />
+    <Folder Include="ViewModels\User\" />
+    <Folder Include="ViewModels\Session\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\app.config" />
+    <None Remove="Resources\activities.json" />
+    <None Remove="act.json" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,32 @@
+﻿{
+  "Activities": [
+    {
+      "Name": "Actividad 1",
+      "Id": "1",
+      "Devices": [
+        {
+          "Uuid": "1234",
+          "Name": "device1"
+        },
+        {
+          "Uuid": "5678",
+          "Name": "device2"
+        }
+      ]
+    },
+    {
+      "Name": "Actividad 2",
+      "Id": "2",
+      "Devices": [
+        {
+          "Uuid": "1234",
+          "Name": "device1"
+        },
+        {
+          "Uuid": "5678",
+          "Name": "device2"
+        }
+      ]
+    }
+  ]
+}

@@ -106,6 +106,7 @@
     <AndroidResource Include="Resources\drawable\students.png" />
     <AndroidResource Include="Resources\drawable\info.png" />
     <AndroidResource Include="Resources\drawable\share.png" />
+    <AndroidResource Include="Resources\drawable\send.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

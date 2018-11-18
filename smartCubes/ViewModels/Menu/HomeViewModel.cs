@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using smartCubes.Models;
 using smartCubes.View;
 using Xamarin.Forms;
 
@@ -8,17 +11,31 @@ namespace smartCubes.ViewModels.Menu
 {
     public class HomeViewModel : BaseViewModel
     {
-        public ICommand Click_Activity { get; private set; }
-
         public HomeViewModel()
         {
-            Click_Activity = new Command(Click);
+            lSessions = new ObservableCollection<SessionModel>();
+
+            List<SessionModel> listSessions = App.Database.GetSessions();
+
+            foreach (SessionModel session in listSessions)
+                lSessions.Add(session);
         }
 
-        private void Click()
+        private ObservableCollection<SessionModel> _lSessions;
+
+        public ObservableCollection<SessionModel> lSessions
         {
-            Debug.WriteLine("Click en actividad: "+ Title);
+            get
+            {
+                return _lSessions;
+            }
+            set
+            {
+                _lSessions = value;
+                RaisePropertyChanged();
+            }
         }
+
     }
 }
 

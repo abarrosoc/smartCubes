@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.User.NewUserView">
+     <StackLayout BackgroundColor="White">
+        <Label TextColor="Black" FontSize = "17" Text="Nombre usuario" Margin="30,40,30,10" />
+        <Entry Placeholder="Nombre" Text="{Binding UserName}" Margin="30,0,30,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+
+        <Label TextColor="Black" FontSize = "17" Text="Contraseña" Margin="30,10,30,10" />
+        <Entry Placeholder="Nombre" Text="{Binding Password}" Margin="30,0,30,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+
+         <Button Text="Guardar"
+                Command="{Binding SaveCommand}"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#0E547C"
+                TextColor="White"
+                FontSize="20"
+                Margin="30,0,30,25" />
+     </StackLayout>
+</ContentPage>

@@ -9,6 +9,7 @@ using smartCubes.View.Activity;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using smartCubes.View.Session;
+using smartCubes.View.User;
 
 namespace smartCubes.View.Menu
 {
@@ -30,7 +31,7 @@ namespace smartCubes.View.Menu
             {
                 Title = "Usuarios",
                 IconSource = "users.png",
-                TargetType = typeof(TabbedPage)
+                TargetType = typeof(UserView)
             });
             masterPageItems.Add(new MasterPageItem
             {

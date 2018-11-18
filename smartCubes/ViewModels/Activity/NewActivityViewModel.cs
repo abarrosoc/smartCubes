@@ -79,14 +79,14 @@ namespace smartCubes.ViewModels.Activity
                 {
                     adapter.DeviceDiscovered += (s, a) =>
                     {
-                        if (!(lDevices.Contains(new DeviceModel(1L, a.Device.Name, a.Device.State.ToString(), a.Device.Id.ToString()))) 
+                       /* if (!(lDevices.Contains(new DeviceModel("111", a.Device.Name))) 
                             && (a.Device.ToString() != null))
                         {
                             Debug.WriteLine("Add new device: " + a.Device.Name + " ID: " + a.Device.Id);
-                            lDevices.Add(new DeviceModel(1L,a.Device.Name,a.Device.State.ToString(),a.Device.Id.ToString()));
+                            lDevices.Add(new DeviceModel("1111",a.Device.Name));
                             //lDevices.ItemsSource = deviceList;
-
-                        }
+                        
+                        }*/
                     };
                     await adapter.StartScanningForDevicesAsync();
                     //this.BindingContext = deviceList;

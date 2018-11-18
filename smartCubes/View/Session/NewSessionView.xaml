@@ -4,22 +4,25 @@
              x:Class="smartCubes.View.Session.NewSessionView">
    <StackLayout BackgroundColor="White">
         <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="30,40,30,10" />
-        <Entry Placeholder="Nombre" Margin="30,0,30,0" Keyboard="Text"/>
+        <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="30,0,30,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
 
         <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="30,0,30,10"/>
-        <Entry Placeholder="Descripción" Margin="30,0,30,0" Keyboard="Text"/>
+        <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="30,0,30,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
 
-               <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="30,0,30,10"/>
-        <Picker x:Name="picker" Title="Actividad" Margin="30,0,30,10">
-          <Picker.ItemsSource>
-            <x:Array Type="{x:Type x:String}">
-              <x:String>Actividad 1</x:String>
-              <x:String>Actividad 2</x:String>
-              <x:String>Actividad 3</x:String>
-            </x:Array>
-          </Picker.ItemsSource>
+        <Label TextColor="Black" FontSize = "17" Text="Seleccione" Margin="30,10,30,10"/>
+        <Picker x:Name="pActivities" Title="Actividad" Margin="30,0,30,10"
+              ItemsSource="{Binding lActivities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedActivity}">
         </Picker>
+
+        <Button Text="Guardar"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Command="{Binding SaveCommand}" 
+                BackgroundColor="#0E547C"
+                TextColor="White"
+                FontSize="20"
+                Margin="30,0,30,15" />
     </StackLayout>
 </ContentPage>

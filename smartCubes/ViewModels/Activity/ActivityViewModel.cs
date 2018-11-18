@@ -3,6 +3,7 @@
 using Xamarin.Forms;
 using smartCubes.Models;
 using System.Collections.ObjectModel;
+using smartCubes.Utils;
 
 namespace smartCubes.ViewModels.Activity
 {
@@ -10,9 +11,15 @@ namespace smartCubes.ViewModels.Activity
     {
         public ActivityViewModel()
         {
+            ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
+
+            foreach (ActivityModel activity in activities.Activities)
+                lActivities.Add(activity);
+           
+            /*lActivities = new ObservableCollection<ActivityModel>();
             lActivities.Add(new ActivityModel(1L,"Sesión 1",null));
-            lActivities.Add(new ActivityModel(1L, "Sesión 2", null));
+            lActivities.Add(new ActivityModel(1L, "Sesión 2",null));*/
         }
         private ObservableCollection<ActivityModel> _lActivities;
 
