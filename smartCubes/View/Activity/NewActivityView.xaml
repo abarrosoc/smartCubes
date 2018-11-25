@@ -12,10 +12,38 @@
 
         <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="30,0,30,10"/>
         <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,0"/>
 
-        <Label TextColor="Black" FontSize = "17" Text="Seleccione" Margin="30,10,30,10"/>
 
+        <Button Text="+     Añadir dispositivos"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="StartAndExpand"
+                Clicked="OnButtonAddDeviceClicked"
+                BackgroundColor="White"
+                TextColor="#0E547C"
+                FontSize="17"
+                Margin="30,10,0,0"/>
+        
+        <ListView x:Name="lDevices"
+              ItemTapped="OnItemTapped"
+              IsPullToRefreshEnabled="true"
+              RowHeight="60"
+              SeparatorVisibility="Default"
+              SeparatorColor="#E6E6E6"
+              ItemsSource="{Binding lUsers}" 
+              BackgroundColor="#E6E6E6">
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                     <StackLayout BackgroundColor="White" Orientation="Vertical">
+                        <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
+                            <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"

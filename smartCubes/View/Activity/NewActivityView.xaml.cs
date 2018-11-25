@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using smartCubes.ViewModels.Activity;
 using Plugin.BLE.Abstractions;
 using System.Linq;
+using Rg.Plugins.Popup.Services;
 
 namespace smartCubes.View.Activity
 {
@@ -83,10 +84,15 @@ namespace smartCubes.View.Activity
             //lDevices.ItemsSource = null;
             //lDevices.ItemsSource = deviceList;
         }
-
+       
         private void OnButtonSaveClicked(object sender, EventArgs e)
         {
 
+        }
+        private void OnButtonAddDeviceClicked(object sender, EventArgs e)
+        {
+            AddDevicePopUp addDevice = new AddDevicePopUp();
+            PopupNavigation.Instance.PushAsync(addDevice);
         }
     }
 }

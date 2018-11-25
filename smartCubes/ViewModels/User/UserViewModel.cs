@@ -43,9 +43,13 @@ namespace smartCubes.ViewModels.User
 
         private async void DeleteCommandExecute(UserModel user)
         {
-            App.Database.DeleteUser(user);
-            await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha eliminado", "OK");
-            RefreshData();
+            var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea elimina el usuario?", "Si","No");
+
+            if(answer){
+                App.Database.DeleteUser(user);
+                await Application.Current.MainPage.DisplayAlert("Info", "El usuario se ha eliminado", "OK");
+                RefreshData();
+            }
         }
 
         private void RefreshData()

@@ -15,10 +15,10 @@ namespace smartCubes.ViewModels.Menu
         {
             lSessions = new ObservableCollection<SessionModel>();
 
-            List<SessionModel> listSessions = App.Database.GetSessions();
+           // List<SessionModel> listSessions = App.Database.GetSessions();
 
-            foreach (SessionModel session in listSessions)
-                lSessions.Add(session);
+           // foreach (SessionModel session in listSessions)
+           //     lSessions.Add(session);
         }
 
         private ObservableCollection<SessionModel> _lSessions;

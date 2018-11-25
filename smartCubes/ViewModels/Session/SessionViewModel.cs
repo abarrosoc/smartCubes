@@ -52,11 +52,17 @@ namespace smartCubes.ViewModels.Session
             get { return _DeleteCommand ?? (_DeleteCommand = new Command<SessionModel>((session) => DeleteCommandExecute(session))); }
         }
 
-        private void DeleteCommandExecute(SessionModel session)
+        private async void DeleteCommandExecute(SessionModel session)
         {
-            App.Database.DeleteSession(session);
-            Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha eliminado", "OK");
-            RefreshData();
+            
+            var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea eliminar la sesión?", "Si","No");
+
+            if (answer)
+            {
+                App.Database.DeleteSession(session);
+                await Application.Current.MainPage.DisplayAlert("Info", "La sesión se ha eliminado", "OK");
+                RefreshData();
+            }
         }
 
         private void RefreshData()
