@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Activity.ActivityView"
-             Title="Actividades">
+             Title="{Binding Title}">
     <ContentPage.ToolbarItems>
     <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />
     <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
@@ -19,7 +19,7 @@
           <DataTemplate>
             <ViewCell>
                 <ViewCell.ContextActions>
-                    <MenuItem Text="Eliminar" IsDestructive="True" />
+                    <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding DeleteCommand}" />
                 </ViewCell.ContextActions>
                  <StackLayout BackgroundColor="White" Orientation="Vertical">
                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">

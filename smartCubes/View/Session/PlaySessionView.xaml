@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.Session.PlaySessionView">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Name="MenuItem1" Order="Primary" Icon="send.png" Text="Add" Priority="0" Clicked="OnclickShareSession" />
-        <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
-    </ContentPage.ToolbarItems>
+             x:Class="smartCubes.View.Session.PlaySessionView"
+             Title="{Binding Title}">
     <StackLayout>
 
         <Label TextColor="#0E547C" FontSize = "20" Text="Actividad" Margin="30,30,30,10" />
         <Entry Text="Actividad 1" IsEnabled="false" Margin="30,0,30,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,25"/>
-
         
         <Label TextColor="#0E547C" FontSize = "20" Text="Código alumno" Margin="30,10,30,10" />
-        <Entry Placeholder="Introduzca el código" Margin="30,0,30,0" Keyboard="Text"/>
+        <Entry Placeholder="Introduzca el código" IsEnabled="{Binding StudentCodeEntry}" Text="{Binding StudentCode}" Margin="30,0,30,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,35"/>
 
         <Frame CornerRadius = "120"
@@ -24,8 +20,14 @@
             HorizontalOptions = "CenterAndExpand"
             VerticalOptions = "CenterAndExpand"
             Margin = "0"
-            Padding ="0"> 
-            <Label Text="{Binding Timer}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="0,90"/>
+            Padding ="0">
+            <StackLayout Orientation="Horizontal" >
+              <Label Text="{Binding Minutes}" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="8,0,0,0"/>
+              <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50"/>
+              <Label Text="{Binding Seconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+              <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50"/>
+              <Label Text="{Binding Milliseconds}" VerticalOptions="Center" TextColor="White" FontSize="50"/>
+            </StackLayout>
         </Frame>
         <Button Text="{Binding StartStop}" 
                 BackgroundColor="#0E547C" 

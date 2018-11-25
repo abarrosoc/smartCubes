@@ -13,6 +13,7 @@ namespace smartCubes.ViewModels.User
     {
         public UserViewModel()
         {
+            Title = "Usuarios";
             List<UserModel> listUsers = App.Database.GetUsers();
             lUsers = new ObservableCollection<UserModel>();
 
@@ -40,11 +41,20 @@ namespace smartCubes.ViewModels.User
             get { return _deleteCommand ?? (_deleteCommand = new Command<UserModel>((user) => DeleteCommandExecute(user))); }
         }
 
-        private void DeleteCommandExecute(UserModel user)
+        private async void DeleteCommandExecute(UserModel user)
         {
-            Debug.Write("Usuario: " + user.UserName);
-                 App.Database.DeleteUser(user);
+            App.Database.DeleteUser(user);
+            await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha eliminado", "OK");
+            RefreshData();
+        }
 
+        private void RefreshData()
+        {
+            lUsers = new ObservableCollection<UserModel>();
+            List<UserModel> listUsers = App.Database.GetUsers();
+
+            foreach (UserModel user in listUsers)
+                lUsers.Add(user);
         }
     }
 }

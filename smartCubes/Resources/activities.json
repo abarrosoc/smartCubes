@@ -5,12 +5,16 @@
       "Id": "1",
       "Devices": [
         {
-          "Uuid": "1234",
-          "Name": "device1"
+          "ID": 1,
+          "Uuid": "01ba3852-b5be-9108-5934-3f746e76a4e0",
+          "Name": "Cube2",
+          "State":  "Disconnected"
         },
         {
-          "Uuid": "5678",
-          "Name": "device2"
+          "ID": 1,
+          "Uuid": "764832f8-59ee-aad5-b6c9-a83bc069f016",
+          "Name": "Cube3",
+          "State": "Disconnected"
         }
       ]
     },

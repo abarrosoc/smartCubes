@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using smartCubes.Models;
 using System.Collections.ObjectModel;
 using smartCubes.Utils;
+using System.Windows.Input;
 
 namespace smartCubes.ViewModels.Activity
 {
@@ -11,6 +12,7 @@ namespace smartCubes.ViewModels.Activity
     {
         public ActivityViewModel()
         {
+            Title = "Actividades";
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
 
@@ -32,6 +34,18 @@ namespace smartCubes.ViewModels.Activity
                 _lActivities = value;
                 RaisePropertyChanged();
             }
+        }
+
+        private ICommand _deleteCommand;
+
+        public ICommand DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new Command<ActivityModel>((activity) => DeleteCommandExecute(activity))); }
+        }
+
+        private void DeleteCommandExecute(ActivityModel activity)
+        {
+            Json.deleteActivity(activity);
         }
     }
 }

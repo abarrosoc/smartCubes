@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.User.UserView">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.User.UserView"
+             Title="{Binding Title}">
         <ContentPage.ToolbarItems>
     <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewUser" />
     <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
@@ -19,7 +22,6 @@
                     <MenuItem Text="Eliminar" IsDestructive="True" 
                               Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lUsers}} " 
                               CommandParameter="{Binding .}" />
-                    <MenuItem Text="Modificar" IsDestructive="True"  />
                 </ViewCell.ContextActions>
                  <StackLayout BackgroundColor="White" Orientation="Vertical">
                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">

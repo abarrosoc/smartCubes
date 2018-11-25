@@ -10,7 +10,7 @@ namespace smartCubes.ViewModels.User
     {
         public NewUserViewModel()
         {
-            
+            Title = "Nuevo usuario";
         }
 
         private string _UserName;
@@ -43,20 +43,44 @@ namespace smartCubes.ViewModels.User
             }
         }
 
+        private string _Email;
+
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ICommand _saveCommand;
         public ICommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecute())); }
+            get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecuteAsync())); }
         }
 
-        private void SaveCommandExecute()
+        private async void SaveCommandExecuteAsync()
         {
-            UserModel user = new UserModel();
-            user.UserName = UserName;
-            user.Password = Password;
-  
-            App.Database.SaveUser(user);
+            if(String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password)|| String.IsNullOrEmpty(Email)){
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "OK");
+            }else{
+                UserModel user = new UserModel();
+                user.UserName = UserName;
+                user.Password = Password;
+                user.Email = Email;
+                App.Database.SaveUser(user);
 
+                await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha creado correctamente", "OK");
+
+                UserName = "";
+                Password = "";
+                Email = "";
+            }
 
         }
     }

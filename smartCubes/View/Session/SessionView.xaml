@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Session.SessionView">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.Session.SessionView"
+             Title="{Binding Title}">
     <ContentPage.ToolbarItems>
     <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />
     <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
@@ -16,7 +19,10 @@
           <DataTemplate>
             <ViewCell>
                 <ViewCell.ContextActions>
-                    <MenuItem Text="Eliminar" IsDestructive="True" />
+                    <MenuItem Text="Exportar" Command="{Binding BindingContext.ExportCommand, Source={x:Reference Name=lSessions}} " 
+                              CommandParameter="{Binding .}"/>
+                    <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lSessions}} " 
+                              CommandParameter="{Binding .}"/>
                 </ViewCell.ContextActions>
                  <StackLayout BackgroundColor="White" Orientation="Vertical">
                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">

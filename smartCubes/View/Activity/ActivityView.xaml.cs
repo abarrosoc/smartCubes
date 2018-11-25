@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Xamarin.Forms;
-using Rg.Plugins.Popup.Services;
 using smartCubes.ViewModels.Activity;
-using smartCubes.View.Session;
 
 namespace smartCubes.View.Activity
 {
@@ -21,7 +17,7 @@ namespace smartCubes.View.Activity
         private void OnclickNewActivity(object sender, EventArgs e)
         {
             //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
+            Navigation.PushAsync(new NewActivityView());
         }
         private void OnItemTapped(object sender, ItemTappedEventArgs e)
         {

@@ -5,6 +5,9 @@ using Xamarin.Forms;
 using smartCubes.View.Activity;
 using System.Diagnostics;
 using smartCubes.View.Session;
+using smartCubes.Utils;
+using System.Threading.Tasks;
+using smartCubes.Models;
 
 namespace smartCubes.View.Menu
 {
@@ -17,11 +20,11 @@ namespace smartCubes.View.Menu
             Title = "Inicio";
             BindingContext = new HomeViewModel();
         }
-         
+
         private void OnTapGestureRecognizerTapped(object sender, EventArgs args)
         {
             Debug.WriteLine("Sesion seleccionada");
-            
+
             Navigation.PushAsync(new PlaySessionView());
         }
 
@@ -30,10 +33,11 @@ namespace smartCubes.View.Menu
             Navigation.PushAsync(new NewSessionView());
         }
 
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
+        private void OnItemTappedAsync(object sender, ItemTappedEventArgs e)
         {
             ((ListView)sender).SelectedItem = null;
             Navigation.PushAsync(new PlaySessionView());
+
         }
     }
 }

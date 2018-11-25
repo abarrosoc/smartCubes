@@ -11,6 +11,7 @@ namespace smartCubes.ViewModels.Session
     {
         public NewSessionViewModel()
         {
+            Title = "Nueva sesión";
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
 
@@ -79,21 +80,32 @@ namespace smartCubes.ViewModels.Session
         private ICommand _saveCommand;
         public ICommand SaveCommand
         {
-            get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecute())); }
+            get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecuteAsync())); }
         }
 
-        private void SaveCommandExecute()
+        private async void SaveCommandExecuteAsync()
         {
-            SessionModel session = new SessionModel();
-            session.Name = Name;
-            session.Description = Description;
-            session.ActivityName = SelectedActivity.Name;
-            session.CreateDate = DateTime.Now;
-            session.ModifyDate = DateTime.Now;
+            if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description) || String.IsNullOrEmpty(SelectedActivity.Name))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "OK");
+            }
+            else
+            {
+                SessionModel session = new SessionModel();
+                session.Name = Name;
+                session.Description = Description;
+                session.ActivityName = SelectedActivity.Name;
+                session.CreateDate = DateTime.Now;
+                session.ModifyDate = DateTime.Now;
 
-            App.Database.SaveSession(session);
+                App.Database.SaveSession(session);
 
+                await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha creado correctamente", "OK");
 
+                Name = "";
+                Description = "";
+                SelectedActivity = null;
+            }
         }
     }
 }

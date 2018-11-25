@@ -2,55 +2,54 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Windows.Input;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
 using smartCubes.Models;
+using smartCubes.Utils;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Activity
 {
     public class NewActivityViewModel : BaseViewModel
     {
-        private DateTime datetime;
-        private IAdapter adapter;
-        private IBluetoothLE ble;
        // private ObservableCollection<DeviceModel> deviceList;
 
         public NewActivityViewModel()
         {
-            Title = "Añadir";
-            ble = CrossBluetoothLE.Current;
-            adapter = CrossBluetoothLE.Current.Adapter;
-            //adapter.ScanTimeout = 150000;
-            lDevices = new ObservableCollection<DeviceModel>();
-            /*lDevices.RefreshCommand = new Command(() => {
-                //RefreshData();
-                lDevices.IsRefreshing = false;
-            });*/
-            var state = ble.State;
-            ble.StateChanged += (s, e) =>
-            {
-                Debug.WriteLine($"The bluetooth state changed to {e.NewState}");
-                SearchDevice();
-            };
+            Title = "Nueva actividad";
         }
 
-        private ObservableCollection<DeviceModel> _lDevices;
+        private String _Name;
 
-        public ObservableCollection<DeviceModel> lDevices
+        public String Name
         {
             get
             {
-                return _lDevices;
+                return _Name;
             }
             set
             {
-                _lDevices = value;
+                _Name = value;
                 RaisePropertyChanged();
             }
         }
 
+        private String _Description;
+
+        public String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                _Description = value;
+                RaisePropertyChanged();
+            }
+        }
        
         private string _ColorName;
 
@@ -67,43 +66,24 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-        private async void SearchDevice()
+        private ICommand _saveCommand;
+
+        public ICommand SaveCommand
         {
+            get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecute())); }
+        }
 
-            if (ble.IsAvailable && ble.IsOn)
+        private async void SaveCommandExecute()
+        {
+            if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description))
             {
-                Debug.WriteLine("Start Scanning...");
-                datetime = DateTime.Now;
-                //deviceList = new ObservableCollection<DeviceModel>();
-                try
-                {
-                    adapter.DeviceDiscovered += (s, a) =>
-                    {
-                       /* if (!(lDevices.Contains(new DeviceModel("111", a.Device.Name))) 
-                            && (a.Device.ToString() != null))
-                        {
-                            Debug.WriteLine("Add new device: " + a.Device.Name + " ID: " + a.Device.Id);
-                            lDevices.Add(new DeviceModel("1111",a.Device.Name));
-                            //lDevices.ItemsSource = deviceList;
-                        
-                        }*/
-                    };
-                    await adapter.StartScanningForDevicesAsync();
-                    //this.BindingContext = deviceList;
-                }
-                catch (DeviceConnectionException er)
-                {
-                    Debug.WriteLine("ERROR: " + er.Message);
-                }
-                catch (Exception er)
-                {
-
-                    Debug.WriteLine("ERROR: " + er.Message);
-                }
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "OK");
             }
             else
             {
-                Debug.WriteLine("BLE no disponible");
+                ActivityModel activity = new ActivityModel();
+
+                Json.addActivity(activity);
             }
         }
 

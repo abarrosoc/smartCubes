@@ -35,7 +35,6 @@ namespace smartCubes.ViewModels.Menu
                 RaisePropertyChanged();
             }
         }
-
     }
 }
 

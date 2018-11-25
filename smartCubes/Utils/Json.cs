@@ -29,5 +29,42 @@ namespace smartCubes.Utils
             return list;
             //Console.WriteLine(myText);
         }
+        internal static void addActivity(ActivityModel activity)
+        {
+            ActivitiesModel activities = getActivities();
+            activities.Activities.Add(activity);
+
+            string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
+
+            File.WriteAllText("smartCubes.Resources.activities.json", output);
+        }
+
+        internal static void updateActivity(ActivityModel activity)
+        {
+            ActivitiesModel activities = getActivities();
+            foreach(ActivityModel activityOriginal in activities.Activities){
+                if(activityOriginal.Id.Equals(activity)){
+                    activityOriginal.Name = activity.Name;
+                    activityOriginal.Devices = activity.Devices;
+                }
+            }
+
+            string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
+
+            File.WriteAllText("smartCubes.Resources.activities.json", output);
+
+           
+        }
+
+        internal static void deleteActivity(ActivityModel activity)
+        {
+            ActivitiesModel activities = getActivities();
+            activities.Activities.Remove(activity);
+
+            string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
+
+            File.WriteAllText("smartCubes.Resources.activities.json", output);
+
+        }
     }
 }
