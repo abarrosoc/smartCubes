@@ -1,24 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows.Input;
-using Plugin.BLE;
-using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.Exceptions;
+using Rg.Plugins.Popup.Services;
 using smartCubes.Models;
 using smartCubes.Utils;
+using smartCubes.View.Activity;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Activity
 {
     public class NewActivityViewModel : BaseViewModel
     {
-       // private ObservableCollection<DeviceModel> deviceList;
+        public INavigation Navigation { get; set; }
 
-        public NewActivityViewModel()
+        public NewActivityViewModel(INavigation navigation)
         {
-            Title = "Nueva actividad";
+            Title = "Nueva";
+            this.Navigation = navigation;
+            //lDevices = new ObservableCollection<DeviceModel>();
         }
 
         private String _Name;
@@ -50,7 +49,7 @@ namespace smartCubes.ViewModels.Activity
                 RaisePropertyChanged();
             }
         }
-       
+
         private string _ColorName;
 
         public string ColorName
@@ -62,6 +61,21 @@ namespace smartCubes.ViewModels.Activity
             set
             {
                 _ColorName = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private ObservableCollection<DeviceModel> _lDevices;
+
+        public ObservableCollection<DeviceModel> lDevices
+        {
+            get
+            {
+                return _lDevices;
+            }
+            set
+            {
+                _lDevices = value;
                 RaisePropertyChanged();
             }
         }
@@ -86,7 +100,28 @@ namespace smartCubes.ViewModels.Activity
                 Json.addActivity(activity);
             }
         }
+        private ICommand _deleteCommand;
 
+        public ICommand DeleteCommand
+        {
+            get { return _deleteCommand ?? (_deleteCommand = new Command<DeviceModel>((device) => DeleteCommandExecute(device))); }
+        }
+
+        private void DeleteCommandExecute(DeviceModel device)
+        {
+            lDevices.Remove(device);
+        }
+
+        private ICommand _OnButtonAddDeviceClicked;
+
+        public ICommand OnButtonAddDeviceClicked
+        {
+            get { return _OnButtonAddDeviceClicked ?? (_OnButtonAddDeviceClicked = new Command(() => OnButtonAddDeviceClickedExecute())); }
+        }
+        private void OnButtonAddDeviceClickedExecute()
+        {
+            PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this));
+        }
     }
 }
 

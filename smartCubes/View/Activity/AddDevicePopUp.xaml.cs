@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
+using smartCubes.ViewModels.Activity;
 using Xamarin.Forms;
 
 namespace smartCubes.View.Activity
 {
     public partial class AddDevicePopUp : PopupPage
     {
-        public AddDevicePopUp()
+        public AddDevicePopUp(NewActivityViewModel newActivityViewModel)
         {
             InitializeComponent();
+            BindingContext = new AddDevicePopUpViewModel(newActivityViewModel);
         }
         private async void OnClose(object sender, EventArgs e)
         {

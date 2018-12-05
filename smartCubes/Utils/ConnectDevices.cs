@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
 using smartCubes.Models;
+using Xamarin.Forms;
 
 namespace smartCubes.Utils
 {
@@ -16,15 +18,17 @@ namespace smartCubes.Utils
         private static DateTime datetime;
         private static IAdapter adapter;
         private static IBluetoothLE ble;
+        private static List<DeviceModel> lDevices;
 
         public ConnectDevices()
         {
             //SearchDevice(lDevices);
         }
 
-        public static async Task Start(List<DeviceModel> lDevices)
+        public static async Task Start(List<DeviceModel> lDev)
         {
-
+            lDevices = new List<DeviceModel>();
+            lDevices = lDev;
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
 
@@ -101,8 +105,10 @@ namespace smartCubes.Utils
                     //Servicios y caracteristicas y descriptores
                     var services = await deviceConnected.GetServicesAsync();
                     var characteristics = await services[0].GetCharacteristicsAsync();
-                    //var descriptors = await characteristics[0].GetDescriptorsAsync();
 
+                    UnicodeEncoding uniencoding = new UnicodeEncoding();
+                    byte[] one = uniencoding.GetBytes("0");
+                    await characteristics[0].WriteAsync(one);
                     //lectura de datos
                     characteristics[0].ValueUpdated += (s, a) =>
                     {
@@ -126,6 +132,36 @@ namespace smartCubes.Utils
             {
                 Debug.WriteLine("Error al conectar con el dispositivo: " + deviceConnected.Name);
             }
+        }
+
+        public static async void WriteDevices(String number)
+        {
+
+            if (lDevices != null)
+            {
+
+                foreach (IDevice device in adapter.ConnectedDevices)
+                {
+
+                    var services = await device.GetServicesAsync();
+                    var characteristics = await services[0].GetCharacteristicsAsync();
+
+                    UnicodeEncoding uniencoding = new UnicodeEncoding();
+                    byte[] one = uniencoding.GetBytes(number);
+                    await characteristics[0].WriteAsync(one);
+                }
+            }else{
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar el código de alumno", "OK");
+            }
+        }
+
+        public static bool isAllConnectedDevices(List<DeviceModel> lDevicesActivity)
+        {
+            if (adapter.ConnectedDevices.Count() == lDevicesActivity.Count())
+                return true;
+            else
+                return false;
+
         }
     }
 }

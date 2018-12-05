@@ -8,7 +8,7 @@ namespace smartCubes.View.Login
         public LoginView()
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
+            BindingContext = new LoginViewModel(Navigation);
         }
     }
 }

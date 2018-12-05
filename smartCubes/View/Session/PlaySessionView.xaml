@@ -4,9 +4,8 @@
              x:Class="smartCubes.View.Session.PlaySessionView"
              Title="{Binding Title}">
     <StackLayout>
-
         <Label TextColor="#0E547C" FontSize = "20" Text="Actividad" Margin="30,30,30,10" />
-        <Entry Text="Actividad 1" IsEnabled="false" Margin="30,0,30,0" Keyboard="Text"/>
+        <Entry Text="{Binding ActivityName}" TextColor="Silver" IsEnabled="false" Margin="30,0,30,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,25"/>
         
         <Label TextColor="#0E547C" FontSize = "20" Text="Código alumno" Margin="30,10,30,10" />

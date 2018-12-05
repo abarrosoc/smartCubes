@@ -11,7 +11,7 @@ namespace smartCubes.ViewModels.Session
     {
         public NewSessionViewModel()
         {
-            Title = "Nueva sesión";
+            Title = "Nueva";
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
 

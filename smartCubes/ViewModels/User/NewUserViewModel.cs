@@ -10,7 +10,7 @@ namespace smartCubes.ViewModels.User
     {
         public NewUserViewModel()
         {
-            Title = "Nuevo usuario";
+            Title = "Nuevo";
         }
 
         private string _UserName;

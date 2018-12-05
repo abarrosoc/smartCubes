@@ -12,17 +12,7 @@ namespace smartCubes.View.Session
         {
             InitializeComponent();
 
-            BindingContext = new SessionViewModel();
-        }
-
-        private void OnclickNewActivity(object sender, EventArgs e)
-        {
-            //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
-        }
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Debug.WriteLine("Sesion seleccionada");
+            BindingContext = new SessionViewModel(Navigation);
         }
     }
 }

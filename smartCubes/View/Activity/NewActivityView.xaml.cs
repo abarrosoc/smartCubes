@@ -19,7 +19,7 @@ namespace smartCubes.View.Activity
         {
             InitializeComponent();
 
-            BindingContext = new NewActivityViewModel();
+            BindingContext = new NewActivityViewModel(Navigation);
         }
        
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -89,10 +89,10 @@ namespace smartCubes.View.Activity
         {
 
         }
-        private void OnButtonAddDeviceClicked(object sender, EventArgs e)
+       /* private void OnButtonAddDeviceClicked(object sender, EventArgs e)
         {
             AddDevicePopUp addDevice = new AddDevicePopUp();
             PopupNavigation.Instance.PushAsync(addDevice);
-        }
+        }*/
     }
 }

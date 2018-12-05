@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Menu.Home"
              xmlns:local="clr-namespace:smartCubes;assembly=smartCubes"
-             xmlns:behaviors="clr-namespace:Behaviors;assembly=Xamarin.Forms.Behavior"
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />
+        <!--<ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />-->
         <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
     </ContentPage.ToolbarItems>
          <!--<ScrollView>
@@ -71,22 +71,27 @@
          </ScrollView>-->
         <ListView x:Name="lUsers"
               IsPullToRefreshEnabled="true"
+              RefreshCommand="{Binding RefreshCommand}"
+              IsRefreshing="{Binding IsRefreshing}"
               RowHeight="200"
               SeparatorVisibility="None"
+              SelectedItem="{Binding SelectItem}"
               ItemsSource="{Binding lSessions}" 
               BackgroundColor="White"
-              ItemTapped="OnItemTappedAsync"
               Margin="20,20,20,20">
+        <ListView.Behaviors>
+                <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
+        </ListView.Behaviors>
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <Frame BorderColor="#0E547C" BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3" Margin="0,15">
+              <Frame BorderColor="#0E547C" BackgroundColor="#0E547C" HasShadow="false" CornerRadius="3" Margin="0,15" OutlineColor="White">
                     <StackLayout Orientation="Vertical">
                         <Label Font="Bold,20" XAlign="Center" TextColor="White" Text="{Binding Name}"/>
                         <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
                         <Label TextColor="White" Text="{Binding ActivityName}"/>
                         <Label TextColor="White" Text="{Binding Path=CreateDate, StringFormat='Fecha creación: {0}'}"/>
-                        <Label TextColor="White" Text="{Binding Path=ModifyDate, StringFormat='Última modificación: {0}'}"/>
+                        <Label TextColor="White" Text="{Binding Path=ModifyDate, StringFormat='Modificada: {0}'}"/>
                     </StackLayout>
               </Frame>
             </ViewCell>

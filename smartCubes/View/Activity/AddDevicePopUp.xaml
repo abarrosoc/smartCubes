@@ -12,13 +12,13 @@
              <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
 
              <Label TextColor="Black" FontSize = "17" Text="Uuid" Margin="30,10,30,10" />
-             <Entry Placeholder="Uuid" Text="{Binding Name}" Margin="30,0,30,0" Keyboard="Text"/>
+             <Entry Placeholder="Uuid" Text="{Binding Uuid}" Margin="30,0,30,0" Keyboard="Text"/>
              <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/> 
 
              <Button Text="Añadir"
             VerticalOptions="EndAndExpand"
             HorizontalOptions="FillAndExpand"
-            Command="{Binding SaveCommand}" 
+            Command="{Binding AddCommand}" 
             BackgroundColor="#0E547C"
             TextColor="White"
             FontSize="20"

@@ -3,21 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Login.LoginView">
      <StackLayout BackgroundColor="White">
-        <Label TextColor="Black" HorizontalOptions="StartAndExpand" FontSize = "17" Text="Usuario" Margin="60,250,30,10" />
-        <Entry Placeholder="Introduzca usuario" HorizontalOptions="CenterAndExpand" Text="{Binding User}" Margin="30,0,30,0" Keyboard="Text"/>
+        <Label TextColor="#0E547C" HorizontalOptions="CenterAndExpand" FontSize = "67" Text="App" Margin="0,100,0,10" />
+        
+        <Entry Placeholder="Usuario" HorizontalOptions="StartAndExpand" Text="{Binding User}" Margin="60,100,30,10" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="250" HorizontalOptions="Center" Margin="0,0,0,25"/>
 
-        <Label TextColor="Black" HorizontalOptions="StartAndExpand" FontSize = "17" Text="Contraseña" Margin="60,0,30,10"/>
-        <Entry Placeholder="Introduzca contraseña" HorizontalOptions="StartAndExpand" Text="{Binding Password}" IsPassword="true" Margin="30,0,30,0" Keyboard="Text"/>
+        <Entry Placeholder="Introduzca contraseña" HorizontalOptions="StartAndExpand" Text="{Binding Password}" IsPassword="true" Margin="60,0,30,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="250" HorizontalOptions="Center" Margin="0,0,0,15"/>
 
         <Button Text="Entrar"
                 VerticalOptions="StartAndExpand"
                 HorizontalOptions="FillAndExpand"
-                Command="{Binding SaveCommand}" 
+                Command="{Binding LoginCommand}" 
                 BackgroundColor="#0E547C"
                 TextColor="White"
                 FontSize="20"
-                Margin="30,30,30,0" />
-    </StackLayout>
+                Margin="60,40,60,0" />
+     </StackLayout>
 </ContentPage>

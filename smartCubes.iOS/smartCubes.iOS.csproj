@@ -182,5 +182,6 @@
     <BundleResource Include="Resources\info.png" />
     <BundleResource Include="Resources\share.png" />
     <BundleResource Include="Resources\send.png" />
+    <BundleResource Include="Resources\refresh.png" />
   </ItemGroup>
 </Project>

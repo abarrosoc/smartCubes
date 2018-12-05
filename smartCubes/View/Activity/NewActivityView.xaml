@@ -18,7 +18,7 @@
         <Button Text="+     Añadir dispositivos"
                 VerticalOptions="StartAndExpand"
                 HorizontalOptions="StartAndExpand"
-                Clicked="OnButtonAddDeviceClicked"
+                Command="{Binding OnButtonAddDeviceClicked}"
                 BackgroundColor="White"
                 TextColor="#0E547C"
                 FontSize="17"
@@ -30,15 +30,19 @@
               RowHeight="60"
               SeparatorVisibility="Default"
               SeparatorColor="#E6E6E6"
-              ItemsSource="{Binding lUsers}" 
+              ItemsSource="{Binding lDevices}" 
               BackgroundColor="#E6E6E6">
             <ListView.ItemTemplate>
               <DataTemplate>
                 <ViewCell>
-                     <StackLayout BackgroundColor="White" Orientation="Vertical">
-                        <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
-                            <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
-                        </StackLayout>
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lDevices}} " 
+                                      CommandParameter="{Binding .}"/>
+                    </ViewCell.ContextActions>
+                    <StackLayout BackgroundColor="White" Orientation="Vertical">
+                       <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
+                           <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                       </StackLayout>
                     </StackLayout>
                 </ViewCell>
               </DataTemplate>
@@ -51,6 +55,6 @@
                 BackgroundColor="#0E547C"
                 TextColor="White"
                 FontSize="20"
-                Margin="30,0,30,15"/>
+                Margin="30,20,30,30"/>
     </StackLayout>
 </ContentPage>

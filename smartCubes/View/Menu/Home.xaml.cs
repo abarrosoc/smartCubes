@@ -17,27 +17,8 @@ namespace smartCubes.View.Menu
         public Home()
         {
             InitializeComponent();
-            Title = "Inicio";
-            BindingContext = new HomeViewModel();
-        }
-
-        private void OnTapGestureRecognizerTapped(object sender, EventArgs args)
-        {
-            Debug.WriteLine("Sesion seleccionada");
-
-            Navigation.PushAsync(new PlaySessionView());
-        }
-
-        private void OnclickNewActivity(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new NewSessionView());
-        }
-
-        private void OnItemTappedAsync(object sender, ItemTappedEventArgs e)
-        {
-            ((ListView)sender).SelectedItem = null;
-            Navigation.PushAsync(new PlaySessionView());
-
+           
+            BindingContext = new HomeViewModel(Navigation);
         }
     }
 }

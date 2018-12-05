@@ -1,10 +1,17 @@
 ﻿using System;
+using System.Windows.Input;
+using smartCubes.View.Menu;
+using Xamarin.Forms;
+
 namespace smartCubes.ViewModels.Login
 {
     public class LoginViewModel : BaseViewModel
     {
-        public LoginViewModel()
+        public INavigation Navigation { get; set; }
+
+        public LoginViewModel(INavigation navigation)
         {
+            this.Navigation = navigation;
         } 
 
         private String _User;
@@ -35,6 +42,17 @@ namespace smartCubes.ViewModels.Login
                 _Password = value;
                 RaisePropertyChanged();
             }
+        }
+        public static MasterDetailPage MasterDetail { get; set; }
+        private ICommand _LoginCommand;
+        public ICommand LoginCommand
+        {
+            get { return _LoginCommand ?? (_LoginCommand = new Command(() => LoginCommandExecuteAsync())); }
+        }
+
+        private void LoginCommandExecuteAsync()
+        {
+            Application.Current.MainPage = new MainPage();
         }
     }
 }

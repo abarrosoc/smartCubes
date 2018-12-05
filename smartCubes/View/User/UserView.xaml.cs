@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using smartCubes.Utils;
 using smartCubes.ViewModels.User;
 using Xamarin.Forms;
 
@@ -11,16 +12,7 @@ namespace smartCubes.View.User
         public UserView()
         {
             InitializeComponent();
-            BindingContext = new UserViewModel();
-        }
-        private void OnclickNewUser(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new NewUserView());
-        }
-
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Debug.WriteLine("Usuario selccionada");
+            BindingContext = new UserViewModel(Navigation);
         }
     }
 }

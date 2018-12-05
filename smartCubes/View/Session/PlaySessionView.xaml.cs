@@ -1,4 +1,5 @@
 ﻿using System;
+using smartCubes.Models;
 using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
 
@@ -6,16 +7,10 @@ namespace smartCubes.View.Session
 {
     public partial class PlaySessionView : ContentPage
     {
-        public PlaySessionView()
+        public PlaySessionView(SessionModel session)
         {
             InitializeComponent();
-            BindingContext = new PlaySessionViewModel();
-        }
-
-        private void OnclickShareSession(object sender, EventArgs e)
-        {
-            //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
+            BindingContext = new PlaySessionViewModel(session);
         }
     }
 }
