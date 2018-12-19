@@ -18,6 +18,7 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="Prism.Forms" Version="7.1.0.431" />
     <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.3.0.36" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MyPage.xaml.cs" />
@@ -26,7 +27,7 @@
     <Compile Remove="MainPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\activities.json" />
+    <EmbeddedResource Include="activities.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="View\Menu\MainPage.xaml">
@@ -37,8 +38,6 @@
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="Controls\" />
-    <Folder Include="Commands\" />
     <Folder Include="Models\" />
     <Folder Include="View\Activity\" />
     <Folder Include="ViewModels\Activity\" />
@@ -53,10 +52,11 @@
     <Folder Include="ViewModels\Session\" />
     <Folder Include="View\Login\" />
     <Folder Include="ViewModels\Login\" />
+    <Folder Include="Interface\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\app.config" />
-    <None Remove="Resources\activities.json" />
     <None Remove="act.json" />
+    <None Remove="activities.json" />
   </ItemGroup>
 </Project>

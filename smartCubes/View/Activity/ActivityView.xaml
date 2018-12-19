@@ -14,6 +14,7 @@
               IsRefreshing="{Binding IsRefreshing}"
               RowHeight="60"
               SeparatorVisibility="Default"
+              SelectedItem="{Binding SelectItem}"
               SeparatorColor="#E6E6E6"
               ItemsSource="{Binding lActivities}" 
               BackgroundColor="#E6E6E6">

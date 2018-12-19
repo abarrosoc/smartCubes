@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Rg.Plugins.Popup.Services;
@@ -9,15 +10,30 @@ using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Activity
 {
-    public class NewActivityViewModel : BaseViewModel
+    public class EditActivityViewModel : BaseViewModel
     {
         public INavigation Navigation { get; set; }
 
-        public NewActivityViewModel(INavigation navigation)
+        private bool modify;
+        private ActivityModel activity;
+
+        public EditActivityViewModel(INavigation navigation, bool modify, ActivityModel activity)
         {
-            Title = "Nueva";
             this.Navigation = navigation;
-            //lDevices = new ObservableCollection<DeviceModel>();
+            this.modify = modify;
+            this.activity = activity;
+
+            if(modify){
+                Title = "Modificar";
+                Name = activity.Name;
+                lDevices = new ObservableCollection<DeviceModel>();
+                foreach(DeviceModel device in activity.Devices){
+                    lDevices.Add(device);
+                }
+
+            }else{
+                Title = "Nueva";
+            }
         }
 
         private String _Name;
@@ -91,13 +107,37 @@ namespace smartCubes.ViewModels.Activity
         {
             if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description))
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "OK");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }
             else
             {
-                ActivityModel activity = new ActivityModel();
+                ActivityModel newActivity = new ActivityModel();
 
-                Json.addActivity(activity);
+                if (modify)
+                    newActivity.Id = activity.Id;
+                newActivity.Name = Name;
+                List<DeviceModel> devices = new List<DeviceModel>();
+                foreach (DeviceModel device in lDevices)
+                    devices.Add(device);
+                
+                newActivity.Devices = devices;
+                bool isAdd = false;
+                if(modify)
+                    isAdd = Json.updateActivity(newActivity);
+                else
+                    isAdd = Json.addActivity(newActivity);
+                
+                lDevices = new ObservableCollection<DeviceModel>();
+                Name = null;
+                Description = null;
+                if(isAdd){
+                    if(modify)
+                        await Application.Current.MainPage.DisplayAlert("Información", "La actividad ha sido modificada correctamente", "Aceptar");
+                    else
+                        await Application.Current.MainPage.DisplayAlert("Información", "La actividad ha sido guardada correctamente", "Aceptar");
+                }else{
+                    await Application.Current.MainPage.DisplayAlert("Error", "El nombre de la actividad ya existe", "Aceptar");
+                }
             }
         }
         private ICommand _deleteCommand;

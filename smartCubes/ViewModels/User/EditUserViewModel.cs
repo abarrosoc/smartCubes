@@ -2,15 +2,24 @@
 using System.Diagnostics;
 using System.Windows.Input;
 using smartCubes.Models;
+using smartCubes.Utils;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.User
 {
-    public class NewUserViewModel : BaseViewModel
+    public class EditUserViewModel : BaseViewModel
     {
-        public NewUserViewModel()
+        public EditUserViewModel(bool modify, UserModel user)
         {
-            Title = "Nuevo";
+            if(modify){
+                Title = "Modificar";
+                UserName = user.UserName;
+                Password = Crypt.Decrypt(user.Password,"uah2019");
+                Email = user.Email;
+            }else{
+                Title = "Nuevo";
+            }
+           
         }
 
         private string _UserName;
@@ -71,7 +80,7 @@ namespace smartCubes.ViewModels.User
             }else{
                 UserModel user = new UserModel();
                 user.UserName = UserName;
-                user.Password = Password;
+                user.Password = Crypt.Encrypt(Password,"uah2019");
                 user.Email = Email;
                 App.Database.SaveUser(user);
 

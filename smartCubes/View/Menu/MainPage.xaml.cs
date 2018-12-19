@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using smartCubes.Models;
 using Xamarin.Forms;
 
 namespace smartCubes.View.Menu
 {
     public partial class MainPage : MasterDetailPage
     {
-        public MainPage()
+        public MainPage(UserModel user)
         {
             InitializeComponent();
-            Master = new MasterView();
+            Master = new MasterView(user);
             Detail = new NavigationPage(new Home())
             { 
-                BarBackgroundColor = Color.FromHex("#0E547C"), 
+                BarBackgroundColor = Color.FromHex("#3FC49A"),
                 BarTextColor = Color.White 
             };
 

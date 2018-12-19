@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
+using smartCubes.Models;
+using smartCubes.Utils;
 using smartCubes.View.Menu;
 using Xamarin.Forms;
 
@@ -52,7 +54,34 @@ namespace smartCubes.ViewModels.Login
 
         private void LoginCommandExecuteAsync()
         {
-            Application.Current.MainPage = new MainPage();
+            UserModel user = App.Database.GetUsers()[0];
+            Application.Current.MainPage = new MainPage(user);
+            /*
+            //Application.Current.MainPage = new MainPage();
+            if(User==null || Password==null){
+                Application.Current.MainPage.DisplayAlert("Login", "Debe rellenar todos los campos", "Aceptar");
+            }else{
+
+                UserModel user = App.Database.GetUser(User);
+                if (user != null)
+                {
+                    String userPass = Crypt.Decrypt(user.Password, "uah2019");
+                    if (Password.Equals(userPass))
+                    {
+                        Application.Current.MainPage = new MainPage(user);
+                    }
+                    else
+                    {
+                        Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
+                    }
+                }
+                else
+                {
+                    Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
+                }
+
+            }*/
+
         }
     }
 }

@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
 using smartCubes.View.Session;
+using Syncfusion.XlsIO;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Session
 {
     public class SessionViewModel : BaseViewModel
     {
+        private UserModel user;
         public INavigation Navigation { get; set; }
 
-        public SessionViewModel(INavigation navigation)
+        public SessionViewModel(INavigation navigation, UserModel user)
         {
             this.Navigation = navigation;
+            this.user = user;
 
             Title = "Sesiones";
 
@@ -72,12 +76,36 @@ namespace smartCubes.ViewModels.Session
         private ICommand _exportCommand;
         public ICommand ExportCommand
         {
-            get { return _exportCommand ?? (_exportCommand = new Command(() => ExportCommandExecute())); }
+            get { return _exportCommand ?? (_exportCommand = new Command<SessionModel>((session) => ExportCommandExecute(session))); }
         }
 
-        private void ExportCommandExecute()
+        private void ExportCommandExecute(SessionModel session)
         { 
-            Mail mail = new Mail();
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                //Set the default application version as Excel 2013.
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+
+                //Create a workbook with a worksheet
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                //Access first worksheet from the workbook instance.
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                //Adding text to a cell
+                worksheet.Range["A1"].Text = "Hello World";
+
+                //Save the workbook to stream in xlsx format. 
+                MemoryStream stream = new MemoryStream();
+                workbook.SaveAs(stream);
+
+                workbook.Close();
+  
+                //Save the stream as a file in the device and invoke it for viewing
+                Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name +".xlsx", "application/msexcel", stream);
+                Mail mail = new Mail(session.Name + ".xlsx",user);
+            }
+
         }
 
         private ICommand _DeleteCommand;
@@ -109,14 +137,19 @@ namespace smartCubes.ViewModels.Session
 
         private void NewSessionCommandExecute()
         {
-            Navigation.PushAsync(new NewSessionView());
+            Navigation.PushAsync(new NewSessionView(user,false,null));
         }
 
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped
         {
-            get { return _OnItemTapped ?? (_OnItemTapped = new Command<SessionViewModel>((session) => OnItemTappedExecute(session))); }
+            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
+        }
+
+        private void OnItemTappedExecute()
+        {
+            Navigation.PushAsync(new NewSessionView(user, true, SelectItem));
         }
 
         public ICommand RefreshCommand
@@ -132,11 +165,6 @@ namespace smartCubes.ViewModels.Session
                     IsRefreshing = false;
                 });
             }
-        }
-
-        private void OnItemTappedExecute(SessionViewModel session)
-        {
-            Debug.WriteLine("Behaviorsss!");
         }
 
         private void  RefreshData()

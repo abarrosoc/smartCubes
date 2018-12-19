@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Session.PlaySessionView"
              Title="{Binding Title}">
-    <StackLayout>
-        <Label TextColor="#0E547C" FontSize = "20" Text="Actividad" Margin="30,30,30,10" />
-        <Entry Text="{Binding ActivityName}" TextColor="Silver" IsEnabled="false" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,25"/>
+    <StackLayout HorizontalOptions="CenterAndExpand" WidthRequest="700" Margin="0,70,0,0">
+        <Label TextColor="#3FC49A" FontSize = "20" Text="Actividad" Margin="0,0,0,10" />
+        <Entry Text="{Binding ActivityName}" TextColor="Silver" IsEnabled="false" Margin="0,0,0,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,25"/>
         
-        <Label TextColor="#0E547C" FontSize = "20" Text="Código alumno" Margin="30,10,30,10" />
-        <Entry Placeholder="Introduzca el código" IsEnabled="{Binding StudentCodeEntry}" Text="{Binding StudentCode}" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,35"/>
+        <Label TextColor="#3FC49A" FontSize = "20" Text="Código alumno" Margin="0,10,0,10" />
+        <Entry Placeholder="Introduzca el código" IsEnabled="{Binding StudentCodeEntry}" Text="{Binding StudentCode}" Margin="0,0,0,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,35"/>
 
         <Frame CornerRadius = "120"
             HeightRequest = "250"
             WidthRequest = "250"
-            BackgroundColor="#0E547C"
+            BackgroundColor="#3FC49A"
             HorizontalOptions = "CenterAndExpand"
             VerticalOptions = "CenterAndExpand"
             Margin = "0"
@@ -29,11 +29,11 @@
             </StackLayout>
         </Frame>
         <Button Text="{Binding StartStop}" 
-                BackgroundColor="#0E547C" 
+                BackgroundColor="#3FC49A" 
                 FontSize="Large" 
                 TextColor="White" 
                 VerticalOptions="EndAndExpand" 
-                Margin="30,40"
+                Margin="0,0,0,70"
                 Command="{Binding TimerCommand}"/>
     </StackLayout>
 </ContentPage>

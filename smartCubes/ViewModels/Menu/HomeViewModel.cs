@@ -23,6 +23,7 @@ namespace smartCubes.ViewModels.Menu
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);
+
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -91,8 +92,10 @@ namespace smartCubes.ViewModels.Menu
 
         private void OnItemTappedExecute()
         {
-            Navigation.PushAsync(new PlaySessionView(SelectItem));
+            SessionModel item = SelectItem;
             SelectItem = null;
+            RefreshData();
+            Navigation.PushAsync(new PlaySessionView(item));
         }
 
         private void RefreshData()

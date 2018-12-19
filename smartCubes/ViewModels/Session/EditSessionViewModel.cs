@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using smartCubes.Models;
@@ -7,16 +8,40 @@ using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Session
 {
-    public class NewSessionViewModel : BaseViewModel
+    public class EditSessionViewModel : BaseViewModel
     {
-        public NewSessionViewModel()
+        private UserModel user;
+        private bool modify;
+        private SessionModel session;
+
+        public EditSessionViewModel(UserModel user,bool modify,SessionModel session)
         {
-            Title = "Nueva";
+            this.user = user;
+            this.modify = modify;
+            this.session = session;
+
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
-
             foreach (ActivityModel activity in activities.Activities)
                 lActivities.Add(activity);
+            
+            if(modify){
+                Title = "Modificar";
+                Name = session.Name;
+                Description = session.Description;
+                ActivityModel activitySession = Json.getActivityByName(session.ActivityName);
+                foreach (ActivityModel activity in activities.Activities){
+                    if(activity.Name.Equals(activitySession.Name)){
+                        SelectedActivity = activity;
+                    }
+                }
+            }else{
+                Title = "Nueva";
+                Name = getNameNewSession();
+
+            }
+           
+
         }
 
         private String _Name;
@@ -62,6 +87,7 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged();
             }
         }
+
         private ObservableCollection<ActivityModel> _lActivities;
 
         public ObservableCollection<ActivityModel> lActivities
@@ -87,25 +113,40 @@ namespace smartCubes.ViewModels.Session
         {
             if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description) || String.IsNullOrEmpty(SelectedActivity.Name))
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "OK");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }
             else
             {
-                SessionModel session = new SessionModel();
-                session.Name = Name;
-                session.Description = Description;
-                session.ActivityName = SelectedActivity.Name;
-                session.CreateDate = DateTime.Now;
-                session.ModifyDate = DateTime.Now;
+                SessionModel newSession = new SessionModel();
+                if (modify)
+                    newSession.ID = session.ID;
+                newSession.Name = Name;
+                newSession.Description = Description;
+                newSession.ActivityName = SelectedActivity.Name;
+                if(!modify)
+                    newSession.CreateDate = DateTime.Now;
+                newSession.ModifyDate = DateTime.Now;
+                newSession.userId = user.ID;
 
-                App.Database.SaveSession(session);
-
-                await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha creado correctamente", "OK");
-
-                Name = "";
+                App.Database.SaveSession(newSession);
+  
+                Name = null;
                 Description = "";
                 SelectedActivity = null;
+                if (modify)
+                    await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha modificado correctamente", "Aceptar");
+                else
+                    await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha creado correctamente", "Aceptar");
+
+                Name = getNameNewSession();
+
             }
+        }
+
+        private String getNameNewSession(){
+
+            List<SessionModel> listSessions = App.Database.GetSessions();
+            return "Sesión " + (listSessions.Count+1).ToString();
         }
     }
 }

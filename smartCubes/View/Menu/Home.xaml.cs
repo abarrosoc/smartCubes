@@ -19,6 +19,7 @@ namespace smartCubes.View.Menu
             InitializeComponent();
            
             BindingContext = new HomeViewModel(Navigation);
+            Debug.WriteLine(Crypt.Encrypt("Prueba","uah2019"));
         }
     }
 }

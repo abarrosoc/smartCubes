@@ -41,6 +41,7 @@ namespace smartCubes.ViewModels.User
         }
 
         private ICommand _deleteCommand;
+
         public ICommand DeleteCommand
         {
             get { return _deleteCommand ?? (_deleteCommand = new Command<UserModel>((user) => DeleteCommandExecute(user))); }
@@ -56,9 +57,9 @@ namespace smartCubes.ViewModels.User
                 RefreshData();
             }
         }
-        private SessionModel _SelectItem;
+        private UserModel _SelectItem;
 
-        public SessionModel SelectItem
+        public UserModel SelectItem
         {
             get
             {
@@ -92,7 +93,7 @@ namespace smartCubes.ViewModels.User
 
         private void NewUserCommandExecute()
         {
-            Navigation.PushAsync(new NewUserView());
+            Navigation.PushAsync(new NewUserView(false,null));
         }
 
         private ICommand _OnItemTapped;
@@ -101,7 +102,10 @@ namespace smartCubes.ViewModels.User
         {
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
         }
-
+        private void OnItemTappedExecute()
+        {
+            Navigation.PushAsync(new NewUserView(true, SelectItem));
+        }
         public ICommand RefreshCommand
         {
             get
@@ -115,12 +119,6 @@ namespace smartCubes.ViewModels.User
                     IsRefreshing = false;
                 });
             }
-        }
-
-        private void OnItemTappedExecute()
-        {
-            //Navigation.PushAsync(new User(SelectItem));
-            SelectItem = null;
         }
 
         private void RefreshData()

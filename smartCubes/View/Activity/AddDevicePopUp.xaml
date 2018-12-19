@@ -3,27 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
              x:Class="smartCubes.View.Activity.AddDevicePopUp">
-  <StackLayout VerticalOptions="Center"  Padding="20, 20, 20, 20">
-    <StackLayout BackgroundColor="White" Padding="0, 40, 0, 0">
-      <Label Text="Añadir dispositivo" TextColor="#0E547C" FontSize="20" HorizontalOptions="Center" ></Label>
-        <StackLayout>
-             <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="30,40,30,10" />
-             <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="30,0,30,0" Keyboard="Text"/>
-             <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+  <StackLayout BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" WidthRequest="500">
+    <StackLayout HorizontalOptions="CenterAndExpand" WidthRequest="400" Padding="30,20,20,20">
+         <Label Text="Añadir dispositivo" TextColor="#3FC49A" FontSize="20" HorizontalOptions="Center"/>
+         <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
+         <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
+         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
-             <Label TextColor="Black" FontSize = "17" Text="Uuid" Margin="30,10,30,10" />
-             <Entry Placeholder="Uuid" Text="{Binding Uuid}" Margin="30,0,30,0" Keyboard="Text"/>
-             <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/> 
+         <Label TextColor="Black" FontSize = "17" Text="Uuid" Margin="0,10,0,10" />
+         <Entry Placeholder="Uuid" Text="{Binding Uuid}" Margin="0,0,0,0" Keyboard="Text"/>
+         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/> 
 
-             <Button Text="Añadir"
-            VerticalOptions="EndAndExpand"
-            HorizontalOptions="FillAndExpand"
-            Command="{Binding AddCommand}" 
-            BackgroundColor="#0E547C"
-            TextColor="White"
-            FontSize="20"
-            Margin="30,50,30,15"/>
-        </StackLayout>
+         <Button Text="Añadir"
+        VerticalOptions="EndAndExpand"
+        HorizontalOptions="FillAndExpand"
+        Command="{Binding AddCommand}" 
+        BackgroundColor="#3FC49A"
+        TextColor="White"
+        FontSize="20"
+        Margin="40,50,40,35"/>
     </StackLayout>
   </StackLayout>
 </pages:PopupPage>

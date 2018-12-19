@@ -25,7 +25,6 @@ namespace smartCubes.ViewModels.Activity
                 lActivities.Add(activity);
         }
 
-
         private ObservableCollection<ActivityModel> _lActivities;
 
         public ObservableCollection<ActivityModel> lActivities
@@ -41,6 +40,20 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
+        private ActivityModel _SelectItem;
+
+        public ActivityModel SelectItem
+        {
+            get
+            {
+                return _SelectItem;
+            }
+            set
+            {
+                _SelectItem = value;
+                RaisePropertyChanged();
+            }
+        }
         private bool _isRefreshing = false;
 
         public bool IsRefreshing
@@ -66,9 +79,14 @@ namespace smartCubes.ViewModels.Activity
 
             if (answer)
             {
-                Json.deleteActivity(activity);
-                await Application.Current.MainPage.DisplayAlert("Info", "La actividad se ha eliminado", "OK");
-                RefreshData();
+                bool isDeleted = Json.deleteActivity(activity);
+                if(isDeleted){
+                    await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha eliminado", "Aceptar");
+                    RefreshData();
+                }else{
+                    await Application.Current.MainPage.DisplayAlert("Error", "No se ha podido eliminar la actividad", "Aceptar");
+                }
+
             }
         }
 
@@ -81,19 +99,19 @@ namespace smartCubes.ViewModels.Activity
 
         private void NewActivityCommandExecute()
         {
-            Navigation.PushAsync(new NewActivityView());
+            Navigation.PushAsync(new NewActivityView(false,null));
         }
 
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped
         {
-            get { return _OnItemTapped ?? (_OnItemTapped = new Command<ActivityModel>((activity) => OnItemTappedExecute(activity))); }
+            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
         }
 
-        private void OnItemTappedExecute(ActivityModel activity)
+        private void OnItemTappedExecute()
         {
-            Debug.WriteLine("Behaviorsss!");
+            Navigation.PushAsync(new NewActivityView(true, SelectItem));
         }
 
         public ICommand RefreshCommand

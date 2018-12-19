@@ -3,27 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Session.NewSessionView"
              Title="{Binding Title}">
-   <StackLayout BackgroundColor="White">
-        <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="30,40,30,10" />
-        <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+   <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="600" Margin="0,70,0,0">
+        <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="0,0,0,10" />
+        <Entry Placeholder="Nombre" IsEnabled="false" TextColor="Silver" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver"  HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
-        <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="30,0,30,10"/>
-        <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+        <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="0,0,0,10"/>
+        <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,0,0,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
-        <Label TextColor="Black" FontSize = "17" Text="Seleccione" Margin="30,10,30,10"/>
-        <Picker x:Name="pActivities" Title="Actividad" Margin="30,0,30,10"
-              ItemsSource="{Binding lActivities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedActivity}">
+        <Label TextColor="Black" FontSize = "17" Text="Seleccione" Margin="0,40,0,10"/>
+        <Picker x:Name="pActivities" Title="Actividad" 
+                Margin="0,0,0,20"
+                ItemsSource="{Binding lActivities}" 
+                ItemDisplayBinding="{Binding Name}" 
+                SelectedItem="{Binding SelectedActivity,Mode=TwoWay}">
         </Picker>
 
         <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding SaveCommand}" 
-                BackgroundColor="#0E547C"
+                BackgroundColor="#3FC49A"
                 TextColor="White"
                 FontSize="20"
-                Margin="30,0,30,30" />
+                Margin="0,0,0,50" />
     </StackLayout>
 </ContentPage>

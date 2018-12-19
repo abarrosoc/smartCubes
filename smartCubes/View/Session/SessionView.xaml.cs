@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using smartCubes.ViewModels.Session;
+﻿using smartCubes.ViewModels.Session;
+using smartCubes.Models;
 using Xamarin.Forms;
 
 namespace smartCubes.View.Session
 {
     public partial class SessionView : ContentPage
     {
-        public SessionView()
+        public SessionView(UserModel user)
         {
             InitializeComponent();
 
-            BindingContext = new SessionViewModel(Navigation);
+            BindingContext = new SessionViewModel(Navigation,user);
         }
     }
 }

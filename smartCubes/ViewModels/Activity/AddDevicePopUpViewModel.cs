@@ -11,9 +11,9 @@ namespace smartCubes.ViewModels.Activity
 {
 	public class AddDevicePopUpViewModel : BaseViewModel
     {
-        public NewActivityViewModel newActivityView { get; set; }
+        public EditActivityViewModel newActivityView { get; set; }
 
-        public AddDevicePopUpViewModel(NewActivityViewModel newActivityView)
+        public AddDevicePopUpViewModel(EditActivityViewModel newActivityView)
         {
             this.newActivityView = newActivityView;
         }

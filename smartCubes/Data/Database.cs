@@ -15,43 +15,14 @@ namespace smartCubes.Data
             database.CreateTable<SessionModel>();
         }
 
-        public List<UserModel> GetUsers()
-        {
-            return database.Table<UserModel>().ToList();
-        }
-        public List<SessionModel> GetSessions()
-        {
-            return database.Table<SessionModel>().ToList();
-        }
-
-        public List<UserModel> GetItemsNotDone()
-        {
-            return database.Query<UserModel>("SELECT * FROM [UserModel] ");
-        }
-        public List<SessionModel> GetSessionsNotDone()
-        {
-            return database.Query<SessionModel>("SELECT * FROM [SessionModel] ");
-        }
-
-        public UserModel GetUser(int id)
-        {
-            return database.Table<UserModel>().Where(i => i.ID == id).FirstOrDefault();
-        }
         public SessionModel GetSession(int id)
         {
             return database.Table<SessionModel>().Where(i => i.ID == id).FirstOrDefault();
         }
 
-        public int SaveUser(UserModel item)
+        public List<SessionModel> GetSessions()
         {
-            if (item.ID != 0)
-            {
-                return database.Update(item);
-            }
-            else
-            {
-                return database.Insert(item);
-            }
+            return database.Table<SessionModel>().ToList();
         }
         public int SaveSession(SessionModel item)
         {
@@ -65,11 +36,47 @@ namespace smartCubes.Data
             }
         }
 
-        public int DeleteUser(UserModel item)
+        public List<SessionModel> GetSessionsNotDone()
+        {
+            return database.Query<SessionModel>("SELECT * FROM [SessionModel] ");
+        }
+
+        public int DeleteSession(SessionModel item)
         {
             return database.Delete(item);
         }
-        public int DeleteSession(SessionModel item)
+
+        public List<UserModel> GetUsers()
+        {
+            return database.Table<UserModel>().ToList();
+        }
+
+        public UserModel GetUser(int id)
+        {
+            return database.Table<UserModel>().Where(i => i.ID == id).FirstOrDefault();
+        }
+        public UserModel GetUser(string userName)
+        {
+            return database.Table<UserModel>().Where(i => i.UserName == userName).FirstOrDefault();
+        }
+
+        public List<UserModel> GetItemsNotDone()
+        {
+            return database.Query<UserModel>("SELECT * FROM [UserModel] ");
+        }
+        public int SaveUser(UserModel item)
+        {
+            if (item.ID != 0)
+            {
+                return database.Update(item);
+            }
+            else
+            {
+                return database.Insert(item);
+            }
+        }
+
+        public int DeleteUser(UserModel item)
         {
             return database.Delete(item);
         }

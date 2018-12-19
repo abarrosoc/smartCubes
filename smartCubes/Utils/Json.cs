@@ -17,29 +17,51 @@ namespace smartCubes.Utils
 
         internal static ActivitiesModel getActivities()
         {
-            var assembly = IntrospectionExtensions.GetTypeInfo(typeof(ActivityModel)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("smartCubes.Resources.activities.json");
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "activities.json");
+            //if (File.Exists(filename))
+            //     Console.WriteLine("existe");
+            var text = File.ReadAllText(filename);
 
-            string text = "";
-            using (var reader = new System.IO.StreamReader(stream))
-            {
-                text = reader.ReadToEnd();
-            }
             ActivitiesModel list = JsonConvert.DeserializeObject<ActivitiesModel>(text);
             return list;
-            //Console.WriteLine(myText);
         }
-        internal static void addActivity(ActivityModel activity)
+        internal static ActivityModel getActivityByName(String activityName)
+        {
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "activities.json");
+            //if (File.Exists(filename))
+            //     Console.WriteLine("existe");
+            var text = File.ReadAllText(filename);
+
+            ActivitiesModel list = JsonConvert.DeserializeObject<ActivitiesModel>(text);
+            foreach(ActivityModel activity in list.Activities){
+                if (activity.Name.Equals(activityName))
+                    return activity;
+            }
+            return null;
+        }
+        internal static bool addActivity(ActivityModel activity)
         {
             ActivitiesModel activities = getActivities();
+            foreach (ActivityModel act in activities.Activities)
+            {
+                if (act.Name.Equals(activity.Name))
+                    return false;
+            }
+
+            activity.Id =activities.Activities[activities.Activities.Count - 1].Id + 1;
             activities.Activities.Add(activity);
 
             string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
 
-            File.WriteAllText("smartCubes.Resources.activities.json", output);
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "activities.json");
+            File.WriteAllText(filename, output);
+            return true;
         }
 
-        internal static void updateActivity(ActivityModel activity)
+        internal static bool updateActivity(ActivityModel activity)
         {
             ActivitiesModel activities = getActivities();
             foreach(ActivityModel activityOriginal in activities.Activities){
@@ -51,20 +73,32 @@ namespace smartCubes.Utils
 
             string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
 
-            File.WriteAllText("smartCubes.Resources.activities.json", output);
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "activities.json");
+            File.WriteAllText(filename, output);
+            return true;
 
-           
         }
 
-        internal static void deleteActivity(ActivityModel activity)
+        internal static bool deleteActivity(ActivityModel activity)
         {
+            ActivityModel activityRemove = null;
             ActivitiesModel activities = getActivities();
-            activities.Activities.Remove(activity);
+            foreach(ActivityModel act in activities.Activities){
+                if(act.Id == activity.Id){
+                    activityRemove = act;
+                }
+            }
+            if (activityRemove == null)
+                return false;
+            activities.Activities.Remove(activityRemove);
 
             string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
 
-            File.WriteAllText("smartCubes.Resources.activities.json", output);
-
+            var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var filename = Path.Combine(documents, "activities.json");
+            File.WriteAllText(filename, output);
+            return true;
         }
     }
 }
