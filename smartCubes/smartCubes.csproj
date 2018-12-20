@@ -19,6 +19,7 @@
     <PackageReference Include="Prism.Forms" Version="7.1.0.431" />
     <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
     <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.3.0.36" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="MyPage.xaml.cs" />
@@ -53,6 +54,7 @@
     <Folder Include="View\Login\" />
     <Folder Include="ViewModels\Login\" />
     <Folder Include="Interface\" />
+    <Folder Include="Enum\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\app.config" />

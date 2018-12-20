@@ -65,7 +65,7 @@ namespace smartCubes.Utils
         {
             ActivitiesModel activities = getActivities();
             foreach(ActivityModel activityOriginal in activities.Activities){
-                if(activityOriginal.Id.Equals(activity)){
+                if(activityOriginal.Id.Equals(activity.Id)){
                     activityOriginal.Name = activity.Name;
                     activityOriginal.Devices = activity.Devices;
                 }

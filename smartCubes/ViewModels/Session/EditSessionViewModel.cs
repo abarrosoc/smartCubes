@@ -10,12 +10,14 @@ namespace smartCubes.ViewModels.Session
 {
     public class EditSessionViewModel : BaseViewModel
     {
+        public INavigation Navigation { get; set; }
         private UserModel user;
         private bool modify;
         private SessionModel session;
 
-        public EditSessionViewModel(UserModel user,bool modify,SessionModel session)
+        public EditSessionViewModel(INavigation navigation, UserModel user,bool modify,SessionModel session)
         {
+            this.Navigation = navigation;
             this.user = user;
             this.modify = modify;
             this.session = session;
@@ -38,10 +40,7 @@ namespace smartCubes.ViewModels.Session
             }else{
                 Title = "Nueva";
                 Name = getNameNewSession();
-
             }
-           
-
         }
 
         private String _Name;
@@ -123,22 +122,25 @@ namespace smartCubes.ViewModels.Session
                 newSession.Name = Name;
                 newSession.Description = Description;
                 newSession.ActivityName = SelectedActivity.Name;
-                if(!modify)
+                if (!modify)
                     newSession.CreateDate = DateTime.Now;
+                else
+                    newSession.CreateDate = session.CreateDate;
                 newSession.ModifyDate = DateTime.Now;
-                newSession.userId = user.ID;
+                newSession.UserID = user.ID;
 
                 App.Database.SaveSession(newSession);
   
-                Name = null;
-                Description = "";
-                SelectedActivity = null;
                 if (modify)
                     await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha modificado correctamente", "Aceptar");
                 else
                     await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha creado correctamente", "Aceptar");
 
-                Name = getNameNewSession();
+                await Navigation.PopAsync();
+
+                Name = null;
+                Description = "";
+                SelectedActivity = null;
 
             }
         }

@@ -1,8 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Menu.MasterView"
-             Title="Master"
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
+             Title="{Binding Title}"
              Icon="menu.png">
   <ContentPage.Content>
        <Frame Padding="0" BorderColor="#3FC49A">
@@ -19,11 +20,16 @@
                 <Label Text = "Menú" TextColor="White" Font="bold,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
               </StackLayout>
              <StackLayout VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0">
-                <ListView x:Name="listView" VerticalOptions="FillAndExpand" 
+                <ListView x:Name="lMenu" 
+                          VerticalOptions="FillAndExpand"
+                          RefreshCommand = "false"
                           SeparatorVisibility="None"
-                          SeparatorColor="Teal"
-                          ItemSelected="OnItemSelectedAsync"                         
-                          RowHeight="70">
+                          SelectedItem="{Binding SelectedItem}"
+                          ItemsSource="{Binding lMenu}"                         
+                          RowHeight="90">
+                <ListView.Behaviors>
+                    <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
+                </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ImageCell Text="{Binding Title}" ImageSource="{Binding IconSource}" />

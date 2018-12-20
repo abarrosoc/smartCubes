@@ -137,7 +137,7 @@ namespace smartCubes.ViewModels.Session
 
         private void NewSessionCommandExecute()
         {
-            Navigation.PushAsync(new NewSessionView(user,false,null));
+            Navigation.PushAsync(new NewSessionView(Navigation, user,false,null));
         }
 
         private ICommand _OnItemTapped;
@@ -149,7 +149,7 @@ namespace smartCubes.ViewModels.Session
 
         private void OnItemTappedExecute()
         {
-            Navigation.PushAsync(new NewSessionView(user, true, SelectItem));
+            Navigation.PushAsync(new NewSessionView(Navigation, user, true, SelectItem));
         }
 
         public ICommand RefreshCommand

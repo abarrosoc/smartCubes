@@ -8,11 +8,11 @@ namespace smartCubes.View.Session
 {
     public partial class NewSessionView : ContentPage
     {
-        public NewSessionView(UserModel user, bool modify, SessionModel session)
+        public NewSessionView(INavigation navigation, UserModel user, bool modify, SessionModel session)
         {
             InitializeComponent();
 
-            BindingContext = new EditSessionViewModel(user,modify,session);
+            BindingContext = new EditSessionViewModel(navigation, user,modify,session);
         }
     }
 }

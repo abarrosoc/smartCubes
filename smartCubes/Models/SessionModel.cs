@@ -1,5 +1,6 @@
 ﻿using System;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
 namespace smartCubes.Models
 {
@@ -13,7 +14,7 @@ namespace smartCubes.Models
         public String ActivityName { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ModifyDate { get; set; }
-        //[ForeignKey(typeof(UserModel))] 
-        public int userId { get; set; }
+        [ForeignKey(typeof(UserModel))] 
+        public int UserID { get; set; }
     }
 }

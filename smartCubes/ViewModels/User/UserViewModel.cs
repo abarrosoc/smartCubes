@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using smartCubes.Enum;
 using smartCubes.Models;
 using smartCubes.View.User;
 using Xamarin.Forms;
@@ -14,9 +15,11 @@ namespace smartCubes.ViewModels.User
     {
         public INavigation Navigation { get; set; }
 
-        public UserViewModel(INavigation navigation)
+        private UserModel userLogin { get; set; }
+        public UserViewModel(INavigation navigation, UserModel userLogin)
         {
             this.Navigation = navigation;
+            this.userLogin = userLogin;
 
             Title = "Usuarios";
             List<UserModel> listUsers = App.Database.GetUsers();
@@ -49,13 +52,25 @@ namespace smartCubes.ViewModels.User
 
         private async void DeleteCommandExecute(UserModel user)
         {
-            var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea elimina el usuario?", "Si","No");
-
-            if(answer){
-                App.Database.DeleteUser(user);
-                await Application.Current.MainPage.DisplayAlert("Info", "El usuario se ha eliminado", "OK");
-                RefreshData();
+            if (user.Role.Equals(Role.Admin) && !userLogin.Role.Equals(Role.Admin)){
+                await Application.Current.MainPage.DisplayAlert("Advertencia", "No tiene permisos para eliminar este usuario", "Aceptar");
             }
+            else if(user.ID == userLogin.ID)
+            {
+                await Application.Current.MainPage.DisplayAlert("Advertencia", "No puede eliminar su propio usuario", "Aceptar");
+            }
+            else
+            {
+                var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea elimina el usuario?", "Si", "No");
+
+                if (answer)
+                {
+                    App.Database.DeleteUser(user);
+                    await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha eliminado", "Aceptar");
+                    RefreshData();
+                } 
+            }
+           
         }
         private UserModel _SelectItem;
 
@@ -93,7 +108,7 @@ namespace smartCubes.ViewModels.User
 
         private void NewUserCommandExecute()
         {
-            Navigation.PushAsync(new NewUserView(false,null));
+                Navigation.PushAsync(new NewUserView(Navigation, userLogin, false, null));
         }
 
         private ICommand _OnItemTapped;
@@ -104,7 +119,15 @@ namespace smartCubes.ViewModels.User
         }
         private void OnItemTappedExecute()
         {
-            Navigation.PushAsync(new NewUserView(true, SelectItem));
+            if (SelectItem.Role.Equals(Role.Admin) && !userLogin.Role.Equals(Role.Admin))
+            {
+                Application.Current.MainPage.DisplayAlert("Atención", "No tiene permisos para modificar este usuario", "Aceptar");
+            }
+            else
+            {
+                Navigation.PushAsync(new NewUserView(Navigation, userLogin, true, SelectItem));
+            }
+
         }
         public ICommand RefreshCommand
         {

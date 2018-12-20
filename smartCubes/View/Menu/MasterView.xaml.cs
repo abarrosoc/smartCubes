@@ -7,43 +7,21 @@ using Xamarin.Forms;
 using smartCubes.View.Session;
 using smartCubes.View.User;
 using smartCubes.Models;
+using smartCubes.Enum;
 
 namespace smartCubes.View.Menu
 {
-    //[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterView : ContentPage
     {
-        private UserModel user;
+  
         public MasterView(UserModel user)
         {
-            this.user = user;
             InitializeComponent();
-            var masterPageItems = new List<MasterPageItem>();
-            masterPageItems.Add(new MasterPageItem
-            {
-                Title = "Sesiones",
-                IconSource = "ble_settings.png",
-                TargetType = typeof(SessionView)
-            });
-            masterPageItems.Add(new MasterPageItem
-            {
-                Title = "Usuarios",
-                IconSource = "users.png",
-                TargetType = typeof(UserView)
-            });
-            masterPageItems.Add(new MasterPageItem
-            {
-                Title = "Actividades",
-                IconSource = "students.png",
-                TargetType = typeof(ActivityView)
-            });
+            BindingContext = new MasterViewModel(Navigation, user);
 
-            listView.ItemsSource = masterPageItems;
-
-            BindingContext = new MasterViewModel();
         }
 
-        private void OnItemSelectedAsync(object sender, SelectedItemChangedEventArgs e)
+        /*private void OnItemSelectedAsync(object sender, SelectedItemChangedEventArgs e)
         {
 
             var item = e.SelectedItem as MasterPageItem;
@@ -62,7 +40,7 @@ namespace smartCubes.View.Menu
 
             }
 
-        }
+        }*/
     }
 
    

@@ -126,15 +126,17 @@ namespace smartCubes.ViewModels.Activity
                     isAdd = Json.updateActivity(newActivity);
                 else
                     isAdd = Json.addActivity(newActivity);
-                
-                lDevices = new ObservableCollection<DeviceModel>();
-                Name = null;
-                Description = null;
+
                 if(isAdd){
                     if(modify)
                         await Application.Current.MainPage.DisplayAlert("Información", "La actividad ha sido modificada correctamente", "Aceptar");
                     else
                         await Application.Current.MainPage.DisplayAlert("Información", "La actividad ha sido guardada correctamente", "Aceptar");
+                    
+                    await Navigation.PopAsync();
+                    lDevices = new ObservableCollection<DeviceModel>();
+                    Name = null;
+                    Description = null;
                 }else{
                     await Application.Current.MainPage.DisplayAlert("Error", "El nombre de la actividad ya existe", "Aceptar");
                 }

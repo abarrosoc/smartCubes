@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.User.NewUserView"
@@ -16,6 +16,12 @@
         <Entry Placeholder="Email" Text="{Binding Email}" Margin="0,0,0,0" Keyboard="Email" />
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
+        <Label TextColor="Black" FontSize = "17" Text="Seleccione" Margin="0,40,0,10"/>
+         <Picker x:Name="pRole" Title="Role" 
+                Margin="0,0,0,20"
+                ItemsSource="{Binding lRoles}" 
+                SelectedItem="{Binding SelectedRole,Mode=TwoWay}">
+        </Picker>
          <Button Text="Guardar"
                 Command="{Binding SaveCommand}"
                 VerticalOptions="EndAndExpand"

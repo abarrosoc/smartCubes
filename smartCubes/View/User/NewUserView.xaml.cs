@@ -8,10 +8,10 @@ namespace smartCubes.View.User
 {
     public partial class NewUserView : ContentPage
     {
-        public NewUserView(bool modify, UserModel user)
+        public NewUserView(INavigation navigation,UserModel userLogin, bool modify, UserModel user)
         {
             InitializeComponent();
-            BindingContext = new EditUserViewModel(modify,user);
+            BindingContext = new EditUserViewModel(navigation,userLogin,modify,user);
         }
     }
 }
