@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -13,11 +14,16 @@ namespace smartCubes.ViewModels.Session
         private int intMilliseconds;
         private int intSeconds;
         private int intMinutes;
-
         private List<DeviceModel> lDevices;
+        private SessionInit sessionInit;
 
         public PlaySessionViewModel(SessionModel session)
         {
+            sessionInit = new SessionInit();
+            sessionInit.SessionId = session.ID;
+                       
+            ConnectDevices.Session = session;
+
             Title = session.Name;
             ActivityName = session.ActivityName;
             StartStop = "Iniciar";
@@ -27,10 +33,9 @@ namespace smartCubes.ViewModels.Session
             StudentCodeEntry = true;
 
             lDevices = new List<DeviceModel>();
-            ActivitiesModel activities = Json.getActivities();
-            ActivityModel activity1 = activities.Activities[0];
-            lDevices.Add(activity1.Devices[0]);
-            lDevices.Add(activity1.Devices[1]);
+
+            ActivityModel activity = Json.getActivityByName(session.ActivityName);
+            lDevices = activity.Devices;
 
             ConnectDevices.Start(lDevices);
 
@@ -168,7 +173,9 @@ namespace smartCubes.ViewModels.Session
                 }
                 else
                 {
-                    if (StartStop.Equals("Iniciar"))
+                    sessionInit.StudentCode = StudentCode;
+                    ConnectDevices.StudentCode = StudentCode;
+                    if (StartStop.Equals("Iniciar") || StartStop.Equals("Reanudar"))
                     {
                         StudentCodeEntry = false;
                         StartStop = "Detener";
@@ -181,7 +188,7 @@ namespace smartCubes.ViewModels.Session
                     ConnectDevices.WriteDevices("1");
                     Device.StartTimer(TimeSpan.FromMilliseconds(10), () =>
                     {
-                        if (StartStop.Equals("Iniciar")){
+                        if (StartStop.Equals("Iniciar") || StartStop.Equals("Reanudar")){
                             ConnectDevices.WriteDevices("0");
                             return false;
                         }
@@ -222,11 +229,15 @@ namespace smartCubes.ViewModels.Session
 
                     if (StartStop.Equals("Iniciar"))
                     {
+                        StartStop = "Reanudar";
                         var action = await Application.Current.MainPage.DisplayActionSheet("¿Que desea hacer?", "Cancelar", "Finalizar", "Pausar");
-                        ConnectDevices.WriteDevices("0");
+
                         if (action.Equals("Finalizar"))
                         {
-                            Debug.WriteLine("Guardar datos");
+                            StartStop = "Iniciar";
+
+                            sessionInit.Time = Minutes + ":" + Seconds + ":" + Milliseconds;
+                            ConnectDevices.saveData(sessionInit);
                             Seconds = "00";
                             Milliseconds = "00";
                             Minutes = "00";
@@ -234,8 +245,8 @@ namespace smartCubes.ViewModels.Session
                             intMinutes = 0;
                             intSeconds = 0;
                             StudentCodeEntry = true;
+                            StudentCode = null;
                         }
-                        //OPCION REANUDAR???
                     }
                 }
             }

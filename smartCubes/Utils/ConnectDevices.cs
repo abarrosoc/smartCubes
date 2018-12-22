@@ -19,6 +19,11 @@ namespace smartCubes.Utils
         private static IAdapter adapter;
         private static IBluetoothLE ble;
         private static List<DeviceModel> lDevices;
+        private static List<DeviceData> lDeviceData;
+
+        public static SessionModel Session { get; set; }
+        public static String StudentCode { get; set; }
+
 
         public ConnectDevices()
         {
@@ -27,6 +32,7 @@ namespace smartCubes.Utils
 
         public static async Task Start(List<DeviceModel> lDev)
         {
+            lDeviceData = new List<DeviceData>();
             lDevices = new List<DeviceModel>();
             lDevices = lDev;
             ble = CrossBluetoothLE.Current;
@@ -36,7 +42,7 @@ namespace smartCubes.Utils
             {
                 ble.StateChanged += async (s, e) =>
                 {
-                    Debug.WriteLine($"The bluetooth state changed to {e.NewState}");
+                    Debug.WriteLine("BLE state changed to {e.NewState}");
                     await SearchDevice(lDevices);
                 };
             }
@@ -57,12 +63,12 @@ namespace smartCubes.Utils
                 {
                     adapter.DeviceDiscovered += (s, a) =>
                     {
-                        //Debug.WriteLine("Dispositivo encontrado: " + a.Device.Name + " ID: " + a.Device.Id);
+                        Debug.WriteLine("Dispositivo encontrado: " + a.Device.Name + " ID: " + a.Device.Id);
                         foreach (DeviceModel device in lDevices)
                         {
                             if (device.Uuid.Equals(a.Device.Id.ToString()))
                             {
-                                Debug.WriteLine("Add new device: " + a.Device.Name + " ID: " + a.Device.Id);
+                                Debug.WriteLine("Nuevo dispositivo: " + a.Device.Name + " ID: " + a.Device.Id);
                                 connectDevice(a.Device);
                             }
                         }
@@ -114,8 +120,14 @@ namespace smartCubes.Utils
                     {
                         byte[] valueBytes = a.Characteristic.Value;
                         //await characteristics[0].ReadAsync(); //lee constantemente
-                        String valueString = string.Concat(valueBytes.Select(b => b.ToString("X2")));
-                        Debug.WriteLine(valueString, "Leyendo datos de " + deviceConnected.Name + ": ");
+                        String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
+
+                        DeviceData deviceData = new DeviceData();
+                        deviceData.DeviceName = deviceConnected.Name;
+                        deviceData.Data = data;
+                        lDeviceData.Add(deviceData);
+
+                        Debug.WriteLine(data, "Leyendo datos de " + deviceConnected.Name + ": ");
                     };
                     await characteristics[0].StartUpdatesAsync();
 
@@ -139,10 +151,8 @@ namespace smartCubes.Utils
 
             if (lDevices != null)
             {
-
                 foreach (IDevice device in adapter.ConnectedDevices)
                 {
-
                     var services = await device.GetServicesAsync();
                     var characteristics = await services[0].GetCharacteristicsAsync();
 
@@ -151,7 +161,7 @@ namespace smartCubes.Utils
                     await characteristics[0].WriteAsync(one);
                 }
             }else{
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar el código de alumno", "OK");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar el código de alumno", "Aceptar");
             }
         }
 
@@ -161,7 +171,21 @@ namespace smartCubes.Utils
                 return true;
             else
                 return false;
+        }
 
+        public static void saveData(SessionInit sessionInit){
+            Debug.WriteLine("Guardando datos.....");
+            App.Database.SaveSessionInit(sessionInit);
+
+            foreach (DeviceData deviceData in lDeviceData)
+            {
+                SessionData sessionData = new SessionData();
+                sessionData.SessionInitId = sessionInit.ID;
+                sessionData.StudentCode = StudentCode;
+                sessionData.DeviceName = deviceData.DeviceName;
+                sessionData.Data = deviceData.Data;
+                App.Database.SaveSessionData(sessionData);
+            }
         }
     }
 }

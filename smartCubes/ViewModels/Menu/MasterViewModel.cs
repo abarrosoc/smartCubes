@@ -92,7 +92,6 @@ namespace smartCubes.ViewModels.Menu
             {
                 SessionView session = new SessionView(userLogin);
                 App.MasterDetail.Detail.Navigation.PushAsync(session);
-                SelectedItem = null;
                 App.MasterDetail.IsPresented = false;
             }
             else if (SelectedItem.TargetType == typeof(UserView))

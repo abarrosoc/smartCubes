@@ -11,7 +11,7 @@ namespace smartCubes.ViewModels.Menu
     {
         public INavigation Navigation { get; set; }
 
-        public HomeViewModel(INavigation navigation)
+        public HomeViewModel(INavigation navigation, UserModel user)
         {
             this.Navigation = navigation;
 
@@ -19,7 +19,7 @@ namespace smartCubes.ViewModels.Menu
                 
             lSessions = new ObservableCollection<SessionModel>();
 
-            List<SessionModel> listSessions = App.Database.GetSessions();
+            List<SessionModel> listSessions = App.Database.GetSessionsByUser(user);
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);
@@ -75,6 +75,14 @@ namespace smartCubes.ViewModels.Menu
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
         }
 
+        private void OnItemTappedExecute()
+        {
+            SessionModel item = SelectItem;
+            SelectItem = null;
+            RefreshData();
+            Navigation.PushAsync(new PlaySessionView(item));
+        }
+
         public ICommand RefreshCommand
         {
             get
@@ -89,15 +97,6 @@ namespace smartCubes.ViewModels.Menu
                 });
             }
         }
-
-        private void OnItemTappedExecute()
-        {
-            SessionModel item = SelectItem;
-            SelectItem = null;
-            RefreshData();
-            Navigation.PushAsync(new PlaySessionView(item));
-        }
-
         private void RefreshData()
         {
             lSessions = new ObservableCollection<SessionModel>();

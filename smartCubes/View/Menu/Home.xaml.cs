@@ -14,12 +14,11 @@ namespace smartCubes.View.Menu
     public partial class Home : ContentPage
     {
 
-        public Home()
+        public Home(UserModel user)
         {
             InitializeComponent();
            
-            BindingContext = new HomeViewModel(Navigation);
-            Debug.WriteLine(Crypt.Encrypt("Prueba","uah2019"));
+            BindingContext = new HomeViewModel(Navigation,user);
         }
     }
 }

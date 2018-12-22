@@ -13,6 +13,8 @@ namespace smartCubes.Data
             database = new SQLiteConnection(dbPath);
             database.CreateTable<UserModel>();
             database.CreateTable<SessionModel>();
+            database.CreateTable<SessionData>();
+            database.CreateTable<SessionInit>();
         }
 
         public SessionModel GetSession(int id)
@@ -41,10 +43,17 @@ namespace smartCubes.Data
             return database.Query<SessionModel>("SELECT * FROM [SessionModel] ");
         }
 
+        public List<SessionModel> GetSessionsByUser(UserModel user)
+        {
+            return database.Table<SessionModel>().Where(i => i.UserID == user.ID).ToList();
+        }
+
         public int DeleteSession(SessionModel item)
         {
             return database.Delete(item);
         }
+
+
 
         public List<UserModel> GetUsers()
         {
@@ -80,5 +89,68 @@ namespace smartCubes.Data
         {
             return database.Delete(item);
         }
+
+
+
+
+
+        public int DeleteSessionData(SessionData item)
+        {
+            return database.Delete(item);
+        }
+
+        public List<SessionData> GetSessionDataNotDone()
+        {
+            return database.Query<SessionData>("SELECT * FROM [SessionData] ");
+        }
+
+        public List<SessionData> GetSessionData()
+        {
+            return database.Table<SessionData>().ToList();
+        }
+
+
+        public int SaveSessionData(SessionData item)
+        {
+            if (item.ID != 0)
+            {
+                return database.Update(item);
+            }
+            else
+            {
+                return database.Insert(item);
+            }
+        }
+
+
+
+        public int DeleteSessionInit(SessionInit item)
+        {
+            return database.Delete(item);
+        }
+
+        public List<SessionInit> GetSessionInitNotDone()
+        {
+            return database.Query<SessionInit>("SELECT * FROM [SessionInit] ");
+        }
+
+        public List<SessionInit> GetSessionInit()
+        {
+            return database.Table<SessionInit>().ToList();
+        }
+        public int SaveSessionInit(SessionInit item)
+        {
+            if (item.ID != 0)
+            {
+                return database.Update(item);
+            }
+            else
+            {
+                return database.Insert(item);
+            }
+        }
+
+
+
     }
 }
