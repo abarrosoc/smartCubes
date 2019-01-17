@@ -13,6 +13,6 @@ namespace smartCubes.Models
         public int SessionId { get; set; }
         public String StudentCode { get; set; }
         public String Time { get; set; }
-        public int sequence { get; set; }
+        public DateTime Date { get; set; }
     }
 }

@@ -126,6 +126,7 @@ namespace smartCubes.ViewModels.User
             else
             {
                 Navigation.PushAsync(new NewUserView(Navigation, userLogin, true, SelectItem));
+                SelectItem = null;
             }
 
         }
@@ -144,7 +145,7 @@ namespace smartCubes.ViewModels.User
             }
         }
 
-        private void RefreshData()
+        public void RefreshData()
         {
             lUsers = new ObservableCollection<UserModel>();
             List<UserModel> listUsers = App.Database.GetUsers();

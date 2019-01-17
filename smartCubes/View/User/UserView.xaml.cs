@@ -10,10 +10,21 @@ namespace smartCubes.View.User
 {
     public partial class UserView : ContentPage
     {
+        private UserModel user;
+
         public UserView(UserModel user)
         {
+            this.user = user;
             InitializeComponent();
             BindingContext = new UserViewModel(Navigation, user);
+        }
+
+        protected override void OnAppearing()
+        {
+            var vm = BindingContext as UserViewModel;
+            vm?.RefreshData();
+            base.OnAppearing();
+
         }
     }
 }

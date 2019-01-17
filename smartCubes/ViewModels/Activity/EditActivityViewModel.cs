@@ -26,6 +26,7 @@ namespace smartCubes.ViewModels.Activity
             if(modify){
                 Title = "Modificar";
                 Name = activity.Name;
+                Description = activity.Description;
                 lDevices = new ObservableCollection<DeviceModel>();
                 foreach(DeviceModel device in activity.Devices){
                     lDevices.Add(device);
@@ -116,6 +117,7 @@ namespace smartCubes.ViewModels.Activity
                 if (modify)
                     newActivity.Id = activity.Id;
                 newActivity.Name = Name;
+                newActivity.Description = Description;
                 List<DeviceModel> devices = new List<DeviceModel>();
                 foreach (DeviceModel device in lDevices)
                     devices.Add(device);

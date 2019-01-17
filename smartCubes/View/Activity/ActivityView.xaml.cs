@@ -10,7 +10,11 @@ namespace smartCubes.View.Activity
         public ActivityView()
         {
             InitializeComponent();
+        }
+        protected override void OnAppearing()
+        {
             BindingContext = new ActivityViewModel(Navigation);
+
         }
     }
 }

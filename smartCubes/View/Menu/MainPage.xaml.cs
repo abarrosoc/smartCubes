@@ -14,7 +14,8 @@ namespace smartCubes.View.Menu
             Detail = new NavigationPage(new Home(user))
             { 
                 BarBackgroundColor = Color.FromHex("#3FC49A"),
-                BarTextColor = Color.White 
+                BarTextColor = Color.White,
+                HeightRequest = 150
             };
 
             App.MasterDetail = this;

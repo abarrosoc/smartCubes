@@ -24,7 +24,7 @@
                           VerticalOptions="FillAndExpand"
                           RefreshCommand = "false"
                           SeparatorVisibility="None"
-                          SelectedItem="{Binding SelectedItem}"
+                          SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
                           ItemsSource="{Binding lMenu}"                         
                           RowHeight="90">
                 <ListView.Behaviors>

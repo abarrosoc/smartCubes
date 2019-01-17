@@ -10,6 +10,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
@@ -23,7 +24,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>smartCubes</string>
+	<string>Aplicacion</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.livecode.testprofile.product</string>
 	<key>CFBundleVersion</key>
@@ -33,6 +34,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleName</key>
-	<string>Smart</string>
+	<string>Smart Cubes</string>
 </dict>
 </plist>

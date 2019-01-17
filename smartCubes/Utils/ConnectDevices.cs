@@ -181,7 +181,6 @@ namespace smartCubes.Utils
             {
                 SessionData sessionData = new SessionData();
                 sessionData.SessionInitId = sessionInit.ID;
-                sessionData.StudentCode = StudentCode;
                 sessionData.DeviceName = deviceData.DeviceName;
                 sessionData.Data = deviceData.Data;
                 App.Database.SaveSessionData(sessionData);

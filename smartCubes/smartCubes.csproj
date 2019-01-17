@@ -26,9 +26,10 @@
     <Compile Remove="MasterPageItem.xaml.cs" />
     <Compile Remove="Master.cs" />
     <Compile Remove="MainPage.xaml.cs" />
+    <Compile Remove="Activities.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="activities.json" />
+    <EmbeddedResource Include="activitiesApp.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="View\Menu\MainPage.xaml">
@@ -55,10 +56,12 @@
     <Folder Include="ViewModels\Login\" />
     <Folder Include="Interface\" />
     <Folder Include="Enum\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\app.config" />
     <None Remove="act.json" />
     <None Remove="activities.json" />
+    <None Remove="activitiesApp.json" />
   </ItemGroup>
 </Project>

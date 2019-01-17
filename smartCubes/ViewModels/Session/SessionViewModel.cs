@@ -83,17 +83,43 @@ namespace smartCubes.ViewModels.Session
         { 
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
+                List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
                 //Set the default application version as Excel 2013.
                 excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
                 //Create a workbook with a worksheet
-                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(lSessionInit.Count);
 
                 //Access first worksheet from the workbook instance.
-                IWorksheet worksheet = workbook.Worksheets[0];
+              
+                int cont = 0;
+                foreach(SessionInit sessionInit in lSessionInit){
+                    IWorksheet worksheet = workbook.Worksheets[cont];
 
-                //Adding text to a cell
-                worksheet.Range["A1"].Text = "Hello World";
+                    //Adding text to a cell
+                    worksheet[1, 1].Value = "Sesión";
+                    worksheet[1, 2].Value = "Actividad";
+                    worksheet[1, 3].Value = "Profesional";
+                    worksheet[1, 4].Value = "Alumno";
+
+                    UserModel user = App.Database.GetUser(App.Database.GetSession(sessionInit.SessionId).UserID);
+                    worksheet[2, 1].Value = session.Name;
+                    worksheet[2, 2].Value = session.ActivityName;
+                    worksheet[2, 3].Value = user.UserName;
+                    worksheet[2, 4].Value = sessionInit.StudentCode;
+
+                    worksheet.Name = sessionInit.StudentCode;
+
+                    List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
+
+                    int i = 4;
+                    foreach (SessionData sd in sessionsData)
+                    {
+                        worksheet[i, 1].Value = sd.Data;
+                        i++;
+                    }
+                    cont++;
+                }
 
                 //Save the workbook to stream in xlsx format. 
                 MemoryStream stream = new MemoryStream();
@@ -150,6 +176,7 @@ namespace smartCubes.ViewModels.Session
         private void OnItemTappedExecute()
         {
             Navigation.PushAsync(new NewSessionView(Navigation, user, true, SelectItem));
+            SelectItem = null;
         }
 
         public ICommand RefreshCommand
@@ -167,7 +194,7 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private void  RefreshData()
+        public void  RefreshData()
         {
             lSessions = new ObservableCollection<SessionModel>();
             List<SessionModel> listSessions = App.Database.GetSessions();

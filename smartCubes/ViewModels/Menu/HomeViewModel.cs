@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
+using Prism.Navigation;
 using smartCubes.Models;
+using smartCubes.Utils;
 using smartCubes.View.Session;
 using Xamarin.Forms;
 
@@ -11,19 +14,16 @@ namespace smartCubes.ViewModels.Menu
     {
         public INavigation Navigation { get; set; }
 
+        private UserModel user;
+
         public HomeViewModel(INavigation navigation, UserModel user)
         {
             this.Navigation = navigation;
-
+            this.user = user;
+            isVisibleLabel = false;
+            isVisibleList = false;
             Title = "Inicio";
-                
-            lSessions = new ObservableCollection<SessionModel>();
-
-            List<SessionModel> listSessions = App.Database.GetSessionsByUser(user);
-
-            foreach (SessionModel session in listSessions)
-                lSessions.Add(session);
-
+            RefreshData();
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -68,6 +68,30 @@ namespace smartCubes.ViewModels.Menu
             }
         } 
 
+        private bool _isVisibleList = false;
+
+        public bool isVisibleList
+        {
+            get { return _isVisibleList; }
+            set
+            {
+                _isVisibleList = value;
+                RaisePropertyChanged();
+            }
+        } 
+
+        private bool _isVisibleLabel = false;
+
+        public bool isVisibleLabel
+        {
+            get { return _isVisibleLabel; }
+            set
+            {
+                _isVisibleLabel = value;
+                RaisePropertyChanged();
+            }
+        } 
+
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped
@@ -97,14 +121,21 @@ namespace smartCubes.ViewModels.Menu
                 });
             }
         }
-        private void RefreshData()
+
+        public void RefreshData()
         {
             lSessions = new ObservableCollection<SessionModel>();
-            List<SessionModel> listSessions = App.Database.GetSessions();
+            List<SessionModel> listSessions = App.Database.GetSessionsByUser(user);
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);
+
+            if (lSessions.Count > 0)
+                isVisibleList = true;
+            else
+                isVisibleLabel = true;
         }
     }
+       
 }
 

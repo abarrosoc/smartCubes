@@ -12,7 +12,6 @@ namespace smartCubes.Models
         public int ID { get; set; }
         [ForeignKey(typeof(SessionInit))] 
         public int SessionInitId { get; set; }
-        public String StudentCode { get; set; }
         public String DeviceName { get; set; }
         public String Data { get; set; }
     }

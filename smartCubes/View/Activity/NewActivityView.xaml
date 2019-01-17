@@ -13,8 +13,8 @@
 
             <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="0,0,30,10"/>
             <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,0,30,0" Keyboard="Text"/>
-            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
-        </StackLayout>
+            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,30"/>
+        
 
         <Button Text="+     Añadir dispositivos"
                 VerticalOptions="StartAndExpand"
@@ -27,11 +27,14 @@
         
         <ListView x:Name="lDevices"
               IsPullToRefreshEnabled="false"
-              RowHeight="60"
+              RowHeight="75"
               SeparatorVisibility="Default"
+              SelectionMode="None"
               SeparatorColor="#E6E6E6"
               ItemsSource="{Binding lDevices}" 
-              BackgroundColor="#E6E6E6">
+              BackgroundColor="#E6E6E6"
+              VerticalOptions="StartAndExpand"
+              HeightRequest="500">
             <ListView.ItemTemplate>
               <DataTemplate>
                 <ViewCell>
@@ -40,14 +43,16 @@
                                       CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
                     <StackLayout BackgroundColor="White" Orientation="Vertical">
-                       <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
+                       <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,0">
                            <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                        </StackLayout>
+                       <Label Text="{Binding Path=Uuid, StringFormat='uuid: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="20,0,0,0"/>
                     </StackLayout>
                 </ViewCell>
               </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+            </StackLayout>
         <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"

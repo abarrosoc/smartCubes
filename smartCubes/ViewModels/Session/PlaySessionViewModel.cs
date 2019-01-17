@@ -11,6 +11,7 @@ namespace smartCubes.ViewModels.Session
 {
     public class PlaySessionViewModel : BaseViewModel
     {
+        private SessionModel session;
         private int intMilliseconds;
         private int intSeconds;
         private int intMinutes;
@@ -19,8 +20,10 @@ namespace smartCubes.ViewModels.Session
 
         public PlaySessionViewModel(SessionModel session)
         {
+            this.session = session;
             sessionInit = new SessionInit();
             sessionInit.SessionId = session.ID;
+            sessionInit.Date = DateTime.Now;
                        
             ConnectDevices.Session = session;
 
@@ -173,7 +176,12 @@ namespace smartCubes.ViewModels.Session
                 }
                 else
                 {
+                    sessionInit = new SessionInit();
+                    sessionInit.SessionId = session.ID;
                     sessionInit.StudentCode = StudentCode;
+                    sessionInit.Date = DateTime.Now;
+
+
                     ConnectDevices.StudentCode = StudentCode;
                     if (StartStop.Equals("Iniciar") || StartStop.Equals("Reanudar"))
                     {

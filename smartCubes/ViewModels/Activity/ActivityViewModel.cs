@@ -112,6 +112,7 @@ namespace smartCubes.ViewModels.Activity
         private void OnItemTappedExecute()
         {
             Navigation.PushAsync(new NewActivityView(true, SelectItem));
+            SelectItem = null;
         }
 
         public ICommand RefreshCommand

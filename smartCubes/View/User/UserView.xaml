@@ -13,7 +13,7 @@
               RefreshCommand="{Binding RefreshCommand}"
               IsRefreshing="{Binding IsRefreshing}"
               RowHeight="60"
-              SelectedItem="{Binding SelectItem}"
+              SelectedItem="{Binding SelectItem,Mode=TwoWay}"
               SeparatorVisibility="Default"
               SeparatorColor="#E6E6E6"
               ItemsSource="{Binding lUsers}" 

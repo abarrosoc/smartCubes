@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -21,12 +22,12 @@ namespace smartCubes.ViewModels.Session
             this.user = user;
             this.modify = modify;
             this.session = session;
-
+ 
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
             foreach (ActivityModel activity in activities.Activities)
                 lActivities.Add(activity);
-            
+
             if(modify){
                 Title = "Modificar";
                 Name = session.Name;
@@ -37,8 +38,13 @@ namespace smartCubes.ViewModels.Session
                         SelectedActivity = activity;
                     }
                 }
+                lSessionsInit = new ObservableCollection<SessionInit>();
+                IsVisible = true;
+                RefreshData();
+
             }else{
                 Title = "Nueva";
+                IsVisible = false;
                 Name = getNameNewSession();
             }
         }
@@ -72,6 +78,7 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged();
             }
         }
+
         private ActivityModel _SelectedActivity;
 
         public ActivityModel SelectedActivity
@@ -86,7 +93,6 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged();
             }
         }
-
         private ObservableCollection<ActivityModel> _lActivities;
 
         public ObservableCollection<ActivityModel> lActivities
@@ -98,6 +104,43 @@ namespace smartCubes.ViewModels.Session
             set
             {
                 _lActivities = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableCollection<SessionInit> _lSessionsInit;
+
+        public ObservableCollection<SessionInit> lSessionsInit
+        {
+            get
+            {
+                return _lSessionsInit;
+            }
+            set
+            {
+                _lSessionsInit = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _isRefreshing = false;
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(nameof(IsRefreshing));
+            }
+        }
+        private bool _IsVisible = false;
+
+        public bool IsVisible
+        {
+            get { return _IsVisible; }
+            set
+            {
+                _IsVisible = value;
                 RaisePropertyChanged();
             }
         }
@@ -144,7 +187,48 @@ namespace smartCubes.ViewModels.Session
 
             }
         }
+        private ICommand _DeleteCommand;
 
+        public ICommand DeleteCommand
+        {
+            get { return _DeleteCommand ?? (_DeleteCommand = new Command<SessionInit>((session) => DeleteCommandExecute(session))); }
+        }
+
+        private async void DeleteCommandExecute(SessionInit session)
+        {
+
+            var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea eliminar el elemento?", "Si", "No");
+
+            if (answer)
+            {
+                App.Database.DeleteSessionInit(session);
+                await Application.Current.MainPage.DisplayAlert("Información", "Eliminado correctamente", "Aceptar");
+                RefreshData();
+            }
+        }
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    IsRefreshing = true;
+
+                    RefreshData();
+
+                    IsRefreshing = false;
+                });
+            }
+        }
+
+        private void RefreshData()
+        {
+            lSessionsInit = new ObservableCollection<SessionInit>();
+            List<SessionInit> sessionsInit = App.Database.GetSessionInit(session.ID);
+
+            foreach (SessionInit session in sessionsInit)
+                lSessionsInit.Add(session);
+        }
         private String getNameNewSession(){
 
             List<SessionModel> listSessions = App.Database.GetSessions();

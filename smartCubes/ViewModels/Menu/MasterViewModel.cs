@@ -91,12 +91,14 @@ namespace smartCubes.ViewModels.Menu
             if (SelectedItem.TargetType == typeof(SessionView))
             {
                 SessionView session = new SessionView(userLogin);
+                SelectedItem = null;
                 App.MasterDetail.Detail.Navigation.PushAsync(session);
                 App.MasterDetail.IsPresented = false;
             }
             else if (SelectedItem.TargetType == typeof(UserView))
             {
                 UserView users = new UserView(userLogin);
+                SelectedItem = null;
                 App.MasterDetail.Detail.Navigation.PushAsync(users);
                 App.MasterDetail.IsPresented = false;
             }

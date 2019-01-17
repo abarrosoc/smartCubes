@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using smartCubes.Models;
+using smartCubes.Utils;
 using SQLite;
 
 namespace smartCubes.Data
@@ -16,7 +17,24 @@ namespace smartCubes.Data
             database.CreateTable<SessionData>();
             database.CreateTable<SessionInit>();
         }
+        public void ResetDataBase(){
+            database.DropTable<UserModel>();
+            database.DropTable<SessionModel>();
+            database.DropTable<SessionData>();
+            database.DropTable<SessionInit>();
 
+            database.CreateTable<UserModel>();
+            database.CreateTable<SessionModel>();
+            database.CreateTable<SessionData>();
+            database.CreateTable<SessionInit>();
+
+            UserModel user = new UserModel();
+            user.UserName = "Admin";
+            user.Password = Crypt.Encrypt("Admin", "uah2019");
+            user.Role = "Administrador";
+            user.Email = "admin@uah.es";
+            SaveUser(user);
+        }
         public SessionModel GetSession(int id)
         {
             return database.Table<SessionModel>().Where(i => i.ID == id).FirstOrDefault();
@@ -50,6 +68,15 @@ namespace smartCubes.Data
 
         public int DeleteSession(SessionModel item)
         {
+            List<SessionInit> lSessionInit = GetSessionInit(item.ID);
+
+            List<SessionData> lSessionData = new List<SessionData>();
+
+            foreach (SessionInit sessionInit in lSessionInit)
+                lSessionData.AddRange(GetSessionData(sessionInit.ID));
+
+            DeleteSessionDataById(lSessionData);
+            DeleteSessionInitById(lSessionInit);
             return database.Delete(item);
         }
 
@@ -98,13 +125,20 @@ namespace smartCubes.Data
         {
             return database.Delete(item);
         }
-
+        public void DeleteSessionDataById(List<SessionData> items)
+        {
+            foreach (SessionData sessionData in items)
+                database.Query<SessionData>("DELETE FROM[SessionInit] WHERE ID = " + sessionData.ID);
+        }
         public List<SessionData> GetSessionDataNotDone()
         {
             return database.Query<SessionData>("SELECT * FROM [SessionData] ");
         }
-
-        public List<SessionData> GetSessionData()
+        public List<SessionData> GetSessionData(int idSessionInit)
+        {
+            return database.Table<SessionData>().Where(i => i.SessionInitId == idSessionInit).ToList();
+        }
+        public List<SessionData> GetSessionsData()
         {
             return database.Table<SessionData>().ToList();
         }
@@ -126,15 +160,24 @@ namespace smartCubes.Data
 
         public int DeleteSessionInit(SessionInit item)
         {
+            DeleteSessionDataById(GetSessionData(item.ID));
             return database.Delete(item);
         }
+        public void DeleteSessionInitById(List<SessionInit> items)
+        {
+            foreach (SessionInit sessionInit in items)
+                database.Query<SessionInit>("DELETE FROM[SessionInit] WHERE ID = " + sessionInit.ID);
 
+        }
         public List<SessionInit> GetSessionInitNotDone()
         {
             return database.Query<SessionInit>("SELECT * FROM [SessionInit] ");
         }
-
-        public List<SessionInit> GetSessionInit()
+        public List<SessionInit> GetSessionInit(int idSession)
+        {
+            return database.Table<SessionInit>().Where(i => i.SessionId == idSession).ToList();
+        }
+        public List<SessionInit> GetSessionsInit()
         {
             return database.Table<SessionInit>().ToList();
         }

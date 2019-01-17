@@ -41,10 +41,11 @@ namespace smartCubes
         {
             get
             {
+                //database.ResetDataBase();
                 if (database == null)
                 {
                     database = new Database(
-                      Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TodoSQLite.db3"));
+                      Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataBaseSQLite.db3"));
                 }
                 return database;
             }

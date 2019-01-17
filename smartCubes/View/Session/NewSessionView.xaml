@@ -19,7 +19,36 @@
                 ItemDisplayBinding="{Binding Name}" 
                 SelectedItem="{Binding SelectedActivity,Mode=TwoWay}">
         </Picker>
-
+        <Label TextColor="Black" FontSize = "17" Text="Participaciones en la sesión" Margin="0,40,0,10" IsVisible="{Binding IsVisible}"/>
+        <ListView x:Name="lSessionsInit"
+              IsPullToRefreshEnabled="true"
+              RefreshCommand="{Binding RefreshCommand}"
+              IsRefreshing="{Binding IsRefreshing}"
+              RowHeight="95"
+              SeparatorVisibility="Default"
+              SelectionMode="None"
+              SeparatorColor="#E6E6E6"
+              ItemsSource="{Binding lSessionsInit}" 
+              BackgroundColor="#E6E6E6"
+              IsVisible="{Binding IsVisible}">
+        <ListView.ItemTemplate> 
+          <DataTemplate>
+            <ViewCell>
+                <ViewCell.ContextActions>
+                        <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lSessionsInit}} " 
+                                  CommandParameter="{Binding .}" />
+                </ViewCell.ContextActions>
+                 <StackLayout BackgroundColor="White" Orientation="Vertical">
+                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="10,10,0,0">
+                        <Label Text="{Binding StudentCode}" TextColor="Black" FontSize="Medium" HorizontalOptions="StartAndExpand"/>
+                    </StackLayout>
+                        <Label Text="{Binding Path=Time, StringFormat='Duración: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="20,0,0,0"/>
+                        <Label Text="{Binding Path=Date, StringFormat='Fecha: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="20,5,0,0"/>
+                </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
         <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
