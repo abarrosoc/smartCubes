@@ -57,6 +57,8 @@
     <Folder Include="Interface\" />
     <Folder Include="Enum\" />
     <Folder Include="Constants\" />
+    <Folder Include="View\Configuration\" />
+    <Folder Include="ViewModels\Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\app.config" />

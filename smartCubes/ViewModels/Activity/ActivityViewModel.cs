@@ -18,11 +18,8 @@ namespace smartCubes.ViewModels.Activity
             Title = "Actividades";
             this.Navigation = navigation;
 
-            ActivitiesModel activities = Json.getActivities();
-            lActivities = new ObservableCollection<ActivityModel>();
-
-            foreach (ActivityModel activity in activities.Activities)
-                lActivities.Add(activity);
+            RefreshData();
+            
         }
 
         private ObservableCollection<ActivityModel> _lActivities;
@@ -65,7 +62,29 @@ namespace smartCubes.ViewModels.Activity
                 RaisePropertyChanged(nameof(IsRefreshing));
             }
         } 
+        private bool _isVisibleList = false;
 
+        public bool isVisibleList
+        {
+            get { return _isVisibleList; }
+            set
+            {
+                _isVisibleList = value;
+                RaisePropertyChanged();
+            }
+        } 
+
+        private bool _isVisibleLabel = false;
+
+        public bool isVisibleLabel
+        {
+            get { return _isVisibleLabel; }
+            set
+            {
+                _isVisibleLabel = value;
+                RaisePropertyChanged();
+            }
+        } 
         private ICommand _deleteCommand;
 
         public ICommand DeleteCommand
@@ -131,13 +150,24 @@ namespace smartCubes.ViewModels.Activity
         }
 
  
-        private void RefreshData()
+        public void RefreshData()
         {
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
 
             foreach (ActivityModel activity in activities.Activities)
                 lActivities.Add(activity);
+
+            if (lActivities.Count > 0)
+            {
+                isVisibleList = true;
+                isVisibleLabel = false;
+            }
+            else
+            {
+                isVisibleLabel = true;
+                isVisibleList = false;
+            }
         }
     }
 }

@@ -6,8 +6,6 @@
              xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <!--<ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Clicked="OnclickNewActivity" />-->
-        <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
     </ContentPage.ToolbarItems>
     <!--<ScrollView>
             <Grid Margin="20,20,20,20">
@@ -85,7 +83,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame BorderColor="#3FC49A" BackgroundColor="#3FC49A" HasShadow="false" CornerRadius="3" Margin="0,15" OutlineColor="White">
+                        <Frame BorderColor="#657786" BackgroundColor="#1da1f2" HasShadow="false" CornerRadius="3" Margin="0,15" OutlineColor="White">
                             <StackLayout Orientation="Vertical">
                                 <Label Font="Bold,20" XAlign="Center" TextColor="White" Text="{Binding Name}" />
                                 <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />

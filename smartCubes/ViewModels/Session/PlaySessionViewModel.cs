@@ -152,6 +152,10 @@ namespace smartCubes.ViewModels.Session
             get { return _timerCommand ?? (_timerCommand = new Command(() => SaveCommandExecute())); }
         }
 
+        public async void disconnectAll(){
+            ConnectDevices.disconnectAll();
+        }
+
         private async void SaveCommandExecute()
         {
             if (!ConnectDevices.isAllConnectedDevices(lDevices))

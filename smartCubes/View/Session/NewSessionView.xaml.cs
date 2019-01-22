@@ -8,6 +8,9 @@ namespace smartCubes.View.Session
 {
     public partial class NewSessionView : ContentPage
     {
+        public NewSessionView(){
+            
+        }
         public NewSessionView(INavigation navigation, UserModel user, bool modify, SessionModel session)
         {
             InitializeComponent();

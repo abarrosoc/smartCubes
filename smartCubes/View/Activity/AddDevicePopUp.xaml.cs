@@ -10,6 +10,9 @@ namespace smartCubes.View.Activity
 {
     public partial class AddDevicePopUp : PopupPage
     {
+        public AddDevicePopUp(){
+            
+        }
         public AddDevicePopUp(EditActivityViewModel newActivityViewModel)
         {
             InitializeComponent();

@@ -6,8 +6,10 @@ using System.Windows.Input;
 using smartCubes.Enum;
 using smartCubes.Models;
 using smartCubes.View.Activity;
+using smartCubes.View.Login;
 using smartCubes.View.Session;
 using smartCubes.View.User;
+using smartCubes.View.Configuration;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Menu
@@ -29,7 +31,7 @@ namespace smartCubes.ViewModels.Menu
             lMenu.Add(new MasterPageItem
             {
                 Title = "Sesiones",
-                IconSource = "ble_settings.png",
+                IconSource = "play.png",
                 TargetType = typeof(SessionView)
             });
             lMenu.Add(new MasterPageItem
@@ -46,7 +48,20 @@ namespace smartCubes.ViewModels.Menu
                     IconSource = "students.png",
                     TargetType = typeof(ActivityView)
                 });
+
+                lMenu.Add(new MasterPageItem
+                {
+                    Title = "Configuración",
+                    IconSource = "students.png",
+                    TargetType = typeof(ConfigurationView)
+                });
             }
+            lMenu.Add(new MasterPageItem
+            {
+                Title = "Cerrar sesión",
+                IconSource = "users.png",
+                TargetType = typeof(LoginView)
+            });
         }
 
         private ObservableCollection<MasterPageItem> _lMenu;
@@ -86,7 +101,7 @@ namespace smartCubes.ViewModels.Menu
         {
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
         }
-        private void OnItemTappedExecute()
+        private async void OnItemTappedExecute()
         {
             if (SelectedItem.TargetType == typeof(SessionView))
             {
@@ -102,7 +117,16 @@ namespace smartCubes.ViewModels.Menu
                 App.MasterDetail.Detail.Navigation.PushAsync(users);
                 App.MasterDetail.IsPresented = false;
             }
-            else {
+            else if(SelectedItem.TargetType == typeof(LoginView)){
+                var answer =  await Application.Current.MainPage.DisplayAlert("Cerrar sesión", "¿Está seguro de cerrar la sesión actual?", "Si", "No");
+
+                if (answer)
+                    App.Current.MainPage = new LoginView();
+
+                SelectedItem = null;
+            }
+            else
+            {
                 App.MasterDetail.Detail.Navigation.PushAsync((Page)Activator.CreateInstance(SelectedItem.TargetType));
                 SelectedItem = null;
                 App.MasterDetail.IsPresented = false;

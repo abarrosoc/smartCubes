@@ -73,63 +73,96 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
+        private bool _isVisibleList = false;
+
+        public bool isVisibleList
+        {
+            get { return _isVisibleList; }
+            set
+            {
+                _isVisibleList = value;
+                RaisePropertyChanged();
+            }
+        } 
+
+        private bool _isVisibleLabel = false;
+
+        public bool isVisibleLabel
+        {
+            get { return _isVisibleLabel; }
+            set
+            {
+                _isVisibleLabel = value;
+                RaisePropertyChanged();
+            }
+        } 
+
         private ICommand _exportCommand;
         public ICommand ExportCommand
         {
             get { return _exportCommand ?? (_exportCommand = new Command<SessionModel>((session) => ExportCommandExecute(session))); }
         }
 
-        private void ExportCommandExecute(SessionModel session)
+        private async void ExportCommandExecute(SessionModel session)
         { 
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
-                //Set the default application version as Excel 2013.
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
-                //Create a workbook with a worksheet
-                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(lSessionInit.Count);
-
-                //Access first worksheet from the workbook instance.
-              
-                int cont = 0;
-                foreach(SessionInit sessionInit in lSessionInit){
-                    IWorksheet worksheet = workbook.Worksheets[cont];
-
-                    //Adding text to a cell
-                    worksheet[1, 1].Value = "Sesión";
-                    worksheet[1, 2].Value = "Actividad";
-                    worksheet[1, 3].Value = "Profesional";
-                    worksheet[1, 4].Value = "Alumno";
-
-                    UserModel user = App.Database.GetUser(App.Database.GetSession(sessionInit.SessionId).UserID);
-                    worksheet[2, 1].Value = session.Name;
-                    worksheet[2, 2].Value = session.ActivityName;
-                    worksheet[2, 3].Value = user.UserName;
-                    worksheet[2, 4].Value = sessionInit.StudentCode;
-
-                    worksheet.Name = sessionInit.StudentCode;
-
-                    List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
-
-                    int i = 4;
-                    foreach (SessionData sd in sessionsData)
-                    {
-                        worksheet[i, 1].Value = sd.Data;
-                        i++;
-                    }
-                    cont++;
+                if (lSessions == null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
                 }
+                else
+                {
+                    //Set the default application version as Excel 2013.
+                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
-                //Save the workbook to stream in xlsx format. 
-                MemoryStream stream = new MemoryStream();
-                workbook.SaveAs(stream);
+                    //Create a workbook with a worksheet
+                    IWorkbook workbook = excelEngine.Excel.Workbooks.Create(lSessionInit.Count);
 
-                workbook.Close();
-  
-                //Save the stream as a file in the device and invoke it for viewing
-                Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name +".xlsx", "application/msexcel", stream);
-                Mail mail = new Mail(session.Name + ".xlsx",user);
+                    //Access first worksheet from the workbook instance.
+
+                    int cont = 0;
+                    foreach (SessionInit sessionInit in lSessionInit)
+                    {
+                        IWorksheet worksheet = workbook.Worksheets[cont];
+
+                        //Adding text to a cell
+                        worksheet[1, 1].Value = "Sesión";
+                        worksheet[1, 2].Value = "Actividad";
+                        worksheet[1, 3].Value = "Profesional";
+                        worksheet[1, 4].Value = "Alumno";
+
+                        UserModel user = App.Database.GetUser(App.Database.GetSession(sessionInit.SessionId).UserID);
+                        worksheet[2, 1].Value = session.Name;
+                        worksheet[2, 2].Value = session.ActivityName;
+                        worksheet[2, 3].Value = user.UserName;
+                        worksheet[2, 4].Value = sessionInit.StudentCode;
+
+                        worksheet.Name = sessionInit.StudentCode;
+
+                        List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
+
+                        int i = 4;
+                        foreach (SessionData sd in sessionsData)
+                        {
+                            worksheet[i, 1].Value = sd.Data;
+                            i++;
+                        }
+                        cont++;
+                    }
+
+                    //Save the workbook to stream in xlsx format. 
+                    MemoryStream stream = new MemoryStream();
+                    workbook.SaveAs(stream);
+
+                    workbook.Close();
+
+                    //Save the stream as a file in the device and invoke it for viewing
+                    Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name + ".xlsx", "application/msexcel", stream);
+                    Mail mail = new Mail(session.Name + ".xlsx", user);
+                }
             }
 
         }
@@ -149,7 +182,7 @@ namespace smartCubes.ViewModels.Session
             if (answer)
             {
                 App.Database.DeleteSession(session);
-                await Application.Current.MainPage.DisplayAlert("Info", "La sesión se ha eliminado", "OK");
+                await Application.Current.MainPage.DisplayAlert("Info", "La sesión se ha eliminado", "Aceptar");
                 RefreshData();
             }
         }
@@ -201,6 +234,17 @@ namespace smartCubes.ViewModels.Session
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);
+
+            if (lSessions.Count > 0)
+            {
+                isVisibleList = true;
+                isVisibleLabel = false;
+            }
+            else
+            {
+                isVisibleLabel = true;
+                isVisibleList = false;
+            }
         }
     }
 }

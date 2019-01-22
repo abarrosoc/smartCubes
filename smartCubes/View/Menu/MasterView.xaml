@@ -6,7 +6,7 @@
              Title="{Binding Title}"
              Icon="menu.png">
   <ContentPage.Content>
-       <Frame Padding="0" BorderColor="#3FC49A">
+       <Frame Padding="0" BorderColor="White">
          <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
@@ -16,7 +16,7 @@
                 <ColumnDefinition Width="*" />
 
               </Grid.ColumnDefinitions>
-             <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="#3FC49A">
+             <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="#1da1f2">
                 <Label Text = "Menú" TextColor="White" Font="bold,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
               </StackLayout>
              <StackLayout VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0">
@@ -32,7 +32,7 @@
                 </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell Text="{Binding Title}" ImageSource="{Binding IconSource}" />
+                            <ImageCell Text="{Binding Title}" TextColor="#657786" ImageSource="{Binding IconSource}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

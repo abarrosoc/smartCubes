@@ -7,11 +7,11 @@
     
    <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="700">
         <StackLayout BackgroundColor="White" HorizontalOptions="StartAndExpand" WidthRequest="700" Margin="30,0,0,20">
-            <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
+            <Label TextColor="#657786" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
             <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
             <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
-            <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="0,0,30,10"/>
+            <Label TextColor="#657786" FontSize = "17" Text="Descripción" Margin="0,0,30,10"/>
             <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,0,30,0" Keyboard="Text"/>
             <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,30"/>
         
@@ -21,7 +21,7 @@
                 HorizontalOptions="StartAndExpand"
                 Command="{Binding OnButtonAddDeviceClicked}"
                 BackgroundColor="White"
-                TextColor="#3FC49A"
+                TextColor="#657786"
                 FontSize="17"
                 Margin="30,10,0,0"/>
         
@@ -52,12 +52,12 @@
               </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-            </StackLayout>
+        </StackLayout>
         <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding SaveCommand}" 
-                BackgroundColor="#3FC49A"
+                BackgroundColor="#657786"
                 TextColor="White"
                 FontSize="20"
                 Margin="0,100,0,70"/>

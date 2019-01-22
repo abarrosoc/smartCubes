@@ -13,6 +13,9 @@ namespace smartCubes.View.Menu
 {
     public partial class MasterView : ContentPage
     {
+        public MasterView()
+        {
+        }
 
         public MasterView(UserModel user)
         {

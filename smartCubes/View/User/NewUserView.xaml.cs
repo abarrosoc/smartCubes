@@ -8,6 +8,9 @@ namespace smartCubes.View.User
 {
     public partial class NewUserView : ContentPage
     {
+        public NewUserView(){
+            
+        }
         public NewUserView(INavigation navigation,UserModel userLogin, bool modify, UserModel user)
         {
             InitializeComponent();

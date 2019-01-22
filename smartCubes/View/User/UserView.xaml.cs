@@ -12,6 +12,9 @@ namespace smartCubes.View.User
     {
         private UserModel user;
 
+        public UserView(){
+            
+        }
         public UserView(UserModel user)
         {
             this.user = user;

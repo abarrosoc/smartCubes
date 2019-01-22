@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Login.LoginView">
      <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="400">
-        <Label TextColor="#3FC49A" HorizontalOptions="CenterAndExpand" FontSize = "67" Text="App" Margin="0,100,0,10" />
+        <Label TextColor="#657786" HorizontalOptions="CenterAndExpand" FontSize = "67" Text="App" Margin="0,100,0,10" />
         <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="300">
             <Entry Placeholder="Usuario" HorizontalOptions="StartAndExpand" Text="{Binding User}" Margin="0,100,30,10" Keyboard="Text"/>
             <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,25"/>
@@ -15,7 +15,7 @@
                     VerticalOptions="StartAndExpand"
                     HorizontalOptions="FillAndExpand"
                     Command="{Binding LoginCommand}" 
-                    BackgroundColor="#3FC49A"
+                    BackgroundColor="#1da1f2"
                     TextColor="White"
                     FontSize="20"
                     Margin="0,40,0,0" />

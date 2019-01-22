@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Prism.Navigation;
 using smartCubes.Models;
 using smartCubes.Utils;
+using smartCubes.View.Login;
 using smartCubes.View.Session;
 using Xamarin.Forms;
 
@@ -106,7 +107,7 @@ namespace smartCubes.ViewModels.Menu
             RefreshData();
             Navigation.PushAsync(new PlaySessionView(item));
         }
-
+       
         public ICommand RefreshCommand
         {
             get
@@ -131,9 +132,15 @@ namespace smartCubes.ViewModels.Menu
                 lSessions.Add(session);
 
             if (lSessions.Count > 0)
+            {
                 isVisibleList = true;
+                isVisibleLabel = false;
+            }
             else
+            {
                 isVisibleLabel = true;
+                isVisibleList = false;
+            }
         }
     }
        

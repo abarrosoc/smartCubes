@@ -29,7 +29,8 @@ namespace smartCubes.ViewModels.Session
                 lActivities.Add(activity);
 
             if(modify){
-                Title = "Modificar";
+                Title = "Modificar sesión";
+                isVisible = true;
                 Name = session.Name;
                 Description = session.Description;
                 ActivityModel activitySession = Json.getActivityByName(session.ActivityName);
@@ -39,12 +40,11 @@ namespace smartCubes.ViewModels.Session
                     }
                 }
                 lSessionsInit = new ObservableCollection<SessionInit>();
-                IsVisible = true;
                 RefreshData();
 
             }else{
-                Title = "Nueva";
-                IsVisible = false;
+                Title = "Nueva sesión";
+                isVisible = false;
                 Name = getNameNewSession();
             }
         }
@@ -133,17 +133,18 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged(nameof(IsRefreshing));
             }
         }
-        private bool _IsVisible = false;
 
-        public bool IsVisible
+        private bool _isVisible = false;
+
+        public bool isVisible
         {
-            get { return _IsVisible; }
+            get { return _isVisible; }
             set
             {
-                _IsVisible = value;
+                _isVisible = value;
                 RaisePropertyChanged();
             }
-        }
+        } 
 
         private ICommand _saveCommand;
         public ICommand SaveCommand
@@ -228,6 +229,7 @@ namespace smartCubes.ViewModels.Session
 
             foreach (SessionInit session in sessionsInit)
                 lSessionsInit.Add(session);
+
         }
         private String getNameNewSession(){
 

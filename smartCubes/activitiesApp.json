@@ -3,10 +3,11 @@
     {
       "Name": "Actividad 1",
       "Id": "1",
+      "Description": "Hacer una torre con los cubos",
       "Devices": [
         {
           "ID": 1,
-          "Uuid": "01ba3852-b5be-9108-5934-3f746e76a4e0",
+          "Uuid": "25e272c9-8fb3-187b-c29a-ebb1f5929a76",
           "Name": "Cube2",
           "State":  "Disconnected"
         },
@@ -21,6 +22,7 @@
     {
       "Name": "Actividad 2",
       "Id": "2",
+      "Description": "Esto es una descripcion",
       "Devices": [
         {
           "Uuid": "1234",

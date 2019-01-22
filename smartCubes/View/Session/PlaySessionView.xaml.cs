@@ -18,7 +18,13 @@ namespace smartCubes.View.Session
             InitializeComponent();
             BindingContext = new PlaySessionViewModel(session);
         }
+        protected override void OnDisappearing()
+        {
+            var vm = BindingContext as PlaySessionViewModel;
+            vm?.disconnectAll();
+            base.OnDisappearing();
 
+        }
 
     }
 }

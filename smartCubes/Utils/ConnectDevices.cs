@@ -20,6 +20,7 @@ namespace smartCubes.Utils
         private static IBluetoothLE ble;
         private static List<DeviceModel> lDevices;
         private static List<DeviceData> lDeviceData;
+        private static List<IDevice> lDevicesConnected;
 
         public static SessionModel Session { get; set; }
         public static String StudentCode { get; set; }
@@ -35,6 +36,7 @@ namespace smartCubes.Utils
             lDeviceData = new List<DeviceData>();
             lDevices = new List<DeviceModel>();
             lDevices = lDev;
+            lDevicesConnected = new List<IDevice>();
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
 
@@ -66,10 +68,11 @@ namespace smartCubes.Utils
                         Debug.WriteLine("Dispositivo encontrado: " + a.Device.Name + " ID: " + a.Device.Id);
                         foreach (DeviceModel device in lDevices)
                         {
-                            if (device.Uuid.Equals(a.Device.Id.ToString()))
+                            if (a.Device.Name!=null && device.Name.Equals(a.Device.Name))
                             {
                                 Debug.WriteLine("Nuevo dispositivo: " + a.Device.Name + " ID: " + a.Device.Id);
                                 connectDevice(a.Device);
+                                lDevicesConnected.Add(a.Device);
                             }
                         }
                     };
@@ -142,10 +145,18 @@ namespace smartCubes.Utils
             }
             catch (DeviceConnectionException ex)
             {
-                Debug.WriteLine("Error al conectar con el dispositivo: " + deviceConnected.Name);
+                Debug.WriteLine("Error al conectar con el dispositivo: " + deviceConnected.Name + "." + ex);
             }
         }
+        public static async void disconnectAll()
+        {
+            foreach (IDevice device in lDevicesConnected)
+            {
+                if (device.State == DeviceState.Connected)
+                    await adapter.DisconnectDeviceAsync(device);
+            }
 
+        }
         public static async void WriteDevices(String number)
         {
 

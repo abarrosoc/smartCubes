@@ -8,6 +8,9 @@ namespace smartCubes.View.Session
     {
         private UserModel user;
 
+        public SessionView(){
+            
+        }
         public SessionView(UserModel user)
         {
             this.user = user;

@@ -20,14 +20,11 @@ namespace smartCubes.ViewModels.User
         {
             this.Navigation = navigation;
             this.userLogin = userLogin;
-
             Title = "Usuarios";
-            List<UserModel> listUsers = App.Database.GetUsers();
-            lUsers = new ObservableCollection<UserModel>();
 
-            foreach (UserModel user in listUsers)
-                lUsers.Add(user);
+            RefreshData();
         }
+
         private ObservableCollection<UserModel> _lUsers;
 
         public ObservableCollection<UserModel> lUsers
@@ -98,6 +95,29 @@ namespace smartCubes.ViewModels.User
                 RaisePropertyChanged(nameof(IsRefreshing));
             }
         }
+        private bool _isVisibleList = false;
+
+        public bool isVisibleList
+        {
+            get { return _isVisibleList; }
+            set
+            {
+                _isVisibleList = value;
+                RaisePropertyChanged();
+            }
+        } 
+
+        private bool _isVisibleLabel = false;
+
+        public bool isVisibleLabel
+        {
+            get { return _isVisibleLabel; }
+            set
+            {
+                _isVisibleLabel = value;
+                RaisePropertyChanged();
+            }
+        } 
 
         private ICommand _NewUserCommand;
 
@@ -152,6 +172,17 @@ namespace smartCubes.ViewModels.User
 
             foreach (UserModel user in listUsers)
                 lUsers.Add(user);
+
+            if (lUsers.Count > 0)
+            {
+                isVisibleList = true;
+                isVisibleLabel = false;
+            }
+            else
+            {
+                isVisibleLabel = true;
+                isVisibleList = false;
+            }
         }
     }
 }

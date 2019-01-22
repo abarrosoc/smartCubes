@@ -154,6 +154,10 @@ namespace smartCubes.ViewModels.Activity
         private void DeleteCommandExecute(DeviceModel device)
         {
             lDevices.Remove(device);
+            if (activity!=null && activity.Devices.Contains(device)) { 
+                activity.Devices.Remove(device);
+                Json.updateActivity(activity);
+            }
         }
 
         private ICommand _OnButtonAddDeviceClicked;

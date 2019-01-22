@@ -8,7 +8,9 @@
     <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Command="{Binding NewUserCommand}" />
     <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
 </ContentPage.ToolbarItems>
+<StackLayout BackgroundColor="#E6E6E6">
     <ListView x:Name="lUsers"
+              IsVisible="{Binding isVisibleList,Mode=TwoWay}"
               IsPullToRefreshEnabled="true"
               RefreshCommand="{Binding RefreshCommand}"
               IsRefreshing="{Binding IsRefreshing}"
@@ -30,7 +32,7 @@
                 </ViewCell.ContextActions>
                  <StackLayout BackgroundColor="White" Orientation="Vertical">
                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
-                        <Label Text="{Binding UserName}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding UserName}" TextColor="#657786" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
                         <Image Source="arrow.png" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand"/> 
                     </StackLayout>
                 </StackLayout>
@@ -38,4 +40,6 @@
           </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+    <Label TextColor="Gray" Text="No hay datos para mostrar" HorizontalOptions="CenterAndExpand" Margin="0,20" IsVisible="{Binding isVisibleLabel,Mode=TwoWay}" FontAttributes="Italic" />
+</StackLayout>
 </ContentPage>

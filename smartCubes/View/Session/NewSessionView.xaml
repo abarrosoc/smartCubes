@@ -5,21 +5,21 @@
              Title="{Binding Title}">
    <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="600" Margin="0,70,0,0">
         <Label TextColor="Black" FontSize = "17" Text="Nombre" Margin="0,0,0,10" />
-        <Entry Placeholder="Nombre" IsEnabled="false" TextColor="Silver" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
+        <Entry Placeholder="Nombre" IsEnabled="false" TextColor="#aab8c2" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver"  HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
         <Label TextColor="Black" FontSize = "17" Text="Descripción" Margin="0,0,0,10"/>
         <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,0,0,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
-        <Label TextColor="Black" FontSize = "17" Text="Seleccione" Margin="0,40,0,10"/>
+        <Label TextColor="Black" FontSize = "17" Text="Seleccione una actividad" Margin="0,40,0,10"/>
         <Picker x:Name="pActivities" Title="Actividad" 
                 Margin="0,0,0,20"
                 ItemsSource="{Binding lActivities}" 
                 ItemDisplayBinding="{Binding Name}" 
                 SelectedItem="{Binding SelectedActivity,Mode=TwoWay}">
         </Picker>
-        <Label TextColor="Black" FontSize = "17" Text="Participaciones en la sesión" Margin="0,40,0,10" IsVisible="{Binding IsVisible}"/>
+        <Label TextColor="Black" FontSize = "17" Text="Participaciones en la sesión" Margin="0,40,0,10" IsVisible="{Binding isVisible}"/>
         <ListView x:Name="lSessionsInit"
               IsPullToRefreshEnabled="true"
               RefreshCommand="{Binding RefreshCommand}"
@@ -29,8 +29,8 @@
               SelectionMode="None"
               SeparatorColor="#E6E6E6"
               ItemsSource="{Binding lSessionsInit}" 
-              BackgroundColor="#E6E6E6"
-              IsVisible="{Binding IsVisible}">
+              IsVisible="{Binding isVisible}"
+              BackgroundColor="#E6E6E6">
         <ListView.ItemTemplate> 
           <DataTemplate>
             <ViewCell>
@@ -53,7 +53,7 @@
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding SaveCommand}" 
-                BackgroundColor="#3FC49A"
+                BackgroundColor="#657786"
                 TextColor="White"
                 FontSize="20"
                 Margin="0,0,0,50" />
