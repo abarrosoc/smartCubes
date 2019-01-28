@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using smartCubes.Enum;
 using smartCubes.Models;
@@ -128,27 +129,50 @@ namespace smartCubes.ViewModels.User
             if(String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password)|| String.IsNullOrEmpty(Email) || SelectedRole == null){
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }else{
-                UserModel newUser = new UserModel();
-                if (modify)
-                    newUser.ID = user.ID;
-                newUser.UserName = UserName;
-                newUser.Password = Crypt.Encrypt(Password,"uah2019");
-                newUser.Email = Email;
-                newUser.Role = SelectedRole;
+                bool resultValidate = validateEmail(Email);
 
-                App.Database.SaveUser(newUser);
-                if(modify)
-                    await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha modificado correctamente", "Aceptar");
-                else
-                    await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha creado correctamente", "Aceptar");
+                if(resultValidate){
+                    UserModel newUser = new UserModel();
+                    if (modify)
+                        newUser.ID = user.ID;
+                    newUser.UserName = UserName;
+                    newUser.Password = Crypt.Encrypt(Password, "uah2019");
+                    newUser.Email = Email;
+                    newUser.Role = SelectedRole;
 
-                await Navigation.PopAsync();
+                    App.Database.SaveUser(newUser);
+                    if (modify)
+                        await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha modificado correctamente", "Aceptar");
+                    else
+                        await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha creado correctamente", "Aceptar");
 
-                UserName = "";
-                Password = "";
-                Email = "";
+                    await Navigation.PopAsync();
+
+                    UserName = "";
+                    Password = "";
+                    Email = "";
+                } 
+              
             }
 
+        }
+
+        private bool validateEmail(String email){
+            string[] emailSplitAt = email.Split('@');
+
+            if (emailSplitAt.Length != 2)
+            {
+                Application.Current.MainPage.DisplayAlert("Email incorrecto", "El email introducido no tiene un formato válido", "Aceptar");
+                return false;
+            }
+
+            string[] emailSplitDot = emailSplitAt[1].Split('.');
+
+            if(emailSplitDot.Length != 2 || (!emailSplitDot[1].Equals("com") && !emailSplitDot[1].Equals("es") && !emailSplitDot[1].Equals("net") && !emailSplitDot[1].Equals("org"))){
+                Application.Current.MainPage.DisplayAlert("Email incorrecto", "El email introducido no tiene un formato válido", "Aceptar");
+                return false;
+            }
+            return true;  
         }
     }
 }

@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.Menu.Home" 
-             xmlns:local="clr-namespace:smartCubes;assembly=smartCubes" 
-             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
-             Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Menu.Home" xmlns:local="clr-namespace:smartCubes;assembly=smartCubes" xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" Title="{Binding Title}">
     <ContentPage.ToolbarItems>
     </ContentPage.ToolbarItems>
     <!--<ScrollView>
@@ -67,23 +62,26 @@
             </Grid>
             
          </ScrollView>-->
-    <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="700">
-        <ListView x:Name="lUsers" 
-                  IsVisible="{Binding isVisibleList,Mode=TwoWay}"
-                  IsPullToRefreshEnabled="true" 
-                  RefreshCommand="{Binding RefreshCommand}" 
-                  IsRefreshing="{Binding IsRefreshing}" 
-                  RowHeight="200" SeparatorVisibility="None" 
-                  SelectedItem="{Binding SelectItem}" 
-                  ItemsSource="{Binding lSessions}" 
-                  BackgroundColor="White" Margin="0,20,0,20">
+     <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="8*" />
+                <ColumnDefinition Width="1*" />
+
+              </Grid.ColumnDefinitions>
+    <StackLayout BackgroundColor="White" Grid.Row="0" Grid.Column="1">
+        <ListView x:Name="lUsers" IsVisible="{Binding isVisibleList,Mode=TwoWay}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RowHeight="240" SeparatorVisibility="None" SelectedItem="{Binding SelectItem}" ItemsSource="{Binding lSessions}" BackgroundColor="White"
+            Margin="0,20,0,20">
             <ListView.Behaviors>
                 <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}" />
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame BorderColor="#657786" BackgroundColor="#1da1f2" HasShadow="false" CornerRadius="3" Margin="0,15" OutlineColor="White">
+                        <!--<Frame BorderColor="#657786" BackgroundColor="#1da1f2" HasShadow="false" CornerRadius="3" Margin="0,15" OutlineColor="White">
                             <StackLayout Orientation="Vertical">
                                 <Label Font="Bold,20" XAlign="Center" TextColor="White" Text="{Binding Name}" />
                                 <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
@@ -91,11 +89,33 @@
                                 <Label TextColor="White" Text="{Binding Path=CreateDate, StringFormat='Fecha creación: {0}'}" />
                                 <Label TextColor="White" Text="{Binding Path=ModifyDate, StringFormat='Modificada: {0}'}" />
                             </StackLayout>
-                        </Frame>
+                        </Frame>-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="8*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Frame BorderColor="#657786" BackgroundColor="#1da1f2" Grid.Row="0" Grid.Column="0" HasShadow="false" CornerRadius="3" OutlineColor="White" Margin="0,0,0,-7">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Font="Bold,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White" Text="{Binding Name}" />
+                                </StackLayout>
+                            </Frame>
+                            <Frame BorderColor="#657786" BackgroundColor="White" Grid.Row="1" Grid.Column="0" HasShadow="false" CornerRadius="3" OutlineColor="#1da1f2" Margin="0,0,0,40">
+                                <StackLayout Orientation="Vertical">
+                                    <Label TextColor="#657786" FontSize="18" FontAttributes="Bold" Text="{Binding ActivityName}" Margin="0,0,0,15" />
+                                    <Label TextColor="#657786" FontSize="16" FontAttributes="Italic" Text="{Binding Path=CreateDate, StringFormat='Fecha creación: {0}'}" />
+                                    <Label TextColor="#657786" FontSize="16" FontAttributes="Italic" Text="{Binding Path=ModifyDate, StringFormat='Modificada: {0}'}" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Label TextColor="Gray" Text="No hay datos para mostrar" HorizontalOptions="CenterAndExpand" Margin="0,20" IsVisible="{Binding isVisibleLabel,Mode=TwoWay}" FontAttributes="Italic" />
     </StackLayout>
+    </Grid>
 </ContentPage>

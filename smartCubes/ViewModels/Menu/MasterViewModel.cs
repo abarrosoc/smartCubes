@@ -25,7 +25,7 @@ namespace smartCubes.ViewModels.Menu
             this.navigation = navigation;
             this.userLogin = userLogin;
             Title = "Menú";
-                
+            Letter = userLogin.UserName.Substring(0, 1).ToUpper();    
             lMenu = new ObservableCollection<MasterPageItem>();
 
             lMenu.Add(new MasterPageItem
@@ -45,21 +45,21 @@ namespace smartCubes.ViewModels.Menu
                 lMenu.Add(new MasterPageItem
                 {
                     Title = "Actividades",
-                    IconSource = "students.png",
+                    IconSource = "activities.png",
                     TargetType = typeof(ActivityView)
                 });
 
                 lMenu.Add(new MasterPageItem
                 {
                     Title = "Configuración",
-                    IconSource = "students.png",
+                    IconSource = "settings.png",
                     TargetType = typeof(ConfigurationView)
                 });
             }
             lMenu.Add(new MasterPageItem
             {
                 Title = "Cerrar sesión",
-                IconSource = "users.png",
+                IconSource = "exit.png",
                 TargetType = typeof(LoginView)
             });
         }
@@ -94,7 +94,20 @@ namespace smartCubes.ViewModels.Menu
                 RaisePropertyChanged();
             }
         }
+        private String _Letter;
 
+        public String Letter
+        {
+            get
+            {
+                return _Letter;
+            }
+            set
+            {
+                _Letter = value;
+                RaisePropertyChanged();
+            }
+        }
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped

@@ -110,7 +110,6 @@
     <Compile Include="PreviewControllerDS.cs" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -147,18 +146,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\add.png" />
-    <BundleResource Include="Resources\home.png" />
-    <BundleResource Include="Resources\menu.png" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\add.png" />
+    <AndroidResource Include="Resources\arrow_left.png" />
+    <AndroidResource Include="Resources\home.png" />
+    <AndroidResource Include="Resources\info.png" />
+    <AndroidResource Include="Resources\logouah.png" />
+    <AndroidResource Include="Resources\menu.png" />
+    <AndroidResource Include="Resources\menu_back.png" />
+    <AndroidResource Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\settings.png" />
+    <BundleResource Include="Resources\exit.png" />
     <BundleResource Include="Resources\play.png" />
-    <BundleResource Include="Resources\arrow.png" />
-    <BundleResource Include="Resources\ble_settings.png" />
     <BundleResource Include="Resources\users.png" />
-    <BundleResource Include="Resources\students.png" />
-    <BundleResource Include="Resources\info.png" />
-    <BundleResource Include="Resources\share.png" />
-    <BundleResource Include="Resources\send.png" />
-    <BundleResource Include="Resources\refresh.png" />
-    <BundleResource Include="Resources\logout.png" />
+    <BundleResource Include="Resources\activities.png" />
   </ItemGroup>
 </Project>

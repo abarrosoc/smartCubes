@@ -17,6 +17,7 @@ namespace smartCubes.ViewModels.Session
         private int intMinutes;
         private List<DeviceModel> lDevices;
         private SessionInit sessionInit;
+        private ConnectDevices connectDevices;
 
         public PlaySessionViewModel(SessionModel session)
         {
@@ -24,8 +25,7 @@ namespace smartCubes.ViewModels.Session
             sessionInit = new SessionInit();
             sessionInit.SessionId = session.ID;
             sessionInit.Date = DateTime.Now;
-                       
-            ConnectDevices.Session = session;
+            ColorFrame = "Red";
 
             Title = session.Name;
             ActivityName = session.ActivityName;
@@ -39,8 +39,7 @@ namespace smartCubes.ViewModels.Session
 
             ActivityModel activity = Json.getActivityByName(session.ActivityName);
             lDevices = activity.Devices;
-
-            ConnectDevices.Start(lDevices);
+            connectDevices = new ConnectDevices(lDevices, this);
 
         }
         private Boolean _StudentCodeEntry;
@@ -69,6 +68,21 @@ namespace smartCubes.ViewModels.Session
             set
             {
                 _StudentCode = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private String _ColorFrame;
+
+        public String ColorFrame
+        {
+            get
+            {
+                return _ColorFrame;
+            }
+            set
+            {
+                _ColorFrame = value;
                 RaisePropertyChanged();
             }
         }
@@ -153,9 +167,15 @@ namespace smartCubes.ViewModels.Session
         }
 
         public async void disconnectAll(){
-            ConnectDevices.disconnectAll();
+            ConnectDevices.disconnectAll(this);
         }
 
+        public void ChangeFrameColor(){
+            if (ColorFrame.Equals("Green"))
+                ColorFrame = "Red";
+            else
+                ColorFrame = "Green";
+        }
         private async void SaveCommandExecute()
         {
             if (!ConnectDevices.isAllConnectedDevices(lDevices))
@@ -163,7 +183,7 @@ namespace smartCubes.ViewModels.Session
                 var action = await Application.Current.MainPage.DisplayAlert("Atención", "No se ha podido establecer conexión con todos los dispositivos. ¿Desea intentarlo de nuevo?", "Reintentar", "Cancelar");
                 if (action.ToString().Equals("True"))
                 {
-                    await ConnectDevices.Start(lDevices);
+                    connectDevices.Start(lDevices,this);
                     SaveCommandExecute();
                 }
                 else

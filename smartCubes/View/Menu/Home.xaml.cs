@@ -8,6 +8,7 @@ using smartCubes.View.Session;
 using smartCubes.Utils;
 using System.Threading.Tasks;
 using smartCubes.Models;
+using System.Collections.ObjectModel;
 
 namespace smartCubes.View.Menu
 {
@@ -23,8 +24,8 @@ namespace smartCubes.View.Menu
         {
             this.user = user;
             InitializeComponent();
-            BindingContext = new HomeViewModel(Navigation, user);
 
+            BindingContext = new HomeViewModel(Navigation, user);
         }
 
         protected override void OnAppearing()

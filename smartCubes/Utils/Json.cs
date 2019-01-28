@@ -19,8 +19,8 @@ namespace smartCubes.Utils
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var filename = Path.Combine(documents, "activitiesApp.json");
-            //if (File.Exists(filename))
-            //     Console.WriteLine("existe");
+            if (!File.Exists(filename))
+                loadActivities();
             var text = File.ReadAllText(filename);
 
             ActivitiesModel list = JsonConvert.DeserializeObject<ActivitiesModel>(text);

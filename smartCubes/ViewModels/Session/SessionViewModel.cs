@@ -109,7 +109,7 @@ namespace smartCubes.ViewModels.Session
             {
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
 
-                if (lSessions == null)
+                if (lSessionInit == null || lSessionInit.Count == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
                 }

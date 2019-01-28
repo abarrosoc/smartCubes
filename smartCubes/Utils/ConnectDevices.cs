@@ -9,6 +9,7 @@ using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
 using smartCubes.Models;
+using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
 
 namespace smartCubes.Utils
@@ -22,16 +23,15 @@ namespace smartCubes.Utils
         private static List<DeviceData> lDeviceData;
         private static List<IDevice> lDevicesConnected;
 
-        public static SessionModel Session { get; set; }
         public static String StudentCode { get; set; }
 
 
-        public ConnectDevices()
+        public ConnectDevices(List<DeviceModel> lDev,PlaySessionViewModel playSessionViewModel)
         {
-            //SearchDevice(lDevices);
+            Start(lDev,playSessionViewModel);
         }
 
-        public static async Task Start(List<DeviceModel> lDev)
+        public async void Start(List<DeviceModel> lDev,PlaySessionViewModel playSessionViewModel)
         {
             lDeviceData = new List<DeviceData>();
             lDevices = new List<DeviceModel>();
@@ -40,27 +40,29 @@ namespace smartCubes.Utils
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
 
+
             if (!ble.State.Equals(BluetoothState.On))
             {
                 ble.StateChanged += async (s, e) =>
                 {
                     Debug.WriteLine("BLE state changed to {e.NewState}");
-                    await SearchDevice(lDevices);
+                    SearchDevice(lDevices, playSessionViewModel);
                 };
             }
             else
             {
-                await SearchDevice(lDevices);
+                SearchDevice(lDevices, playSessionViewModel);
             }
         }
 
-        private static async Task SearchDevice(List<DeviceModel> lDevices)
+        private async void SearchDevice(List<DeviceModel> lDevices,PlaySessionViewModel playSessionViewModel)
         {
 
             if (ble.IsAvailable && ble.IsOn)
             {
                 Debug.WriteLine("Start Scanning...");
                 datetime = DateTime.Now;
+               
                 try
                 {
                     adapter.DeviceDiscovered += (s, a) =>
@@ -73,12 +75,18 @@ namespace smartCubes.Utils
                                 Debug.WriteLine("Nuevo dispositivo: " + a.Device.Name + " ID: " + a.Device.Id);
                                 connectDevice(a.Device);
                                 lDevicesConnected.Add(a.Device);
+
+                                if (lDevicesConnected.Count() == lDevices.Count())
+                                    playSessionViewModel.ChangeFrameColor();
+                                
                             }
                         }
+
                     };
                     await adapter.StartScanningForDevicesAsync();
+
                 }
-                catch (DeviceConnectionException er)
+                catch (DeviceConnectionException  er)
                 {
                     Debug.WriteLine("ERROR: " + er.Message);
                 }
@@ -107,7 +115,6 @@ namespace smartCubes.Utils
                 if (deviceConnected.State == DeviceState.Disconnected)
                 {
                     await adapter.ConnectToDeviceAsync(deviceConnected);
-
                     //Mensaje en pantalla
                     //await DisplayAlert(deviceConnected.Name, "Estado:" + deviceConnected.State, "OK");
                     Debug.WriteLine("Dispositivo conectado: " + deviceConnected.Name);
@@ -148,13 +155,15 @@ namespace smartCubes.Utils
                 Debug.WriteLine("Error al conectar con el dispositivo: " + deviceConnected.Name + "." + ex);
             }
         }
-        public static async void disconnectAll()
+        public static async void disconnectAll(PlaySessionViewModel playSessionViewModel)
         {
             foreach (IDevice device in lDevicesConnected)
             {
                 if (device.State == DeviceState.Connected)
                     await adapter.DisconnectDeviceAsync(device);
             }
+            lDevicesConnected = new List<IDevice>();
+            playSessionViewModel.ColorFrame = "Red";
 
         }
         public static async void WriteDevices(String number)

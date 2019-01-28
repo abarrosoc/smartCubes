@@ -21,7 +21,7 @@ namespace smartCubes.View.Menu
         {
             InitializeComponent();
             BindingContext = new MasterViewModel(Navigation, user);
-
+  
         }
     }
 }

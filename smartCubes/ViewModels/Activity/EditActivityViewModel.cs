@@ -97,6 +97,21 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
+        private DeviceModel _SelectItem;
+
+        public DeviceModel SelectItem
+        {
+            get
+            {
+                return _SelectItem;
+            }
+            set
+            {
+                _SelectItem = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ICommand _saveCommand;
 
         public ICommand SaveCommand
@@ -159,6 +174,18 @@ namespace smartCubes.ViewModels.Activity
                 Json.updateActivity(activity);
             }
         }
+        private ICommand _OnItemTapped;
+
+        public ICommand OnItemTapped
+        {
+            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
+        }
+
+        private void OnItemTappedExecute()
+        {
+            if(modify)
+                PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,modify));
+        }
 
         private ICommand _OnButtonAddDeviceClicked;
 
@@ -168,8 +195,9 @@ namespace smartCubes.ViewModels.Activity
         }
         private void OnButtonAddDeviceClickedExecute()
         {
-            PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this));
+            PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,false));
         }
+
     }
 }
 

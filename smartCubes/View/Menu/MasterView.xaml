@@ -6,19 +6,22 @@
              Title="{Binding Title}"
              Icon="menu.png">
   <ContentPage.Content>
-       <Frame Padding="0" BorderColor="White">
+       <Frame Padding="0" BorderColor="Transparent">
          <Grid>
               <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="7*" />
               </Grid.RowDefinitions>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
 
               </Grid.ColumnDefinitions>
-             <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="#1da1f2">
-                <Label Text = "Menú" TextColor="White" Font="bold,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-              </StackLayout>
+             <AbsoluteLayout Grid.Row="0" Grid.Column="0" >
+                        <Image Source="menu_back.png"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Aspect="AspectFill"/>
+                        <Frame CornerRadius="50" BorderColor="White" AbsoluteLayout.LayoutBounds=".5,.5,100,100" HasShadow="false" BackgroundColor="#657786" AbsoluteLayout.LayoutFlags="PositionProportional">
+                             <Label Text = "{Binding Letter}" FontSize="80" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"  AbsoluteLayout.LayoutFlags="All"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                        </Frame>
+              </AbsoluteLayout>
              <StackLayout VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0">
                 <ListView x:Name="lMenu" 
                           VerticalOptions="FillAndExpand"

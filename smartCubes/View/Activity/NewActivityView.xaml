@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:smartCubes;assembly=smartCubes"
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              x:Class="smartCubes.View.Activity.NewActivityView"
              Title="{Binding Title}">
     
@@ -29,12 +30,15 @@
               IsPullToRefreshEnabled="false"
               RowHeight="75"
               SeparatorVisibility="Default"
-              SelectionMode="None"
               SeparatorColor="#E6E6E6"
               ItemsSource="{Binding lDevices}" 
+              SelectedItem="{Binding SelectItem,Mode=TwoWay}"
               BackgroundColor="#E6E6E6"
               VerticalOptions="StartAndExpand"
               HeightRequest="500">
+        <ListView.Behaviors>
+                <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
+        </ListView.Behaviors>
             <ListView.ItemTemplate>
               <DataTemplate>
                 <ViewCell>

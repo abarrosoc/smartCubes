@@ -13,8 +13,16 @@ namespace smartCubes.ViewModels.Activity
     {
         public EditActivityViewModel newActivityView { get; set; }
 
-        public AddDevicePopUpViewModel(EditActivityViewModel newActivityView)
+        private bool isModified { get; set; }
+
+        public AddDevicePopUpViewModel(EditActivityViewModel newActivityView, bool isModified)
         {
+            this.isModified = isModified;
+
+            if(isModified){
+                Name = newActivityView.SelectItem.Name;
+                Uuid = newActivityView.SelectItem.Uuid;
+            } 
             this.newActivityView = newActivityView;
         }
 
@@ -68,8 +76,22 @@ namespace smartCubes.ViewModels.Activity
             if(newActivityView.lDevices == null){
                 newActivityView.lDevices = new ObservableCollection<DeviceModel>();
             }
+            if (isModified)
+            {
+                for (int i = 0; i < newActivityView.lDevices.Count ; i++)
+                {
+                    if (newActivityView.lDevices[i].Uuid.Equals(newActivityView.SelectItem.Uuid))
+                    {
+                        
+                        newActivityView.lDevices[i].Name = device.Name;
+                        newActivityView.lDevices[i].Uuid = device.Uuid;
+                    }
+                }
+            }else{
+                newActivityView.lDevices.Add(device);
+            }
+            newActivityView.SelectItem = null;
 
-            newActivityView.lDevices.Add(device);
             await PopupNavigation.Instance.PopAsync();
         }
     }
