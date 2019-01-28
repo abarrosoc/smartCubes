@@ -27,10 +27,7 @@ namespace smartCubes.ViewModels.Activity
                 Title = "Modificar";
                 Name = activity.Name;
                 Description = activity.Description;
-                lDevices = new ObservableCollection<DeviceModel>();
-                foreach(DeviceModel device in activity.Devices){
-                    lDevices.Add(device);
-                }
+                RefreshData();
 
             }else{
                 Title = "Nueva";
@@ -183,8 +180,7 @@ namespace smartCubes.ViewModels.Activity
 
         private void OnItemTappedExecute()
         {
-            if(modify)
-                PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,modify));
+                PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,true));
         }
 
         private ICommand _OnButtonAddDeviceClicked;
@@ -198,6 +194,24 @@ namespace smartCubes.ViewModels.Activity
             PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,false));
         }
 
+        public void RefreshData()
+        {
+            if(activity !=null){
+                lDevices = new ObservableCollection<DeviceModel>();
+                foreach (DeviceModel device in activity.Devices)
+                {
+                    lDevices.Add(device);
+                } 
+            }else{
+                ObservableCollection<DeviceModel> lAux = lDevices;
+                lDevices = new ObservableCollection<DeviceModel>();
+                foreach (DeviceModel device in lAux)
+                {
+                    lDevices.Add(device);
+                }
+            }
+           
+        }
     }
 }
 

@@ -76,8 +76,7 @@ namespace smartCubes.Utils
                                 connectDevice(a.Device);
                                 lDevicesConnected.Add(a.Device);
 
-                                if (lDevicesConnected.Count() == lDevices.Count())
-                                    playSessionViewModel.ChangeFrameColor();
+                               // if (lDevicesConnected.Count() == lDevices.Count()
                                 
                             }
                         }

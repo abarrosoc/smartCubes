@@ -118,4 +118,5 @@
         <Label TextColor="Gray" Text="No hay datos para mostrar" HorizontalOptions="CenterAndExpand" Margin="0,20" IsVisible="{Binding isVisibleLabel,Mode=TwoWay}" FontAttributes="Italic" />
     </StackLayout>
     </Grid>
+    <ActivityIndicator Color="#1da1f2" IsRunning="false" />
 </ContentPage>

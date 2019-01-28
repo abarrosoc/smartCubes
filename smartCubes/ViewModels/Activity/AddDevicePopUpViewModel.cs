@@ -65,9 +65,10 @@ namespace smartCubes.ViewModels.Activity
         private async void OnButtonAddDeviceClickedExecute()
         {
             if(String.IsNullOrEmpty(Name) || String.IsNullOrWhiteSpace(Name) || String.IsNullOrEmpty(Uuid) || String.IsNullOrWhiteSpace(Uuid)){
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "OK");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
                 return;
             }
+
             DeviceModel device = new DeviceModel();
             device.Name = Name;
             device.State = "Disconnected";
@@ -75,6 +76,9 @@ namespace smartCubes.ViewModels.Activity
 
             if(newActivityView.lDevices == null){
                 newActivityView.lDevices = new ObservableCollection<DeviceModel>();
+            }else if(newActivityView.lDevices.Contains(device)){
+                await Application.Current.MainPage.DisplayAlert("Atención", "No puede añadir dos dispositivos con el mismo uuid y/o nombre", "Aceptar");
+                return;
             }
             if (isModified)
             {
@@ -82,15 +86,16 @@ namespace smartCubes.ViewModels.Activity
                 {
                     if (newActivityView.lDevices[i].Uuid.Equals(newActivityView.SelectItem.Uuid))
                     {
-                        
                         newActivityView.lDevices[i].Name = device.Name;
                         newActivityView.lDevices[i].Uuid = device.Uuid;
                     }
                 }
+                newActivityView.RefreshData();
             }else{
                 newActivityView.lDevices.Add(device);
             }
             newActivityView.SelectItem = null;
+           
 
             await PopupNavigation.Instance.PopAsync();
         }
