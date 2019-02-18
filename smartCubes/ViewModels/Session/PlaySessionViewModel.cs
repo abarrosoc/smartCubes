@@ -44,7 +44,7 @@ namespace smartCubes.ViewModels.Session
             sessionInit = new SessionInit();
             sessionInit.SessionId = session.ID;
             sessionInit.Date = DateTime.Now;
-            ColorFrame = Color.Red.ToString();
+            ColorFrame = "Red";
             ReconnectEnable = true;
 
             Title = session.Name;
@@ -216,9 +216,9 @@ namespace smartCubes.ViewModels.Session
                 {
                     await Start(lDevices);
                     if (isAllConnectedDevices(lDevices))
-                        ColorFrame = Color.Green.ToString();
+                        ColorFrame = "Green";
                     else
-                        ColorFrame = Color.Red.ToString();
+                        ColorFrame = "Red";
 
                     return;
                 }
@@ -395,7 +395,7 @@ namespace smartCubes.ViewModels.Session
                     {
                         if (isAllConnectedDevices(lDevices))
                         {
-                            ColorFrame = Color.Green.ToString();
+                            ColorFrame = "Green";
                             ReconnectEnable = false;
                         }
                     };
@@ -409,7 +409,7 @@ namespace smartCubes.ViewModels.Session
                         
                             ReconnectEnable = true;
                             Debug.WriteLine("Dispositivo desconectado: " + a.Device.Name + " ID: " + a.Device.Id);
-                            ColorFrame = Color.Red.ToString();
+                            ColorFrame = "Red";
                             var answer = await Application.Current.MainPage.DisplayAlert("Atención", "Se ha perdido la conexión con uno o varios dispositivos. ¿Desea volver a conectar?", "Conectar", "Cancelar");
                             if (answer)
                                 await Start(lDevices);
