@@ -5,30 +5,35 @@ using Xamarin.Forms;
 using smartCubes.View.Activity;
 using System.Diagnostics;
 using smartCubes.View.Session;
+using smartCubes.Utils;
+using System.Threading.Tasks;
+using smartCubes.Models;
+using System.Collections.ObjectModel;
 
 namespace smartCubes.View.Menu
 {
     public partial class Home : ContentPage
     {
-
+        private UserModel user;
         public Home()
         {
             InitializeComponent();
-            Title = "Inicio";
-            BindingContext = new HomeViewModel();
-        }
-         
-        private void OnTapGestureRecognizerTapped(object sender, EventArgs args)
-        {
-            Debug.WriteLine("Sesion seleccionada");
-            
-            Navigation.PushAsync(new PlaySessionView());
         }
 
-        private void OnclickNewActivity(object sender, EventArgs e)
+        public Home(UserModel user)
         {
-            //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
+            this.user = user;
+            InitializeComponent();
+
+            BindingContext = new HomeViewModel(Navigation, user);
+        }
+
+        protected override void OnAppearing()
+        {            
+            var vm = BindingContext as HomeViewModel;
+            vm?.RefreshData();
+            base.OnAppearing();
+
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using smartCubes.View.Session;
+﻿
+using smartCubes.Models;
+using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
 
 namespace smartCubes.View.Session
@@ -12,10 +12,17 @@ namespace smartCubes.View.Session
             InitializeComponent();
         }
 
-        private void OnclickShareSession(object sender, EventArgs e)
+        public PlaySessionView(SessionModel session)
         {
-            //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
+            InitializeComponent();
+            BindingContext = new PlaySessionViewModel(session);
+        }
+
+        protected override void OnDisappearing()
+        {
+            var vm = BindingContext as PlaySessionViewModel;
+            vm?.disconnectAll();
+            base.OnDisappearing();
         }
     }
 }

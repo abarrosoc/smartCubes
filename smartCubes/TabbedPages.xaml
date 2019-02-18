@@ -2,13 +2,13 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:smartCubes" x:Class="smartCubes.TabbedPages">
     <NavigationPage Title="Inicio" Icon="home.png">
         <x:Arguments>
-            <local:BLEDevices />
+         
         </x:Arguments>
     </NavigationPage>
     <!--Boton2-->
     <NavigationPage Title="Dispositivos" Icon="ble_settings.png">
         <x:Arguments>
-            <local:BLEDevices />
+           
         </x:Arguments>
     </NavigationPage>
     <!--Boton3-->

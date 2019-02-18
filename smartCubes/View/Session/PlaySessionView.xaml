@@ -1,24 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.Session.PlaySessionView">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Name="MenuItem1" Order="Primary" Icon="share.png" Text="Add" Priority="0" Clicked="OnclickShareSession" />
-        <!--<ToolbarItem Name="MenuItem2" Order="Primary" Icon="home.png" Text="Item 2" Priority="1" />-->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Session.PlaySessionView" Title="{Binding Title}">
+        <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" Order="Primary" Icon="refresh.png" Text="Add" Priority="0" IsEnabled="{Binding ReconnectEnable}" Command="{Binding ReconnectCommand}" />
     </ContentPage.ToolbarItems>
-    <StackLayout>
-        <Label Text="Actividad 1" HorizontalOptions="CenterAndExpand" TextColor="#0E547C" FontSize="Large" Margin="0,90,0,0"/>
-        <Label Text="Alumno 2345X" HorizontalOptions="CenterAndExpand" TextColor="#0E547C" FontSize="Large" Margin="0,10"/>
-        <Frame  CornerRadius = "120"
-            HeightRequest = "250"
-            WidthRequest = "250"
-            BackgroundColor="#0E547C"
-            HorizontalOptions = "CenterAndExpand"
-            VerticalOptions = "CenterAndExpand"
-            Margin = "0"
-            Padding ="0"> 
-            <Label Text="00:00:00" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="0,90"/>
-        </Frame>
-        <Button Text="Comenzar" BackgroundColor="#0E547C" FontSize="Large" TextColor="White" VerticalOptions="EndAndExpand" Margin="30,40"/>
-    </StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="8*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <StackLayout Orientation="Horizontal" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="1" Grid.Column="1">
+            <Label TextColor="#657786" FontSize="20" VerticalTextAlignment="Center" Text="Actividad" Margin="0,0,0,10" />
+        </StackLayout>
+        <StackLayout Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="2" Grid.Column="1">
+            <Entry Text="{Binding ActivityName}" TextColor="Silver" IsEnabled="false" Margin="0,0,0,0" Keyboard="Text" Grid.Row="1" Grid.Column="1" />
+            <BoxView HeightRequest="0.5" BackgroundColor="Silver" Margin="0,0,0,25" />
+        </StackLayout>
+        <StackLayout Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="3" Grid.Column="1">
+            <Label TextColor="#657786" FontSize="20" Text="Código alumno" Margin="0,10,0,10" Grid.Row="3" Grid.Column="0" />
+        </StackLayout>
+        <StackLayout Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="4" Grid.Column="1">
+            <Entry Placeholder="Introduzca el código" IsEnabled="{Binding StudentCodeEntry}" Text="{Binding StudentCode}" Margin="0,0,0,0" Keyboard="Text" Grid.Row="4" Grid.Column="0" />
+            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,35" Grid.Row="5" Grid.Column="0" />
+        </StackLayout>
+        <StackLayout Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="5" Grid.Column="1">
+            <Frame CornerRadius="185" HeightRequest="330" WidthRequest="330" HasShadow="false" BackgroundColor="White" OutlineColor="{Binding ColorFrame}"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3.6*" />
+                        <ColumnDefinition Width=".6*" />
+                        <ColumnDefinition Width="3.6*" />
+                        <ColumnDefinition Width=".6*" />
+                         <ColumnDefinition Width="3.6*" />
+
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0">
+                        <Label Text="{Binding Minutes}"  TextColor="#657786"  HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="1">
+                        <Label Text=":" TextColor="#657786" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70"  />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="2">
+                        <Label Text="{Binding Seconds}"  TextColor="#657786"  HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="3">
+                        <Label Text=":" TextColor="#657786" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="4">
+                        <Label Text="{Binding Milliseconds}" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" TextColor="#657786" FontAttributes="Bold" FontSize="70" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </StackLayout>
+        <!-- <Frame CornerRadius="120" HeightRequest="250" WidthRequest="250" BackgroundColor="#1da1f2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0" Padding="0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Minutes}" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="8,0,0,0" />
+                <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50" />
+                <Label Text="{Binding Seconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+                <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50" />
+                <Label Text="{Binding Milliseconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+            </StackLayout>
+        </Frame>-->
+         <StackLayout Orientation="Vertical" Grid.ColumnSpan="1" Grid.RowSpan="2" Grid.Row="6" Grid.Column="1" >
+            <Button Text="{Binding StartStop}" BackgroundColor="#657786" FontSize="Large" HeightRequest="50" TextColor="White" VerticalOptions="EndAndExpand" Margin="0,0,0,70" Command="{Binding TimerCommand}" />
+           </StackLayout> 
+    </Grid>
 </ContentPage>
+<!--
+ <StackLayout HorizontalOptions="CenterAndExpand" WidthRequest="700" Margin="0,70,0,0">
+        <Label TextColor="#657786" FontSize="20" Text="Actividad" Margin="0,0,0,10" />
+        <Entry Text="{Binding ActivityName}" TextColor="Silver" IsEnabled="false" Margin="0,0,0,0" Keyboard="Text" />
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,25" />
+        <Label TextColor="#657786" FontSize="20" Text="Código alumno" Margin="0,10,0,10" />
+        <Entry Placeholder="Introduzca el código" IsEnabled="{Binding StudentCodeEntry}" Text="{Binding StudentCode}" Margin="0,0,0,0" Keyboard="Text" />
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,35" />
+
+         <Frame CornerRadius="120" HeightRequest="250" WidthRequest="250" BackgroundColor="#1da1f2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0" Padding="0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Minutes}" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="8,0,0,0" />
+                <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50" />
+                <Label Text="{Binding Seconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+                <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50" />
+                <Label Text="{Binding Milliseconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+            </StackLayout>
+        </Frame>
+        
+        <Frame CornerRadius="120" HeightRequest="250" WidthRequest="250" BackgroundColor="#1da1f2" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0" Padding="0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding Minutes}" VerticalOptions="Center" TextColor="White" FontSize="50" Margin="8,0,0,0" />
+                <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50" />
+                <Label Text="{Binding Seconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+                <Label Text=":" TextColor="White" VerticalOptions="Center" FontSize="50" />
+                <Label Text="{Binding Milliseconds}" VerticalOptions="Center" TextColor="White" FontSize="50" />
+            </StackLayout>
+        </Frame>
+        <Button Text="{Binding StartStop}" BackgroundColor="#657786" FontSize="Large" HeightRequest="50" TextColor="White" VerticalOptions="EndAndExpand" Margin="0,0,0,70" Command="{Binding TimerCommand}" />
+    </StackLayout> -->

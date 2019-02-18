@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using Xamarin.Forms;
-using Rg.Plugins.Popup.Services;
 using smartCubes.ViewModels.Activity;
-using smartCubes.View.Session;
 
 namespace smartCubes.View.Activity
 {
@@ -15,18 +10,14 @@ namespace smartCubes.View.Activity
         public ActivityView()
         {
             InitializeComponent();
-            BindingContext = new ActivityViewModel();
+            BindingContext = new ActivityViewModel(Navigation);
         }
-
-        private void OnclickNewActivity(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
-        }
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Debug.WriteLine("Actividad selccionada");
-        }
+            var vm = BindingContext as ActivityViewModel;
+            vm?.RefreshData();
+            base.OnAppearing();
 
+        }
     }
 }

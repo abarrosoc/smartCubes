@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="smartCubes.View.Activity.AddDevicePopUp">
+  <StackLayout BackgroundColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" WidthRequest="500">
+    <StackLayout HorizontalOptions="CenterAndExpand" WidthRequest="400" Padding="30,20,20,20">
+         <Label Text="Añadir dispositivo" TextColor="#1da1f2" FontSize="20" HorizontalOptions="Center"/>
+         <Label TextColor="#657786" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
+         <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
+         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
+
+         <Label TextColor="#657786" FontSize = "17" Text="Uuid" Margin="0,10,0,10" />
+         <Entry Placeholder="Uuid" Text="{Binding Uuid}" Margin="0,0,0,0" Keyboard="Text"/>
+         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/> 
+
+         <Button Text="Añadir"
+        VerticalOptions="EndAndExpand"
+        HorizontalOptions="FillAndExpand"
+        Command="{Binding AddCommand}" 
+        BackgroundColor="#657786"
+        TextColor="White"
+        FontSize="20"
+        Margin="40,50,40,35"/>
+    </StackLayout>
+  </StackLayout>
+</pages:PopupPage>

@@ -2,57 +2,68 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:smartCubes;assembly=smartCubes"
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              x:Class="smartCubes.View.Activity.NewActivityView"
              Title="{Binding Title}">
     
-    <StackLayout BackgroundColor="White">
-        <Label TextColor="Black" FontSize = "17" Text="Nombre actividad" Margin="30,40,30,10" />
-        <Entry Placeholder="Nombre" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+   <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="700">
+        <StackLayout BackgroundColor="White" HorizontalOptions="StartAndExpand" WidthRequest="700" Margin="30,0,0,20">
+            <Label TextColor="#657786" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
+            <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="0,0,0,0" Keyboard="Text"/>
+            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
-
-        <Label TextColor="Black" FontSize = "17" Text="Descripción actividad" Margin="30,0,30,10"/>
-        <Entry Placeholder="Descripción" Margin="30,0,30,0" Keyboard="Text"/>
-        <BoxView HeightRequest="0.5" BackgroundColor="Silver" WidthRequest="320" HorizontalOptions="Center" Margin="0,0,0,15"/>
+            <Label TextColor="#657786" FontSize = "17" Text="Descripción" Margin="0,0,30,10"/>
+            <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,0,30,0" Keyboard="Text"/>
+            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,30"/>
         
-        <Label TextColor="Black" FontSize = "17" Text="Seleccione dispositivos..." Margin="30,10,0,10" />
 
+        <Button Text="+     Añadir dispositivos"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="StartAndExpand"
+                Command="{Binding OnButtonAddDeviceClicked}"
+                BackgroundColor="White"
+                TextColor="#657786"
+                FontSize="17"
+                Margin="30,10,0,0"/>
+        
         <ListView x:Name="lDevices"
-              ItemTapped="OnItemTapped"
-              IsPullToRefreshEnabled="true"
-              RowHeight="50"
+              IsPullToRefreshEnabled="false"
+              RowHeight="75"
               SeparatorVisibility="Default"
               SeparatorColor="#E6E6E6"
+              ItemsSource="{Binding lDevices}" 
+              SelectedItem="{Binding SelectItem,Mode=TwoWay}"
               BackgroundColor="#E6E6E6"
-              ItemsSource="{Binding lDevices}"
-              Margin="0,0,0,10"
-              HeightRequest="300">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <!--<StackLayout Orientation="Vertical" VerticalOptions="Center">
-                <Label x:Name="Name" Text="{Binding Name, Mode=TwoWay}" TextColor="Black" FontSize="15" Margin="10,0,30,5"/>
-                <Label x:Name="State" Text="{Binding State, Mode=TwoWay, StringFormat='{0}'}" TextColor="{Binding ColorName, Mode=TwoWay}" FontSize="10" Margin="40,0,30,0"/>
-                <Label Text="{Binding Id, StringFormat='{0}'}" TextColor="Gray" FontSize="5" Margin="5"/> 
-              </StackLayout>-->
-                <StackLayout BackgroundColor="White" Orientation="Vertical">
-                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,10,30,0">
-                        <Label x:Name="Name" Text="{Binding Name, Mode=TwoWay}" TextColor="Black" FontSize="17" HorizontalOptions="StartAndExpand"/>
-                        <Image Source="info.png"  HorizontalOptions="EndAndExpand" WidthRequest="20" HeightRequest="20"/> 
+              VerticalOptions="StartAndExpand"
+              HeightRequest="500">
+        <ListView.Behaviors>
+                <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
+        </ListView.Behaviors>
+            <ListView.ItemTemplate>
+              <DataTemplate>
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lDevices}} " 
+                                      CommandParameter="{Binding .}"/>
+                    </ViewCell.ContextActions>
+                    <StackLayout BackgroundColor="White" Orientation="Vertical">
+                       <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,0">
+                           <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand"/>
+                       </StackLayout>
+                       <Label Text="{Binding Path=Uuid, StringFormat='uuid: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="20,0,0,0"/>
                     </StackLayout>
-                    <!--<Label x:Name="State" Text="{Binding State, Mode=TwoWay, StringFormat='{0}'}" TextColor="{Binding ColorName, Mode=TwoWay}" FontSize="10" Margin="20,0,30,0" />-->
-                </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-         <Button Text="Guardar"
-                VerticalOptions="CenterAndExpand"
+                </ViewCell>
+              </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </StackLayout>
+        <Button Text="Guardar"
+                VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
-                Clicked="OnButtonSaveClicked" 
-                BackgroundColor="#0E547C"
+                Command="{Binding SaveCommand}" 
+                BackgroundColor="#657786"
                 TextColor="White"
                 FontSize="20"
-                Margin="30,0,30,0" />
+                Margin="0,100,0,70"/>
     </StackLayout>
 </ContentPage>

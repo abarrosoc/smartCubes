@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.User.NewUserView"
+             Title="{Binding Title}">
+     <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="600" Margin="0,70,0,0">
+        <Label TextColor="#657786" FontSize = "17" Text="Nombre usuario" Margin="0,40,0,10" />
+        <Entry Placeholder="Nombre (Máximo 20 caracteres)"  Text="{Binding UserName}" MaxLength="20" Margin="0,0,0,0" Keyboard="Text"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
+
+        <Label TextColor="#657786" FontSize = "17" Text="Contraseña" Margin="0,10,0,10" />
+        <Entry Placeholder="Contraseña" Text="{Binding Password}" Margin="0,0,0,0"  Keyboard="Text" IsPassword="true"/>
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
+
+        <Label TextColor="#657786" FontSize = "17" Text="Dirección de correo" Margin="0,10,0,10" />
+        <Entry Placeholder="Email" Text="{Binding Email}" Margin="0,0,0,0" Keyboard="Email" />
+        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
+
+        <Label TextColor="#657786" FontSize = "17" Text="Seleccione" Margin="0,40,0,10"/>
+         <Picker x:Name="pRole" Title="Role" 
+                Margin="0,0,0,20"
+                ItemsSource="{Binding lRoles}" 
+                SelectedItem="{Binding SelectedRole,Mode=TwoWay}">
+        </Picker>
+         <Button Text="Guardar"
+                Command="{Binding SaveCommand}"
+                VerticalOptions="EndAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BackgroundColor="#657786"
+                TextColor="White"
+                FontSize="20"
+                Margin="0,0,0,70" />
+     </StackLayout>
+</ContentPage>

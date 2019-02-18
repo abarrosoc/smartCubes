@@ -1,25 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using smartCubes.ViewModels.Session;
+using smartCubes.Models;
 using Xamarin.Forms;
 
 namespace smartCubes.View.Session
 {
     public partial class SessionView : ContentPage
     {
-        public SessionView()
+        private UserModel user;
+
+        public SessionView(){
+            
+        }
+        public SessionView(UserModel user)
         {
+            this.user = user;
             InitializeComponent();
+            BindingContext = new SessionViewModel(Navigation, user);
         }
 
-        private void OnclickNewActivity(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
-            //Navigation.PushAsync(new BLEDevices());
-            Navigation.PushAsync(new NewSessionView());
-        }
-        private void OnItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            Debug.WriteLine("Sesion seleccionada");
+            var vm = BindingContext as SessionViewModel;
+            vm?.RefreshData();
+            base.OnAppearing();
+
         }
     }
 }

@@ -1,24 +1,149 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
-using smartCubes.View;
+using Plugin.BLE.Abstractions.Contracts;
+using Prism.Navigation;
+using smartCubes.Models;
+using smartCubes.Utils;
+using smartCubes.View.Login;
+using smartCubes.View.Session;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Menu
 {
     public class HomeViewModel : BaseViewModel
     {
-        public ICommand Click_Activity { get; private set; }
+        public INavigation Navigation { get; set; }
 
-        public HomeViewModel()
+        private UserModel user;
+
+        public HomeViewModel(INavigation navigation, UserModel user)
         {
-            Click_Activity = new Command(Click);
+            this.Navigation = navigation;
+            this.user = user;
+            isVisibleLabel = false;
+            isVisibleList = false;
+            Title = "Inicio";
+            RefreshData();
         }
 
-        private void Click()
+        private ObservableCollection<SessionModel> _lSessions;
+
+        public ObservableCollection<SessionModel> lSessions
         {
-            Debug.WriteLine("Click en actividad: "+ Title);
+            get
+            {
+                return _lSessions;
+            }
+            set
+            {
+                _lSessions = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private SessionModel _SelectItem;
+
+        public SessionModel SelectItem
+        {
+            get
+            {
+                return _SelectItem;
+            }
+            set
+            {
+                _SelectItem = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _isRefreshing = false;
+
+        public bool IsRefreshing
+        {
+            get { return _isRefreshing; }
+            set
+            {
+                _isRefreshing = value;
+                RaisePropertyChanged(nameof(IsRefreshing));
+            }
+        } 
+
+        private bool _isVisibleList = false;
+
+        public bool isVisibleList
+        {
+            get { return _isVisibleList; }
+            set
+            {
+                _isVisibleList = value;
+                RaisePropertyChanged();
+            }
+        } 
+
+        private bool _isVisibleLabel = false;
+
+        public bool isVisibleLabel
+        {
+            get { return _isVisibleLabel; }
+            set
+            {
+                _isVisibleLabel = value;
+                RaisePropertyChanged();
+            }
+        } 
+
+        private ICommand _OnItemTapped;
+
+        public ICommand OnItemTapped
+        {
+            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
+        }
+
+        private void OnItemTappedExecute()
+        {
+            SessionModel item = SelectItem;
+            SelectItem = null;
+            RefreshData();
+            Navigation.PushAsync(new PlaySessionView(item));
+        }
+       
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    IsRefreshing = true;
+
+                    RefreshData();
+
+                    IsRefreshing = false;
+                });
+            }
+        }
+
+        public void RefreshData()
+        {
+            lSessions = new ObservableCollection<SessionModel>();
+            List<SessionModel> listSessions = App.Database.GetSessionsByUser(user);
+
+            foreach (SessionModel session in listSessions)
+                lSessions.Add(session);
+
+            if (lSessions.Count > 0)
+            {
+                isVisibleList = true;
+                isVisibleLabel = false;
+            }
+            else
+            {
+                isVisibleLabel = true;
+                isVisibleList = false;
+            }
         }
     }
+       
 }
 
