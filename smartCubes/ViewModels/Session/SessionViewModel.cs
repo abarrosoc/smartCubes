@@ -8,6 +8,7 @@ using smartCubes.Models;
 using smartCubes.Utils;
 using smartCubes.View.Session;
 using Syncfusion.XlsIO;
+using Syncfusion.Drawing;
 using Xamarin.Forms;
 
 namespace smartCubes.ViewModels.Session
@@ -117,9 +118,28 @@ namespace smartCubes.ViewModels.Session
                 {
                     //Set the default application version as Excel 2013.
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-
                     //Create a workbook with a worksheet
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(lSessionInit.Count);
+                    IStyle headerStyle = workbook.Styles.Add("HeaderStyle");
+                    headerStyle.BeginUpdate();
+                    headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(29, 161, 242);
+                    headerStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
+                    headerStyle.Font.Bold = true;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.EndUpdate();
+
+                    IStyle bodyStyle = workbook.Styles.Add("BodyStyle");
+                    bodyStyle.BeginUpdate();
+                    bodyStyle.Color = Syncfusion.Drawing.Color.White;
+                    bodyStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    bodyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    bodyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    bodyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    bodyStyle.EndUpdate();
+  
 
                     //Access first worksheet from the workbook instance.
 
@@ -140,16 +160,22 @@ namespace smartCubes.ViewModels.Session
                         worksheet[2, 3].Value = user.UserName;
                         worksheet[2, 4].Value = sessionInit.StudentCode;
 
-                        worksheet.Name = sessionInit.StudentCode;
 
+                        worksheet.Name = cont.ToString() + " - " + sessionInit.StudentCode;
+                        worksheet.UsedRange.AutofitColumns();
+
+                        worksheet.Rows[0].CellStyle = headerStyle;
                         List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
 
                         int i = 4;
                         foreach (SessionData sd in sessionsData)
                         {
                             worksheet[i, 1].Value = sd.Data;
+                            worksheet.Range["$A$"+i+":$F$" +i].Merge();
+
                             i++;
                         }
+                        worksheet.Range["A4:F"+i].CellStyle = bodyStyle;
                         cont++;
                     }
 
@@ -182,7 +208,7 @@ namespace smartCubes.ViewModels.Session
             if (answer)
             {
                 App.Database.DeleteSession(session);
-                await Application.Current.MainPage.DisplayAlert("Info", "La sesión se ha eliminado", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha eliminado", "Aceptar");
                 RefreshData();
             }
         }

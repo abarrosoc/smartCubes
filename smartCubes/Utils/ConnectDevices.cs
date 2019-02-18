@@ -16,22 +16,22 @@ namespace smartCubes.Utils
 {
     public class ConnectDevices
     {
-        private static DateTime datetime;
-        private static IAdapter adapter;
-        private static IBluetoothLE ble;
-        private static List<DeviceModel> lDevices;
-        private static List<DeviceData> lDeviceData;
-        private static List<IDevice> lDevicesConnected;
+        private DateTime datetime;
+        private IAdapter adapter;
+        private IBluetoothLE ble;
+        private List<DeviceModel> lDevices;
+        private List<DeviceData> lDeviceData;
+        private List<IDevice> lDevicesConnected;
 
-        public static String StudentCode { get; set; }
+        public String StudentCode { get; set; }
 
 
-        public ConnectDevices(List<DeviceModel> lDev,PlaySessionViewModel playSessionViewModel)
+        public ConnectDevices()
         {
-            Start(lDev,playSessionViewModel);
+
         }
 
-        public async void Start(List<DeviceModel> lDev,PlaySessionViewModel playSessionViewModel)
+        public async Task Start(List<DeviceModel> lDev)
         {
             lDeviceData = new List<DeviceData>();
             lDevices = new List<DeviceModel>();
@@ -39,23 +39,25 @@ namespace smartCubes.Utils
             lDevicesConnected = new List<IDevice>();
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
-
+            adapter.ScanTimeout = 3000;
 
             if (!ble.State.Equals(BluetoothState.On))
             {
                 ble.StateChanged += async (s, e) =>
                 {
                     Debug.WriteLine("BLE state changed to {e.NewState}");
-                    SearchDevice(lDevices, playSessionViewModel);
+                    await SearchDevice();
+
                 };
             }
             else
             {
-                SearchDevice(lDevices, playSessionViewModel);
+                await SearchDevice();
+
             }
         }
 
-        private async void SearchDevice(List<DeviceModel> lDevices,PlaySessionViewModel playSessionViewModel)
+        private async Task SearchDevice()
         {
 
             if (ble.IsAvailable && ble.IsOn)
@@ -65,7 +67,7 @@ namespace smartCubes.Utils
                
                 try
                 {
-                    adapter.DeviceDiscovered += (s, a) =>
+                    adapter.DeviceDiscovered +=async (s, a) =>
                     {
                         Debug.WriteLine("Dispositivo encontrado: " + a.Device.Name + " ID: " + a.Device.Id);
                         foreach (DeviceModel device in lDevices)
@@ -73,15 +75,13 @@ namespace smartCubes.Utils
                             if (a.Device.Name!=null && device.Name.Equals(a.Device.Name))
                             {
                                 Debug.WriteLine("Nuevo dispositivo: " + a.Device.Name + " ID: " + a.Device.Id);
-                                connectDevice(a.Device);
+                                await connectDevice(a.Device);
                                 lDevicesConnected.Add(a.Device);
-
-                               // if (lDevicesConnected.Count() == lDevices.Count()
-                                
                             }
                         }
 
                     };
+
                     await adapter.StartScanningForDevicesAsync();
 
                 }
@@ -101,7 +101,7 @@ namespace smartCubes.Utils
             }
         }
 
-        private static async void connectDevice(IDevice deviceConnected)
+        private async Task connectDevice(IDevice deviceConnected)
         {
             Debug.WriteLine("Intentando conexion con: " + deviceConnected.Name);
 
@@ -154,7 +154,7 @@ namespace smartCubes.Utils
                 Debug.WriteLine("Error al conectar con el dispositivo: " + deviceConnected.Name + "." + ex);
             }
         }
-        public static async void disconnectAll(PlaySessionViewModel playSessionViewModel)
+        public async void disconnectAll()
         {
             foreach (IDevice device in lDevicesConnected)
             {
@@ -162,10 +162,9 @@ namespace smartCubes.Utils
                     await adapter.DisconnectDeviceAsync(device);
             }
             lDevicesConnected = new List<IDevice>();
-            playSessionViewModel.ColorFrame = "Red";
 
         }
-        public static async void WriteDevices(String number)
+        public async void WriteDevices(String number)
         {
 
             if (lDevices != null)
@@ -184,7 +183,7 @@ namespace smartCubes.Utils
             }
         }
 
-        public static bool isAllConnectedDevices(List<DeviceModel> lDevicesActivity)
+        public bool isAllConnectedDevices(List<DeviceModel> lDevicesActivity)
         {
             if (adapter.ConnectedDevices.Count() == lDevicesActivity.Count())
                 return true;
@@ -192,7 +191,7 @@ namespace smartCubes.Utils
                 return false;
         }
 
-        public static void saveData(SessionInit sessionInit){
+        public void saveData(SessionInit sessionInit){
             Debug.WriteLine("Guardando datos.....");
             App.Database.SaveSessionInit(sessionInit);
 

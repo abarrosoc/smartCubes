@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using Plugin.BLE.Abstractions.Contracts;
 using Prism.Navigation;
 using smartCubes.Models;
 using smartCubes.Utils;

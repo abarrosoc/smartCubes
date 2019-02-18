@@ -22,11 +22,13 @@ namespace smartCubes.ViewModels.Session
             this.user = user;
             this.modify = modify;
             this.session = session;
- 
+                
             ActivitiesModel activities = Json.getActivities();
             lActivities = new ObservableCollection<ActivityModel>();
             foreach (ActivityModel activity in activities.Activities)
                 lActivities.Add(activity);
+            
+            isEnabledPicker = true;
 
             if(modify){
                 Title = "Modificar sesión";
@@ -146,6 +148,17 @@ namespace smartCubes.ViewModels.Session
             }
         } 
 
+        private bool _isEnabledPicker = false;
+
+        public bool isEnabledPicker
+        {
+            get { return _isEnabledPicker; }
+            set
+            {
+                _isEnabledPicker = value;
+                RaisePropertyChanged();
+            }
+        } 
         private ICommand _saveCommand;
         public ICommand SaveCommand
         {
@@ -227,6 +240,9 @@ namespace smartCubes.ViewModels.Session
             lSessionsInit = new ObservableCollection<SessionInit>();
             List<SessionInit> sessionsInit = App.Database.GetSessionInit(session.ID);
 
+            if (sessionsInit.Count > 0)
+                isEnabledPicker = false;
+            
             foreach (SessionInit session in sessionsInit)
                 lSessionsInit.Add(session);
 

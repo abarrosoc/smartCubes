@@ -1,8 +1,7 @@
-﻿using System;
+﻿
 using smartCubes.Models;
 using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace smartCubes.View.Session
 {
@@ -18,13 +17,12 @@ namespace smartCubes.View.Session
             InitializeComponent();
             BindingContext = new PlaySessionViewModel(session);
         }
+
         protected override void OnDisappearing()
         {
             var vm = BindingContext as PlaySessionViewModel;
             vm?.disconnectAll();
             base.OnDisappearing();
-
         }
-
     }
 }
