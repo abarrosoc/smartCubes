@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.User.NewUserView"
-             Title="{Binding Title}">
+             Title="{Binding Title}" BackgroundColor="White">
+    <ScrollView>
      <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="600" Margin="0,70,0,0">
         <Label TextColor="#657786" FontSize = "17" Text="Nombre usuario" Margin="0,40,0,10" />
         <Entry Placeholder="Nombre (Máximo 20 caracteres)"  Text="{Binding UserName}" MaxLength="20" Margin="0,0,0,0" Keyboard="Text"/>
@@ -31,4 +32,5 @@
                 FontSize="20"
                 Margin="0,0,0,70" />
      </StackLayout>
+        </ScrollView>
 </ContentPage>

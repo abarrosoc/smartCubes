@@ -22,7 +22,7 @@ namespace smartCubes.View.Session
         {
             var vm = BindingContext as PlaySessionViewModel;
             vm?.disconnectAll();
-            base.OnDisappearing();
+            //base.OnDisappearing();
         }
     }
 }

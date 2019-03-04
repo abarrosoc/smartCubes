@@ -54,7 +54,7 @@ namespace smartCubes.ViewModels.Login
 
         private void LoginCommandExecuteAsync()
         {
-
+            //App.Database.ResetDataBase();
             UserModel user = App.Database.GetUsers()[0];
             Application.Current.MainPage = new MainPage(user);
             /*

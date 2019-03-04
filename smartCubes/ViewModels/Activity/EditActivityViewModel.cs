@@ -118,7 +118,7 @@ namespace smartCubes.ViewModels.Activity
 
         private async void SaveCommandExecute()
         {
-            if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description))
+            if (String.IsNullOrEmpty(Name) || lDevices.Count == 0)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }

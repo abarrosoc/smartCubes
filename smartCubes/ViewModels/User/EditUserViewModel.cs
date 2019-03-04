@@ -126,7 +126,7 @@ namespace smartCubes.ViewModels.User
 
         private async void SaveCommandExecuteAsync()
         {
-            if(String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password)|| String.IsNullOrEmpty(Email) || SelectedRole == null){
+            if(String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password) || SelectedRole == null){
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }else{
                 bool resultValidate = validateEmail(Email);

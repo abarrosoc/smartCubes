@@ -4,8 +4,8 @@
              xmlns:local="clr-namespace:smartCubes;assembly=smartCubes"
              xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              x:Class="smartCubes.View.Activity.NewActivityView"
-             Title="{Binding Title}">
-    
+             Title="{Binding Title}" BackgroundColor="White">
+    <ScrollView>
    <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="700">
         <StackLayout BackgroundColor="White" HorizontalOptions="StartAndExpand" WidthRequest="700" Margin="30,0,0,20">
             <Label TextColor="#657786" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
@@ -35,7 +35,7 @@
               SelectedItem="{Binding SelectItem,Mode=TwoWay}"
               BackgroundColor="#E6E6E6"
               VerticalOptions="StartAndExpand"
-              HeightRequest="500">
+              HeightRequest="380">
         <ListView.Behaviors>
                 <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
         </ListView.Behaviors>
@@ -56,8 +56,19 @@
               </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        </StackLayout>
-        <Button Text="Guardar"
+
+         </StackLayout>
+
+             <Button Text="+     Añadir campos"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="StartAndExpand"
+                Command="{Binding OnButtonAddDeviceClicked}"
+                BackgroundColor="White"
+                TextColor="#657786"
+                FontSize="17"
+                Margin="30,10,0,0"/>
+            
+           <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Command="{Binding SaveCommand}" 
@@ -65,5 +76,6 @@
                 TextColor="White"
                 FontSize="20"
                 Margin="0,100,0,70"/>
-    </StackLayout>
+        </StackLayout>
+        </ScrollView>
 </ContentPage>

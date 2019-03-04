@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Menu.Home" xmlns:local="clr-namespace:smartCubes;assembly=smartCubes" xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" Title="{Binding Title}">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.Menu.Home" 
+             xmlns:local="clr-namespace:smartCubes;assembly=smartCubes" 
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
+             Title="{Binding Title}"
+             BackgroundColor="White">
     <ContentPage.ToolbarItems>
     </ContentPage.ToolbarItems>
     <!--<ScrollView>
@@ -107,7 +113,7 @@
                                 <StackLayout Orientation="Vertical">
                                     <Label TextColor="#657786" FontSize="18" FontAttributes="Bold" Text="{Binding ActivityName}" Margin="0,0,0,15" />
                                     <Label TextColor="#657786" FontSize="16" FontAttributes="Italic" Text="{Binding Path=CreateDate, StringFormat='Fecha creación: {0}'}" />
-                                    <Label TextColor="#657786" FontSize="16" FontAttributes="Italic" Text="{Binding Path=ModifyDate, StringFormat='Modificada: {0}'}" />
+                                    <Label TextColor="#657786" FontSize="16" FontAttributes="Italic" Text="{Binding Path=ModifyDate, StringFormat='Última modificación: {0}'}" />
                                 </StackLayout>
                             </Frame>
                         </Grid>

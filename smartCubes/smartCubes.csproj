@@ -22,7 +22,6 @@
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="MyPage.xaml.cs" />
     <Compile Remove="MasterPageItem.xaml.cs" />
     <Compile Remove="Master.cs" />
     <Compile Remove="MainPage.xaml.cs" />

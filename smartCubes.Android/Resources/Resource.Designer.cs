@@ -2400,7 +2400,7 @@ namespace smartCubes.Droid
 			public const int add = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int arrow_left = 2130837589;
+			public const int arrow = 2130837589;
 			
 			// aapt resource value: 0x7f020056
 			public const int avd_hide_password = 2130837590;
