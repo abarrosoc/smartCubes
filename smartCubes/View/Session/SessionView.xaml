@@ -5,7 +5,7 @@
              x:Class="smartCubes.View.Session.SessionView"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-    <ToolbarItem Name="MenuItem1" Order="Primary" Icon="add.png" Text="Add" Priority="0" Command="{Binding NewSessionCommand}" />
+    <ToolbarItem Name="MenuItem1"  Order="Primary" Icon="add.png" Text="Add" Priority="0" Command="{Binding NewSessionCommand}" />
 </ContentPage.ToolbarItems>
     <StackLayout BackgroundColor="#E6E6E6">
     <ListView x:Name="lSessions"

@@ -25,13 +25,13 @@
                           SeparatorVisibility="None"
                           SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
                           ItemsSource="{Binding lMenu}"                         
-                          RowHeight="90" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                          RowHeight="80" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <ListView.Behaviors>
                     <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
                 </ListView.Behaviors>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ImageCell Text="{Binding Title}" TextColor="#657786" ImageSource="{Binding IconSource}" />
+                            <ImageCell Text="{Binding Title}"  TextColor="#657786" ImageSource="{Binding IconSource}"  />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView> 

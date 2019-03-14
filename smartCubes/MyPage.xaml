@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.MyPage">
     <ContentPage.Content>
-    </ContentPage.Content>
-     <AbsoluteLayout  >
 
-          <Frame Padding="0" BorderColor="Transparent" HasShadow="false" AbsoluteLayout.LayoutBounds="0,0,0.3,.25" AbsoluteLayout.LayoutFlags="All">
-             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                        <Image Source="menu_back.png" Opacity="0.3"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Aspect="AspectFill"/>
-                        <AbsoluteLayout AbsoluteLayout.LayoutBounds=".5,.5,.6,.5" AbsoluteLayout.LayoutFlags="All">
-                        <Frame  CornerRadius="20" BorderColor="White" AbsoluteLayout.LayoutBounds=".5,.5,1,1" HasShadow="false" BackgroundColor="#657786" AbsoluteLayout.LayoutFlags="All" Padding="12">
-                             <Label BackgroundColor="Red"  Text = "A" FontSize="80" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds=".5,.5,1,1" AbsoluteLayout.LayoutFlags="All" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-          
-                    </Frame>
-                    </AbsoluteLayout>                
-              </AbsoluteLayout>
-            </Frame>
-        <AbsoluteLayout  BackgroundColor="White" AbsoluteLayout.LayoutBounds="1,1,1,.7" AbsoluteLayout.LayoutFlags="All">
-                        
-                    </AbsoluteLayout>
-            </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

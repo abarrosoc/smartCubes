@@ -93,21 +93,22 @@ namespace smartCubes.ViewModels.Activity
                 RaisePropertyChanged();
             }
         }
+      
+        private DeviceModel _SelectDevice;
 
-        private DeviceModel _SelectItem;
-
-        public DeviceModel SelectItem
+        public DeviceModel SelectDevice
         {
             get
             {
-                return _SelectItem;
+                return _SelectDevice;
             }
             set
             {
-                _SelectItem = value;
+                _SelectDevice = value;
                 RaisePropertyChanged();
             }
         }
+       
 
         private ICommand _saveCommand;
 
@@ -156,21 +157,21 @@ namespace smartCubes.ViewModels.Activity
                 }
             }
         }
-        private ICommand _deleteCommand;
+        private ICommand _deleteDeviceCommand;
 
-        public ICommand DeleteCommand
+        public ICommand DeleteDeviceCommand
         {
-            get { return _deleteCommand ?? (_deleteCommand = new Command<DeviceModel>((device) => DeleteCommandExecute(device))); }
+            get { return _deleteDeviceCommand ?? (_deleteDeviceCommand = new Command<DeviceModel>((device) => DeleteDeviceCommandExecute(device))); }
         }
 
-        private void DeleteCommandExecute(DeviceModel device)
+        private void DeleteDeviceCommandExecute(DeviceModel device)
         {
             lDevices.Remove(device);
             if (activity!=null && activity.Devices.Contains(device)) { 
                 activity.Devices.Remove(device);
-                Json.updateActivity(activity);
             }
         }
+
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped

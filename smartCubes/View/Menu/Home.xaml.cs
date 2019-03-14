@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using smartCubes.ViewModels.Menu;
+﻿using smartCubes.ViewModels.Menu;
 using Xamarin.Forms;
-using smartCubes.View.Activity;
-using System.Diagnostics;
-using smartCubes.View.Session;
-using smartCubes.Utils;
-using System.Threading.Tasks;
 using smartCubes.Models;
-using System.Collections.ObjectModel;
 
 namespace smartCubes.View.Menu
 {

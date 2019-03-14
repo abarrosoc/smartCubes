@@ -26,6 +26,7 @@ namespace smartCubes.ViewModels.Menu
             isVisibleList = false;
             Title = "Inicio";
             RefreshData();
+            isLoading = false;
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -93,6 +94,18 @@ namespace smartCubes.ViewModels.Menu
                 RaisePropertyChanged();
             }
         } 
+
+        private bool _isLoading = true;
+
+        public bool isLoading
+        {
+            get { return _isLoading; }
+            set
+            {
+                _isLoading = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private ICommand _OnItemTapped;
 

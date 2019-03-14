@@ -28,6 +28,10 @@
     <Compile Remove="Activities.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Remove="View\DevicesPopupView %28copia%29.xaml" />
+    <EmbeddedResource Remove="View\Activity\AddDevicePopUp %28copia%29.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="activitiesApp.json" />
   </ItemGroup>
   <ItemGroup>

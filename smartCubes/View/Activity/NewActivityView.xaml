@@ -5,7 +5,10 @@
              xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              x:Class="smartCubes.View.Activity.NewActivityView"
              Title="{Binding Title}" BackgroundColor="White">
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+       <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
     <ScrollView>
+         
    <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="700">
         <StackLayout BackgroundColor="White" HorizontalOptions="StartAndExpand" WidthRequest="700" Margin="30,0,0,20">
             <Label TextColor="#657786" FontSize = "17" Text="Nombre" Margin="0,40,0,10" />
@@ -32,7 +35,7 @@
               SeparatorVisibility="Default"
               SeparatorColor="#E6E6E6"
               ItemsSource="{Binding lDevices}" 
-              SelectedItem="{Binding SelectItem,Mode=TwoWay}"
+              SelectedItem="{Binding SelectDevice,Mode=TwoWay}"
               BackgroundColor="#E6E6E6"
               VerticalOptions="StartAndExpand"
               HeightRequest="380">
@@ -43,7 +46,7 @@
               <DataTemplate>
                 <ViewCell>
                     <ViewCell.ContextActions>
-                        <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lDevices}} " 
+                        <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteDeviceCommand, Source={x:Reference Name=lDevices}} " 
                                       CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
                     <StackLayout BackgroundColor="White" Orientation="Vertical">
@@ -57,17 +60,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-         </StackLayout>
-
-             <Button Text="+     Añadir campos"
-                VerticalOptions="StartAndExpand"
-                HorizontalOptions="StartAndExpand"
-                Command="{Binding OnButtonAddDeviceClicked}"
-                BackgroundColor="White"
-                TextColor="#657786"
-                FontSize="17"
-                Margin="30,10,0,0"/>
-            
+    
            <Button Text="Guardar"
                 VerticalOptions="EndAndExpand"
                 HorizontalOptions="FillAndExpand"
@@ -76,6 +69,14 @@
                 TextColor="White"
                 FontSize="20"
                 Margin="0,100,0,70"/>
+                     </StackLayout>
         </StackLayout>
         </ScrollView>
+           </StackLayout>
+        <StackLayout IsVisible="true" Padding="12"
+                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+     <ActivityIndicator IsRunning="true" IsVisible="true" Color ="#80000000" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </AbsoluteLayout>
 </ContentPage>

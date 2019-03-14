@@ -350,7 +350,7 @@ namespace smartCubes.ViewModels.Session
 
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
-            adapter.ScanTimeout = 3000;
+            adapter.ScanTimeout = 30000;
  
 
             if (!ble.State.Equals(BluetoothState.On))
@@ -377,6 +377,7 @@ namespace smartCubes.ViewModels.Session
 
                 try
                 {
+                    adapter.ScanMode=ScanMode.Balanced;
 
                     adapter.DeviceDiscovered += async (s, a) =>
                     {
@@ -494,6 +495,7 @@ namespace smartCubes.ViewModels.Session
         }
         public async void disconnectAll()
         {
+
             foreach (IDevice device in adapter.ConnectedDevices)
             {
                 if (device.State == DeviceState.Connected)

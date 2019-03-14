@@ -78,7 +78,8 @@
                 <ColumnDefinition Width="1*" />
 
               </Grid.ColumnDefinitions>
-    <StackLayout BackgroundColor="White" Grid.Row="0" Grid.Column="1">
+        
+    <StackLayout BackgroundColor="White" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
         <ListView x:Name="lUsers" IsVisible="{Binding isVisibleList,Mode=TwoWay}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RowHeight="240" SeparatorVisibility="None" SelectedItem="{Binding SelectItem}" ItemsSource="{Binding lSessions}" BackgroundColor="White"
             Margin="0,20,0,20">
             <ListView.Behaviors>
@@ -122,6 +123,12 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label TextColor="Gray" Text="No hay datos para mostrar" HorizontalOptions="CenterAndExpand" Margin="0,20" IsVisible="{Binding isVisibleLabel,Mode=TwoWay}" FontAttributes="Italic" />
+
     </StackLayout>
+    <StackLayout IsVisible="{Binding isLoading}" BackgroundColor="Gray" Opacity="0.1" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+        <ActivityIndicator IsRunning="{Binding isLoading}" IsVisible="{Binding isLoading}" Color ="#80000000" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="Cargando..." TextColor="#657786" FontSize="16" FontAttributes="Italic" IsVisible="{Binding isLoading}"/>
+
+     </StackLayout>
     </Grid>
 </ContentPage>

@@ -32,7 +32,6 @@ namespace smartCubes.ViewModels.Session
 
             if(modify){
                 Title = "Modificar sesión";
-                isVisible = true;
                 Name = session.Name;
                 Description = session.Description;
                 ActivityModel activitySession = Json.getActivityByName(session.ActivityName);
@@ -240,9 +239,12 @@ namespace smartCubes.ViewModels.Session
             lSessionsInit = new ObservableCollection<SessionInit>();
             List<SessionInit> sessionsInit = App.Database.GetSessionInit(session.ID);
 
-            if (sessionsInit.Count > 0)
+            if (sessionsInit.Count > 0){
                 isEnabledPicker = false;
-            
+                isVisible = true;
+            } else {
+                isVisible = false;
+            }
             foreach (SessionInit session in sessionsInit)
                 lSessionsInit.Add(session);
 

@@ -117,10 +117,6 @@ namespace smartCubes.Data
             return database.Delete(item);
         }
 
-
-
-
-
         public int DeleteSessionData(SessionData item)
         {
             return database.Delete(item);

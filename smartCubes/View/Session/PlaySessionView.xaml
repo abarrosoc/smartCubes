@@ -15,7 +15,7 @@
             <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,35" Grid.Row="5" Grid.Column="0" />
         </StackLayout>
         </AbsoluteLayout>
-         <AbsoluteLayout  AbsoluteLayout.LayoutBounds=".5,.6,.45,.18"  AbsoluteLayout.LayoutFlags="All">
+         <AbsoluteLayout  AbsoluteLayout.LayoutBounds=".5,.6,.5,.18"  AbsoluteLayout.LayoutFlags="All">
             <Frame CornerRadius="40" AbsoluteLayout.LayoutBounds="0,.5,1,1"  AbsoluteLayout.LayoutFlags="All" HasShadow="false" OutlineColor="{Binding ColorFrame}">
                 <Grid>
                     <Grid.RowDefinitions>
