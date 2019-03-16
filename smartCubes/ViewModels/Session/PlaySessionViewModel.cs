@@ -350,7 +350,7 @@ namespace smartCubes.ViewModels.Session
 
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
-            adapter.ScanTimeout = 30000;
+            adapter.ScanTimeout = 3000;
  
 
             if (!ble.State.Equals(BluetoothState.On))
@@ -462,9 +462,16 @@ namespace smartCubes.ViewModels.Session
 
                     UnicodeEncoding uniencoding = new UnicodeEncoding();
                     byte[] one = uniencoding.GetBytes("0");
-                    await characteristics[0].WriteAsync(one);
+                    ICharacteristic characteristicRW = null;
+                    //Buscamos la caracteristica que permite escribir y leer
+                    foreach(ICharacteristic characteristic  in characteristics){
+                        if(characteristic.CanRead && characteristic.CanWrite){
+                            characteristicRW = characteristic;
+                        }
+                    }
+                    await characteristicRW.WriteAsync(one);
                     //lectura de datos
-                    characteristics[0].ValueUpdated += (s, a) =>
+                    characteristicRW.ValueUpdated += (s, a) =>
                     {
                         byte[] valueBytes = a.Characteristic.Value;
                         //await characteristics[0].ReadAsync(); //lee constantemente
@@ -477,7 +484,7 @@ namespace smartCubes.ViewModels.Session
 
                         Debug.WriteLine(data, "Leyendo datos de " + deviceConnected.Name + ": ");
                     };
-                    await characteristics[0].StartUpdatesAsync();
+                   // await characteristicRW.StartUpdatesAsync();
 
                     //var bytes = await characteristics[0].ReadAsync();
                 }
@@ -518,7 +525,14 @@ namespace smartCubes.ViewModels.Session
 
                     UnicodeEncoding uniencoding = new UnicodeEncoding();
                     byte[] one = uniencoding.GetBytes(number);
-                    await characteristics[0].WriteAsync(one);
+                    //Buscamos la caracteristica que permite escribir y leer
+                    foreach (ICharacteristic characteristic in characteristics)
+                    {
+                        if (characteristic.CanRead && characteristic.CanWrite)
+                        {
+                            await characteristic.WriteAsync(one);
+                        }
+                    }
                 }
             }
             else
