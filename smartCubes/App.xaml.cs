@@ -4,6 +4,7 @@ using smartCubes.Data;
 using System;
 using System.IO;
 using smartCubes.View.Login;
+using smartCubes.Utils;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace smartCubes
@@ -23,7 +24,7 @@ namespace smartCubes
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            ConnectDevices connect = new ConnectDevices();
         }
 
         protected override void OnSleep()

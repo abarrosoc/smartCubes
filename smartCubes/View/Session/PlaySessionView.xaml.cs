@@ -1,5 +1,9 @@
 ﻿
+using System;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
 using smartCubes.Models;
+using smartCubes.Utils;
 using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
 
@@ -15,14 +19,27 @@ namespace smartCubes.View.Session
         public PlaySessionView(SessionModel session)
         {
             InitializeComponent();
-            BindingContext = new PlaySessionViewModel(session);
+            BindingContext = new PlaySessionViewModel2(session);
         }
 
         protected override void OnDisappearing()
         {
-            var vm = BindingContext as PlaySessionViewModel;
-            vm?.disconnectAll();
-            //base.OnDisappearing();
+            base.OnDisappearing();
+            var vm = BindingContext as PlaySessionViewModel2;
+            vm.DisconnectAll();
+       
+           
+        }
+
+        private void lostEvent(object sender, EventArgs e)
+        {
+           
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.Navigation.PopAsync();
+            });
+ 
         }
     }
 }

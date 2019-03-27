@@ -9,11 +9,11 @@
                 <Image Source="logouah.png" VerticalOptions="CenterAndExpand" AbsoluteLayout.LayoutBounds=".5,.0,1,.5" AbsoluteLayout.LayoutFlags="All"/>
                    </AbsoluteLayout>
                 <AbsoluteLayout BackgroundColor="White" AbsoluteLayout.LayoutBounds=".5,.7,.6,.7"  AbsoluteLayout.LayoutFlags="All">
-                    <AbsoluteLayout BackgroundColor="White" AbsoluteLayout.LayoutBounds=".5,.2,1,.15"  AbsoluteLayout.LayoutFlags="All">
-                        <Entry Placeholder="Usuario"  PlaceholderColor="Silver"  HorizontalOptions="FillAndExpand" Text="{Binding User}" AbsoluteLayout.LayoutBounds=".5,.0,1,1" Keyboard="Text" AbsoluteLayout.LayoutFlags="All"/>
+                    <AbsoluteLayout BackgroundColor="White" AbsoluteLayout.LayoutBounds=".5,.2,1,.25"  AbsoluteLayout.LayoutFlags="All">
+                        <Entry Placeholder="Usuario"  PlaceholderColor="Silver"  HorizontalOptions="FillAndExpand" Text="{Binding User}" AbsoluteLayout.LayoutBounds=".5,.0,1,.5" Keyboard="Text" AbsoluteLayout.LayoutFlags="All"/>
                     </AbsoluteLayout>
-                     <AbsoluteLayout BackgroundColor="White" AbsoluteLayout.LayoutBounds=".5,.5,1,.15"  AbsoluteLayout.LayoutFlags="All">
-                        <Entry Placeholder="Contraseña" PlaceholderColor="Silver" HorizontalOptions="FillAndExpand" Text="{Binding Password}" AbsoluteLayout.LayoutBounds=".5,.0,1,1" IsPassword="true" Keyboard="Text" AbsoluteLayout.LayoutFlags="All"/>
+                     <AbsoluteLayout BackgroundColor="White" AbsoluteLayout.LayoutBounds=".5,.5,1,.25"  AbsoluteLayout.LayoutFlags="All">
+                        <Entry Placeholder="Contraseña" PlaceholderColor="Silver" HorizontalOptions="FillAndExpand" Text="{Binding Password}" AbsoluteLayout.LayoutBounds=".0,.0,1,.5" IsPassword="true" Keyboard="Text" AbsoluteLayout.LayoutFlags="All"/>
                     </AbsoluteLayout>
                     <Button Text="Entrar"
                     VerticalOptions="EndAndExpand"
