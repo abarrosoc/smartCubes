@@ -10,6 +10,7 @@ using smartCubes.View.Session;
 using Syncfusion.XlsIO;
 using Syncfusion.Drawing;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace smartCubes.ViewModels.Session
 {
@@ -182,12 +183,11 @@ namespace smartCubes.ViewModels.Session
                     //Save the workbook to stream in xlsx format. 
                     MemoryStream stream = new MemoryStream();
                     workbook.SaveAs(stream);
-
                     workbook.Close();
 
                     //Save the stream as a file in the device and invoke it for viewing
-                    Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name + ".xlsx", "application/msexcel", stream);
-                    Mail mail = new Mail(session.Name + ".xlsx", user);
+                    string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ","") + ".xlsx", "application/msexcel", stream);
+                    Mail mail = new Mail(filepath, user);
                 }
             }
 
