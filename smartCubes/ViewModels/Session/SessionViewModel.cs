@@ -11,6 +11,7 @@ using Syncfusion.XlsIO;
 using Syncfusion.Drawing;
 using Xamarin.Forms;
 using System.Threading.Tasks;
+using smartCubes.View.Login;
 
 namespace smartCubes.ViewModels.Session
 {
@@ -25,12 +26,8 @@ namespace smartCubes.ViewModels.Session
             this.user = user;
 
             Title = "Sesiones";
-
-            lSessions = new ObservableCollection<SessionModel>();
-            List<SessionModel> listSessions = App.Database.GetSessions();
-
-            foreach (SessionModel session in listSessions)
-                lSessions.Add(session);
+            Loading = false;
+            RefreshData();
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -99,6 +96,17 @@ namespace smartCubes.ViewModels.Session
             }
         } 
 
+        private bool _Loading;
+
+        public bool Loading
+        {
+            get { return _isVisibleLabel; }
+            set
+            {
+                _Loading = value;
+                RaisePropertyChanged();
+            }
+        } 
         private ICommand _exportCommand;
         public ICommand ExportCommand
         {
@@ -106,9 +114,11 @@ namespace smartCubes.ViewModels.Session
         }
 
         private async void ExportCommandExecute(SessionModel session)
-        { 
+        {
+          
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
+
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
 
                 if (lSessionInit == null || lSessionInit.Count == 0)
@@ -187,6 +197,7 @@ namespace smartCubes.ViewModels.Session
 
                     //Save the stream as a file in the device and invoke it for viewing
                     string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ","") + ".xlsx", "application/msexcel", stream);
+
                     Mail mail = new Mail(filepath, user);
                 }
             }
@@ -222,7 +233,7 @@ namespace smartCubes.ViewModels.Session
 
         private void NewSessionCommandExecute()
         {
-            Navigation.PushAsync(new NewSessionView(Navigation, user,false,null));
+            Navigation.PushAsync(new SessionEditView(Navigation, user,false,null));
         }
 
         private ICommand _OnItemTapped;
@@ -234,7 +245,7 @@ namespace smartCubes.ViewModels.Session
 
         private void OnItemTappedExecute()
         {
-            Navigation.PushAsync(new NewSessionView(Navigation, user, true, SelectItem));
+            Navigation.PushAsync(new SessionFormView(Navigation, user, true, SelectItem));
             SelectItem = null;
         }
 

@@ -8,66 +8,6 @@
              BackgroundColor="White">
     <ContentPage.ToolbarItems>
     </ContentPage.ToolbarItems>
-    <!--<ScrollView>
-            <Grid Margin="20,20,20,20">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="170" />
-                <RowDefinition Height="170" />
-                <RowDefinition Height="170" />
-                <RowDefinition Height="170" />
-              </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-
-              </Grid.ColumnDefinitions>
-               
-                  <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="0" BorderColor="#3FC49A" 
-                        BackgroundColor="#3FC49A" HasShadow="false" CornerRadius="3" Margin="0,0,0,10">
-                   <Frame.GestureRecognizers>
-                        <TapGestureRecognizer
-                            Tapped="OnTapGestureRecognizerTapped"/>
-                    </Frame.GestureRecognizers>
-                        <StackLayout Orientation="Vertical" >
-                            <Label Font="Bold,20" XAlign="Center" TextColor="White" >Sesión 1</Label>
-                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
-                            <Label TextColor="White">Actividad 1</Label>
-                            <Label TextColor="White">Creada 27/04/2018</Label>
-                            <Label TextColor="White">Última actualización 27/04/2018</Label>
-                        </StackLayout>
-                  </Frame>
-                  <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="1" BorderColor="#3FC49A" 
-                        BackgroundColor="#3FC49A" HasShadow="false" CornerRadius="3" Margin="0,0,0,10">
-                        <StackLayout Orientation="Vertical">
-                            <Label Font="Bold,20" XAlign="Center" TextColor="White">Sesión 2</Label>
-                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
-                            <Label TextColor="White">Actividad 1</Label>
-                            <Label TextColor="White">Creada 27/04/2018</Label>
-                            <Label TextColor="White">Última actualización 27/04/2018</Label>
-                        </StackLayout>
-                  </Frame>
-                <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="2" BorderColor="#3FC49A" 
-                        BackgroundColor="#3FC49A" HasShadow="false" CornerRadius="3" Margin="0,0,0,10">
-                        <StackLayout Orientation="Vertical">
-                            <Label Font="Bold,20" XAlign="Center" TextColor="White">Sesión 3</Label>
-                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
-                            <Label TextColor="White">Actividad 1</Label>
-                            <Label TextColor="White">Creada 27/04/2018</Label>
-                            <Label TextColor="White">Última actualización 27/04/2018</Label>
-                        </StackLayout>
-                  </Frame>
-                  <Frame Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="3" BorderColor="#3FC49A" 
-                        BackgroundColor="#3FC49A" HasShadow="false" CornerRadius="3" Margin="0,0,0,10">
-                        <StackLayout Orientation="Vertical">
-                            <Label Font="Bold,20" XAlign="Center" TextColor="White">Sesión 4</Label>
-                            <BoxView HeightRequest="1" BackgroundColor="White" HorizontalOptions="FillAndExpand" />
-                            <Label TextColor="White">Actividad 1</Label>
-                            <Label TextColor="White">Creada 27/04/2018</Label>
-                            <Label TextColor="White">Última actualización 27/04/2018</Label>
-                        </StackLayout>
-                  </Frame>
-            </Grid>
-            
-         </ScrollView>-->
      <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

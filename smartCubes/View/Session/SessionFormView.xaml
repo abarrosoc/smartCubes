@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Session.SessionFormView" Title="{Binding Title}" BackgroundColor="White">
+    <AbsoluteLayout>
+        <StackLayout BackgroundColor="White" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1" Margin="0,0,0,0">
+            <ListView x:Name="lSessionsInit" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RowHeight="110" SeparatorVisibility="Default" SeparatorColor="#E6E6E6" ItemsSource="{Binding lSessionsInit}" BackgroundColor="White">
+                <ListView.Header>
+                    <AbsoluteLayout>
+                        <StackLayout BackgroundColor="White" Margin="0,0,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
+                            <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="330" Margin="0,20,0,0">
+                                <TableRoot>
+                                    <TableSection Title="{Binding Name}">
+                                        <ViewCell Height="180">
+                                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                        <Label Text="Descripción" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                        <Entry TextColor="Black" Text="{Binding Description}" Margin="0,20,0,0" MaxLength="50" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                    <Label Text="Seleccione actividad" TextColor="#657786" FontSize="Medium" HorizontalOptions="Start" Margin="0,40,30,0" />
+                                                    <Picker x:Name="pActivities" Title="Actividad" Margin="0,30,0,40" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" TextColor="Black" ItemsSource="{Binding lActivities}" IsEnabled="{Binding isEnabledPicker}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedActivity,Mode=TwoWay}" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </TableSection>
+                                    <TableSection Title="Alumnos">
+                                    </TableSection>
+                                </TableRoot>
+                            </TableView>
+                        </StackLayout>
+                    </AbsoluteLayout>
+                </ListView.Header>
+                <ListView.Footer>
+                    <AbsoluteLayout>
+                        <StackLayout BackgroundColor="White" Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Margin="0,40,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,.7,1">
+                            <Button Text="Guardar" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Command="{Binding SaveCommand}" BackgroundColor="#657786" TextColor="White" FontSize="20" Margin="0,50,0,50" />
+                        </StackLayout>
+                    </AbsoluteLayout>
+                </ListView.Footer>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lSessionsInit}} " CommandParameter="{Binding .}" />
+                            </ViewCell.ContextActions>
+                            <AbsoluteLayout BackgroundColor="White">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,15,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,.7,1">
+                                    <Label Text="{Binding StudentCode}" TextColor="Black" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                                    <Label Text="{Binding Path=Time, StringFormat='Duración: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" />
+                                    <Label Text="{Binding Path=Date, StringFormat='Fecha: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="0,5,0,0" />
+                                </StackLayout>
+                            </AbsoluteLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

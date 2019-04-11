@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Session.SessionEditView" Title="{Binding Title}" BackgroundColor="White">
+    <AbsoluteLayout>
+        <StackLayout BackgroundColor="White" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1" Margin="0,0,0,0">
+            <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="330" Margin="0,20,0,0">
+                <TableRoot>
+                    <TableSection Title="{Binding Name}">
+                        <ViewCell Height="180">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                        <Label Text="Descripción" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                        <Entry TextColor="Black" Text="{Binding Description}" Margin="0,20,0,0" MaxLength="50" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="0,0,0,0" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                    <Label Text="Seleccione actividad" TextColor="#657786" FontSize="Medium" HorizontalOptions="Start" Margin="0,40,30,0" />
+                                    <Picker x:Name="pActivities" Title="Actividad" Margin="0,30,0,40" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" TextColor="Black" ItemsSource="{Binding lActivities}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedActivity,Mode=TwoWay}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+        </StackLayout>
+        <StackLayout BackgroundColor="White" Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Margin="0,40,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,.7,1">
+            <Button Text="Guardar" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Command="{Binding SaveCommand}" BackgroundColor="#657786" TextColor="White" FontSize="20" Margin="0,50,0,50" />
+        </StackLayout>
+    </AbsoluteLayout>
+   
+</ContentPage>

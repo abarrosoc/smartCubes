@@ -29,7 +29,7 @@ using QuickLook;
         fileStream.Close();
 
         //Invoke the saved document for viewing
-        UIViewController currentController = UIApplication.SharedApplication.KeyWindow.RootViewController;
+       /* UIViewController currentController = UIApplication.SharedApplication.KeyWindow.RootViewController;
         while (currentController.PresentedViewController != null)
             currentController = currentController.PresentedViewController;
         UIView currentView = currentController.View;
@@ -38,7 +38,7 @@ using QuickLook;
         QLPreviewItem item = new QLPreviewItemBundle(filename, filePath);
         qlPreview.DataSource = new PreviewControllerDS(item);
 
-        currentController.PresentViewController(qlPreview, true, null);
+        currentController.PresentViewController(qlPreview, true, null);*/
 
         return filePath;
     }

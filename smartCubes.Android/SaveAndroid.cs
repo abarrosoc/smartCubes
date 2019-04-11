@@ -42,11 +42,11 @@ class SaveAndroid: ISave
         if (file.Exists())
         {
             path = Android.Net.Uri.FromFile(file);
-            string extension = Android.Webkit.MimeTypeMap.GetFileExtensionFromUrl(Android.Net.Uri.FromFile(file).ToString());
+            /*string extension = Android.Webkit.MimeTypeMap.GetFileExtensionFromUrl(Android.Net.Uri.FromFile(file).ToString());
             string mimeType = Android.Webkit.MimeTypeMap.Singleton.GetMimeTypeFromExtension(extension);
             Intent intent = new Intent(Intent.ActionView);
             intent.SetDataAndType(path, mimeType);
-            Forms.Context.StartActivity(Intent.CreateChooser(intent, "Elija una aplicación"));
+            Forms.Context.StartActivity(Intent.CreateChooser(intent, "Elija una aplicación"));*/
         }
 
         return path.Path;

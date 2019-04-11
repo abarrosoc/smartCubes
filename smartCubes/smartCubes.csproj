@@ -30,6 +30,7 @@
   <ItemGroup>
     <EmbeddedResource Remove="View\DevicesPopupView %28copia%29.xaml" />
     <EmbeddedResource Remove="View\Activity\AddDevicePopUp %28copia%29.xaml" />
+    <EmbeddedResource Remove="View\Session\SessionFormView %28copia%29.xaml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="activitiesApp.json" />
@@ -68,5 +69,11 @@
     <None Remove="act.json" />
     <None Remove="activities.json" />
     <None Remove="activitiesApp.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="View\Session\NewSessionView.xaml %28copia%29.cs">
+      <DependentUpon>SessionFormView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
