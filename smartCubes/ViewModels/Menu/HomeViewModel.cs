@@ -114,12 +114,12 @@ namespace smartCubes.ViewModels.Menu
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
         }
 
-        private void OnItemTappedExecute()
+        private async void OnItemTappedExecute()
         {
             SessionModel item = SelectItem;
             SelectItem = null;
-            RefreshData();
-            Navigation.PushAsync(new PlaySessionView(item));
+            //RefreshData();
+            await Navigation.PushAsync(new PlaySessionView(item));
         }
        
         public ICommand RefreshCommand

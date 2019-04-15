@@ -12,7 +12,6 @@ namespace smartCubes.Models
         public String Uuid { get; set; }
         public String Name { get; set; }
         public String State { get; set; }
-        public List<FieldDevice> Fields { get; set; }
     }
 }
 

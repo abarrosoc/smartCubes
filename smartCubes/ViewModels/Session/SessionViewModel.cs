@@ -124,6 +124,7 @@ namespace smartCubes.ViewModels.Session
                 if (lSessionInit == null || lSessionInit.Count == 0)
                 {
                     await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
+                    Loading = false;
                 }
                 else
                 {

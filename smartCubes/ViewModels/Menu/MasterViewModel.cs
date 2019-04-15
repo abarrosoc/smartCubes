@@ -20,6 +20,7 @@ namespace smartCubes.ViewModels.Menu
 
         private UserModel userLogin;
 
+
         public MasterViewModel(INavigation navigation,UserModel userLogin)
         {
             this.navigation = navigation;

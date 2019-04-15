@@ -20,6 +20,7 @@ namespace smartCubes.View.Session
         {
             InitializeComponent();
             BindingContext = new PlaySessionViewModel2(session);
+
         }
 
         protected override void OnDisappearing()

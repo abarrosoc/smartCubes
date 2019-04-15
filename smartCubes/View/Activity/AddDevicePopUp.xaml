@@ -6,7 +6,7 @@
                 <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}" />
             </ListView.Behaviors>
             <ListView.Header>
-                <StackLayout Margin="0,0,0,30">
+                <!--<StackLayout Margin="0,0,0,30">
                     <Label Text="Dispositivo" TextColor="#1da1f2" FontSize="Medium" HorizontalOptions="Start" Margin="40,40,40,5" />
                     <BoxView HeightRequest="1" BackgroundColor="#1da1f2" HorizontalOptions="FillAndExpand" Margin="40,0,40,0" />
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="40,20,40,0">
@@ -28,7 +28,40 @@
                     </StackLayout>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     </StackLayout>
-                </StackLayout>
+                </StackLayout>-->
+                <AbsoluteLayout>
+                    <StackLayout BackgroundColor="White" Margin="0,0,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
+                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="450" Margin="0,20,0,0">
+                            <TableRoot>
+
+                                <TableSection Title="Mensaje">
+                                    <ViewCell Height="180">
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Descripción" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Description}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes" Title="Tamaño (Bytes)" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize,Mode=TwoWay}" Margin="0,30,20,0" />
+                                                </StackLayout>
+                                                <Button Text="+" FontSize="Large" HorizontalOptions="Start" WidthRequest="60" VerticalOptions="End" Command="{Binding AddFieldCommand}" BackgroundColor="#1da1f2" TextColor="White" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </TableSection>
+                            </TableRoot>
+                        </TableView>
+                    </StackLayout>
+                </AbsoluteLayout>
             </ListView.Header>
             <ListView.Footer>
                 <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Margin="40,60,40,35">

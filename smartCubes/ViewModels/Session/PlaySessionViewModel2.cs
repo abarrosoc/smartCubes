@@ -52,7 +52,7 @@ namespace smartCubes.ViewModels.Session
 
             lDeviceData = new List<DeviceData>();
 
-          
+
 
             Title = session.Name;
             ActivityName = session.ActivityName;
@@ -75,7 +75,7 @@ namespace smartCubes.ViewModels.Session
             {
                 ColorFrame = "Red";
             }
-               
+
             SearchDevice();
 
         }
@@ -249,7 +249,7 @@ namespace smartCubes.ViewModels.Session
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "No se ha podido establecer conexión con todos los dispositivos. ¿Desea intentarlo de nuevo?", "Reintentar", "Cancelar");
                 if (answer)
                 {
-                  
+
                     await CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
 
                     if (isAllConnectedDevices(lDevices))
@@ -265,7 +265,8 @@ namespace smartCubes.ViewModels.Session
 
                     return;
                 }
-                else{
+                else
+                {
                     Loading = false;
                     IsEnabledPage = true;
                 }
@@ -360,15 +361,16 @@ namespace smartCubes.ViewModels.Session
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Desea volver a intentar conectar con los dispositivos?", "Si", "No");
                 if (answer)
                 {
-                    await CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();    
+                    await CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
                 }
                 else
                 {
-                    Loading = false;  
+                    Loading = false;
                     IsEnabledPage = true;
-                }    
+                }
             }
-            else if(isAllConnectedDevices(lDevices)){
+            else if (isAllConnectedDevices(lDevices))
+            {
                 await Application.Current.MainPage.DisplayAlert("Información", "Todos los dispositivos están conectados", "Aceptar");
             }
         }
@@ -414,16 +416,16 @@ namespace smartCubes.ViewModels.Session
 
                 adapter.DeviceConnectionLost += (s, a) =>
                     {
-   
-                    if (!StartStop.Equals(INICIAR))
-                    {
-                        StartStop = REANUDAR;
-                    }   
-                    else
-                    {
-                        StartStop = INICIAR;
-                    }
- 
+
+                        if (!StartStop.Equals(INICIAR))
+                        {
+                            StartStop = REANUDAR;
+                        }
+                        else
+                        {
+                            StartStop = INICIAR;
+                        }
+
                         ColorFrame = "Red";
 
                     };

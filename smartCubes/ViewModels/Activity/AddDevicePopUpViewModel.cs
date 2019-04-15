@@ -12,61 +12,23 @@ namespace smartCubes.ViewModels.Activity
 {
     public class AddDevicePopUpViewModel : BaseViewModel
     {
-        public EditActivityViewModel newActivityView { get; set; }
+        public AddMessageActivityViewModel addMessageActivityViewModel { get; set; }
 
         private bool isModified { get; set; }
 
-        public AddDevicePopUpViewModel(EditActivityViewModel newActivityView, bool isModified)
+        public AddDevicePopUpViewModel(AddMessageActivityViewModel addMessageActivityViewModel, bool isModified)
         {
             this.isModified = isModified;
             lSizes = new ObservableCollection<int>();
-            lFields = new ObservableCollection<FieldDevice>();
             for (int i = 1; i < 33; i++)
             {
                 lSizes.Add(i);
             }
 
-            if (isModified)
-            {
-                Name = newActivityView.SelectDevice.Name;
-                Uuid = newActivityView.SelectDevice.Uuid;
-                foreach (FieldDevice field in newActivityView.SelectDevice.Fields)
-                {
-                    lFields.Add(field);
-                }
-            }
-            this.newActivityView = newActivityView;
+            this.addMessageActivityViewModel = addMessageActivityViewModel;
         }
 
-        private String _Name;
-
-        public String Name
-        {
-            get
-            {
-                return _Name;
-            }
-            set
-            {
-                _Name = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        private String _Uuid;
-
-        public String Uuid
-        {
-            get
-            {
-                return _Uuid;
-            }
-            set
-            {
-                _Uuid = value;
-                RaisePropertyChanged();
-            }
-        }
+    
         private String _Description;
 
         public String Description
@@ -96,9 +58,9 @@ namespace smartCubes.ViewModels.Activity
                 RaisePropertyChanged();
             }
         }
-        private ObservableCollection<FieldDevice> _lFields;
+        private ObservableCollection<FieldMessage> _lFields;
 
-        public ObservableCollection<FieldDevice> lFields
+        public ObservableCollection<FieldMessage> lFields
         {
             get
             {
@@ -124,9 +86,9 @@ namespace smartCubes.ViewModels.Activity
                 RaisePropertyChanged();
             }
         }
-        private FieldDevice _SelectField;
+        private FieldMessage _SelectField;
 
-        public FieldDevice SelectField
+        public FieldMessage SelectField
         {
             get
             {
@@ -161,7 +123,7 @@ namespace smartCubes.ViewModels.Activity
         }
         private async void OnButtonAddDeviceClickedExecute()
         {
-            if (String.IsNullOrEmpty(Name) || String.IsNullOrWhiteSpace(Name) || String.IsNullOrEmpty(Uuid) || String.IsNullOrWhiteSpace(Uuid) || lFields.Count == 0)
+          /*  if (String.IsNullOrEmpty(Name) || String.IsNullOrWhiteSpace(Name) || String.IsNullOrEmpty(Uuid) || String.IsNullOrWhiteSpace(Uuid) || lFields.Count == 0)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
                 return;
@@ -171,12 +133,7 @@ namespace smartCubes.ViewModels.Activity
             device.Name = Name;
             device.State = "Disconnected";
             device.Uuid = Uuid;
-            device.Fields = new List<FieldDevice>();
 
-            foreach(FieldDevice f in lFields)
-            {
-                device.Fields.Add(f);
-            }
 
             if (newActivityView.lDevices == null)
             {
@@ -195,7 +152,6 @@ namespace smartCubes.ViewModels.Activity
                     {
                         newActivityView.lDevices[i].Name = device.Name;
                         newActivityView.lDevices[i].Uuid = device.Uuid;
-                        newActivityView.lDevices[i].Fields = device.Fields;
                     }
                 }
                 newActivityView.RefreshData();
@@ -209,7 +165,7 @@ namespace smartCubes.ViewModels.Activity
             newActivityView.SelectDevice = null;
 
 
-            await PopupNavigation.Instance.PopAsync();
+            await PopupNavigation.Instance.PopAsync();*/
         }
 
         private ICommand _addFieldCommand;
@@ -226,14 +182,14 @@ namespace smartCubes.ViewModels.Activity
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar los campos obligatorios", "Aceptar");
                 return;
             } 
-            foreach(FieldDevice f in lFields){
+            foreach(FieldMessage f in lFields){
                 if(f.Description.Equals(Description))
                 {
                     await Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un campo con la misma descripción", "Aceptar");
                     return;
                 }
             }
-            FieldDevice field = new FieldDevice();
+            FieldMessage field = new FieldMessage();
             field.Bytes = SelectSize;
             field.Description = Description;
             lFields.Add(field);
@@ -256,10 +212,10 @@ namespace smartCubes.ViewModels.Activity
 
         public ICommand DeleteCommand
         {
-            get { return _deleteCommand ?? (_deleteCommand = new Command<FieldDevice>((field) => DeleteCommandExecute(field))); }
+            get { return _deleteCommand ?? (_deleteCommand = new Command<FieldMessage>((field) => DeleteCommandExecute(field))); }
         }
 
-        private async void DeleteCommandExecute(FieldDevice field)
+        private async void DeleteCommandExecute(FieldMessage field)
         {
             var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea eliminar el campo?", "Si", "No");
 

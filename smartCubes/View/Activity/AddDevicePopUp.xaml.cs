@@ -11,12 +11,12 @@ namespace smartCubes.View.Activity
     public partial class AddDevicePopUp : PopupPage
     {
         public AddDevicePopUp(){
-            
+            InitializeComponent();
         }
-        public AddDevicePopUp(EditActivityViewModel newActivityViewModel, bool isModified)
+        public AddDevicePopUp(AddMessageActivityViewModel addMessageActivityViewModel, bool isModified)
         {
             InitializeComponent();
-            BindingContext = new AddDevicePopUpViewModel(newActivityViewModel,isModified);
+            BindingContext = new AddDevicePopUpViewModel(addMessageActivityViewModel,isModified);
         }
         private async void OnClose(object sender, EventArgs e)
         {

@@ -19,9 +19,9 @@
 
               </Grid.ColumnDefinitions>
         
-    <StackLayout BackgroundColor="White" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+    <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Vertical">
         <ListView x:Name="lUsers" IsVisible="{Binding isVisibleList,Mode=TwoWay}" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RowHeight="240" SeparatorVisibility="None" SelectedItem="{Binding SelectItem}" ItemsSource="{Binding lSessions}" BackgroundColor="White"
-            Margin="0,20,0,20">
+            Margin="0,20,0,0">
             <ListView.Behaviors>
                 <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}" />
             </ListView.Behaviors>
@@ -50,7 +50,7 @@
                                     <Label Font="Bold,20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White" Text="{Binding Name}" />
                                 </StackLayout>
                             </Frame>
-                            <Frame BorderColor="#657786" BackgroundColor="White" Grid.Row="1" Grid.Column="0" HasShadow="false" CornerRadius="3" OutlineColor="#1da1f2" Margin="0,0,0,40">
+                            <Frame BorderColor="#657786"  Grid.Row="1" Grid.Column="0" HasShadow="false" CornerRadius="3" OutlineColor="#1da1f2" Margin="0,0,0,40">
                                 <StackLayout Orientation="Vertical">
                                     <Label TextColor="#657786" FontSize="18" FontAttributes="Bold" Text="{Binding ActivityName}" Margin="0,0,0,15" />
                                     <Label TextColor="#657786" FontSize="16" FontAttributes="Italic" Text="{Binding Path=CreateDate, StringFormat='Fecha creación: {0}'}" />

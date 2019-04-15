@@ -10,6 +10,9 @@ namespace smartCubes.Models
         public String Name { get; set; }
         public String Description { get; set; }
         public List<DeviceModel> Devices { get; set; }
+        public List<MessageDevice> Messages { get; set; }
+
+
     }
 }
 

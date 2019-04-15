@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="smartCubes.View.User.NewUserView"
-             Title="{Binding Title}" BackgroundColor="White">
-    <ScrollView>
-     <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" WidthRequest="600" Margin="0,70,0,0">
-        <Label TextColor="#657786" FontSize = "17" Text="Nombre usuario" Margin="0,40,0,10" />
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.User.NewUserView" Title="{Binding Title}" BackgroundColor="White">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" Order="Primary"  Text="Guardar" Priority="0" Command="{Binding SaveCommand}" />
+    </ContentPage.ToolbarItems>
+            <!--<Label TextColor="#657786" FontSize = "17" Text="Nombre usuario" Margin="0,40,0,10" />
         <Entry Placeholder="Nombre (Máximo 20 caracteres)"  Text="{Binding UserName}" MaxLength="20" Margin="0,0,0,0" Keyboard="Text"/>
         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,15"/>
 
@@ -22,15 +20,59 @@
                 Margin="0,0,0,20"
                 ItemsSource="{Binding lRoles}" 
                 SelectedItem="{Binding SelectedRole,Mode=TwoWay}">
-        </Picker>
-         <Button Text="Guardar"
-                Command="{Binding SaveCommand}"
-                VerticalOptions="EndAndExpand"
-                HorizontalOptions="FillAndExpand"
-                BackgroundColor="#657786"
-                TextColor="White"
-                FontSize="20"
-                Margin="0,0,0,70" />
-     </StackLayout>
-        </ScrollView>
+        </Picker>-->
+            <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="350" Margin="0,20,0,0">
+                <TableRoot>
+                    <TableSection Title="Datos personales">
+                        <ViewCell Height="260">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                        <Label Text="Nombre usuario" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                                        <Entry Placeholder="Nombre (Máximo 20 caracteres)" Text="{Binding UserName}" MaxLength="20" Margin="0,30,0,0" Keyboard="Text" />
+                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                        <Label Text="Contraseña" TextColor="#657786" FontSize="Medium" Margin="0,40,60,0" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                        <Entry Placeholder="Contraseña" Text="{Binding Password}" Margin="0,30,0,0" Keyboard="Text" IsPassword="true" />
+                                         <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0"/>
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                        <Label Text="Email" TextColor="#657786" FontSize="Medium" Margin="0,40,110,0" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                        <Entry Placeholder="Email" Text="{Binding Email}" Margin="0,30,0,0" Keyboard="Email" />
+                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection Title="Perfil del usuario">
+                          <ViewCell Height="100">
+                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,30,20,0">
+                                <Label Text="Seleccione perfil" TextColor="#657786" FontSize="Medium" HorizontalOptions="Start" Margin="0,10,30,0" />
+                                <Picker x:Name="pRole" Title="Role" 
+                Margin="0,0,0,20"
+                ItemsSource="{Binding lRoles}" 
+                SelectedItem="{Binding SelectedRole,Mode=TwoWay}" HorizontalOptions="FillAndExpand">
+                             </Picker>
+                            </StackLayout>
+                        </StackLayout>
+                            </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+           <!-- <Button Text="Guardar" Command="{Binding SaveCommand}" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#657786" TextColor="White" FontSize="20" Margin="0,0,0,70" />-->
+     
+   
 </ContentPage>

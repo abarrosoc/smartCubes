@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Plugin.BLE.Abstractions;
 using Rg.Plugins.Popup.Services;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -23,13 +24,16 @@ namespace smartCubes.ViewModels.Activity
             this.modify = modify;
             this.activity = activity;
 
-            if(modify){
+            if (modify)
+            {
                 Title = "Modificar";
                 Name = activity.Name;
                 Description = activity.Description;
-                RefreshData();
 
-            }else{
+
+            }
+            else
+            {
                 Title = "Nueva";
             }
         }
@@ -79,45 +83,18 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-        private ObservableCollection<DeviceModel> _lDevices;
 
-        public ObservableCollection<DeviceModel> lDevices
-        {
-            get
-            {
-                return _lDevices;
-            }
-            set
-            {
-                _lDevices = value;
-                RaisePropertyChanged();
-            }
-        }
-      
-        private DeviceModel _SelectDevice;
 
-        public DeviceModel SelectDevice
-        {
-            get
-            {
-                return _SelectDevice;
-            }
-            set
-            {
-                _SelectDevice = value;
-                RaisePropertyChanged();
-            }
-        }
-       
 
-        private ICommand _saveCommand;
+
+        /*  private ICommand _saveCommand;
 
         public ICommand SaveCommand
         {
             get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecute())); }
         }
 
-        private async void SaveCommandExecute()
+       private async void SaveCommandExecute()
         {
             if (String.IsNullOrEmpty(Name) || lDevices.Count == 0)
             {
@@ -157,62 +134,45 @@ namespace smartCubes.ViewModels.Activity
                 }
             }
         }
-        private ICommand _deleteDeviceCommand;
+       */
+        private ICommand _nextCommand;
 
-        public ICommand DeleteDeviceCommand
+        public ICommand NextCommand
         {
-            get { return _deleteDeviceCommand ?? (_deleteDeviceCommand = new Command<DeviceModel>((device) => DeleteDeviceCommandExecute(device))); }
+            get { return _nextCommand ?? (_nextCommand = new Command(() => NextCommandExecute())); }
         }
 
-        private void DeleteDeviceCommandExecute(DeviceModel device)
+        private async void NextCommandExecute()
         {
-            lDevices.Remove(device);
-            if (activity!=null && activity.Devices.Contains(device)) { 
-                activity.Devices.Remove(device);
+            if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description))
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }
-        }
-
-        private ICommand _OnItemTapped;
-
-        public ICommand OnItemTapped
-        {
-            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
-        }
-
-        private void OnItemTappedExecute()
-        {
-                PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,true));
-        }
-
-        private ICommand _OnButtonAddDeviceClicked;
-
-        public ICommand OnButtonAddDeviceClicked
-        {
-            get { return _OnButtonAddDeviceClicked ?? (_OnButtonAddDeviceClicked = new Command(() => OnButtonAddDeviceClickedExecute())); }
-        }
-        private void OnButtonAddDeviceClickedExecute()
-        {
-            PopupNavigation.Instance.PushAsync(new AddDevicePopUp(this,false));
-        }
-
-        public void RefreshData()
-        {
-            if(activity !=null){
-                lDevices = new ObservableCollection<DeviceModel>();
-                foreach (DeviceModel device in activity.Devices)
+            else
+            {
+                if (modify)
                 {
-                    lDevices.Add(device);
-                } 
-            }else{
-                ObservableCollection<DeviceModel> lAux = lDevices;
-                lDevices = new ObservableCollection<DeviceModel>();
-                foreach (DeviceModel device in lAux)
-                {
-                    lDevices.Add(device);
+                    activity.Name = Name;
+                    activity.Description = Description;
+                    await Navigation.PushAsync(new AddDeviceActivityView(activity, modify));
                 }
+                else
+                {
+
+                    ActivityModel newActivity = new ActivityModel();
+                    newActivity.Name = Name;
+                    newActivity.Description = Description;
+                    await Navigation.PushAsync(new AddDeviceActivityView(newActivity, modify));
+                }
+
+               
             }
-           
         }
+
+
+
+
+
     }
 }
 
