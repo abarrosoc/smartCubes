@@ -29,8 +29,6 @@ namespace smartCubes.ViewModels.Activity
                 Title = "Modificar";
                 Name = activity.Name;
                 Description = activity.Description;
-
-
             }
             else
             {

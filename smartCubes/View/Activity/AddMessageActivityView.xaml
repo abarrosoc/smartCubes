@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"  x:Class="smartCubes.View.Activity.AddMessageActivityView">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"  x:Class="smartCubes.View.Activity.AddMessageActivityView" Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Name="MenuItem1" Order="Primary" Text="Siguiente" Priority="0" Command="{Binding NextCommand}" />
+        <ToolbarItem Name="MenuItem1" Order="Primary" Text="Guardar" Priority="0" Command="{Binding SaveCommand}" />
     </ContentPage.ToolbarItems>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-            <ListView x:Name="lMessages" IsPullToRefreshEnabled="false" RowHeight="75" SeparatorVisibility="Default" SeparatorColor="#E6E6E6" ItemsSource="{Binding lMessages}" SelectedItem="{Binding SelectDevice,Mode=TwoWay}" BackgroundColor="White">
+            <ListView x:Name="lMessages" IsPullToRefreshEnabled="false" RowHeight="75" SeparatorVisibility="Default" SeparatorColor="#E6E6E6" ItemsSource="{Binding lMessages}" SelectedItem="{Binding SelectMessage,Mode=TwoWay}" BackgroundColor="White">
                 <ListView.Behaviors>
+                    <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTappedCommand}" />
                 </ListView.Behaviors>
                 <ListView.Header>
                     <StackLayout>
-                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="250" Margin="0,20,0,0">
+                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="260" Margin="0,20,0,0">
                             <TableRoot>
                                 <TableSection Title="Mensajes">
-                                    <ViewCell Height="190">
+                                    <ViewCell Height="200">
                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
                                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                                            <Label Text="Nombre" TextColor="#657786" FontSize="Medium" Margin="0,40,60,0" />
+                                                            <Label Text="Nombre" TextColor="#657786" FontSize="Medium" Margin="0,40,80,0" />
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                             <Entry Placeholder="Nombre del mensaje" Text="{Binding Name}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
-                                                            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                            <BoxView HeightRequest="0.5"  HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                                            <Label Text="Descripción" TextColor="#657786" FontSize="Medium" Margin="0,40,80,0" />
+                                                            <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="0,40,80,0" />
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                                                            <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
-                                                            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,30" />
+                                                            <Entry Placeholder="Tamaño (Bytes)" IsEnabled="False" Text="{Binding Size}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
+                                                            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" Margin="0,0,0,30" />
+                                                        </StackLayout>
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                            <Button Text="Ver/añadir" BackgroundColor="#1da1f2" VerticalOptions="Center" HorizontalOptions="End" Command="{Binding AddFieldsCommand}" Padding="20,0,20,0" TextColor="White" FontSize="Medium" Margin="40,20,0,10" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </StackLayout>
-                                                <Button Text="+" BackgroundColor="#1da1f2" VerticalOptions="Center" HorizontalOptions="End" Command="{Binding AddDeviceCommand}" Padding="20,0,20,0" TextColor="White" FontSize="Medium" Margin="0,20,30,10" />
+                                                <Button Text="+" BackgroundColor="#1da1f2" VerticalOptions="Start" HorizontalOptions="End" Command="{Binding AddMessageCommand}" Padding="20,0,20,0" TextColor="White" FontSize="Medium" Margin="30,20,30,10" />
                                             </StackLayout>
                                         </StackLayout>
                                     </ViewCell>
@@ -51,13 +55,12 @@
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
-                                <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteDeviceCommand, Source={x:Reference Name=lDevices}} " CommandParameter="{Binding .}" />
+                                <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lMessages}} " CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
                             <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="FillAndExpand">
                                 <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
                                     <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand" />
                                 </StackLayout>
-                                <Label Text="{Binding Path=Uuid, StringFormat='uuid: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="20,0,0,0" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

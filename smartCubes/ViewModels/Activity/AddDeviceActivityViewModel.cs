@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Plugin.BLE.Abstractions;
@@ -20,6 +21,14 @@ namespace smartCubes.ViewModels.User
             this.Navigation = navigation;
             this.modify = isModified;
             this.activity = activityModel;
+            if (modify)
+            {
+                Title = "Modificar";
+            }
+            else
+            {
+                Title = "Nueva";
+            }
 
             lDevices = new ObservableCollection<DeviceModel>();
             if (activityModel.Devices != null)
@@ -29,7 +38,6 @@ namespace smartCubes.ViewModels.User
                     lDevices.Add(device);
                 }
             }
-
         }
 
         private ObservableCollection<DeviceModel> _lDevices;
@@ -84,14 +92,19 @@ namespace smartCubes.ViewModels.User
         }
         private void AddDeviceCommandExecute()
         {
-            DeviceModel newDevice = new DeviceModel();
-            newDevice.Name = NameDevice;
-            newDevice.Uuid = Uuid;
-            newDevice.State = DeviceState.Disconnected.ToString();
-            lDevices.Add(newDevice);
-            NameDevice = null;
-            Uuid = null;
-
+            if(String.IsNullOrEmpty(NameDevice) || String.IsNullOrEmpty(Uuid))
+            {
+                Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
+            }
+            else { 
+                DeviceModel newDevice = new DeviceModel();
+                newDevice.Name = NameDevice;
+                newDevice.Uuid = Uuid;
+                newDevice.State = DeviceState.Disconnected.ToString();
+                lDevices.Add(newDevice);
+                NameDevice = null;
+                Uuid = null;
+            }
         }
         private ICommand _deleteDeviceCommand;
 
@@ -128,6 +141,14 @@ namespace smartCubes.ViewModels.User
                             activity.Devices.Add(device);
                         }
                     }
+                }
+                else
+                {
+                    activity.Devices = new List<DeviceModel>();
+                    foreach (DeviceModel device in lDevices)
+                    {
+                        activity.Devices.Add(device);
+                    }                       
                 }
                 await Navigation.PushAsync(new AddMessageActivityView(activity,modify));
                

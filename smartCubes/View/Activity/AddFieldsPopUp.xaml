@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" x:Class="smartCubes.View.Activity.AddFieldsPopUp" CloseWhenBackgroundIsClicked="true">
+    <StackLayout Margin="80">
+        <ListView x:Name="lFields" RowHeight="70" SeparatorVisibility="None" ItemsSource="{Binding lFields}" SelectedItem="{Binding SelectField,Mode=TwoWay}" SeparatorColor="#E6E6E6" BackgroundColor="White" Margin="40,0,40,0">
+            <ListView.Behaviors>
+                <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}" />
+            </ListView.Behaviors>
+            <ListView.Header>
+                <AbsoluteLayout>
+                    <StackLayout BackgroundColor="White" Margin="0,0,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
+                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="1250" Margin="0,20,0,0">
+                            <TableRoot>
+
+                                <TableSection Title="Campos">
+                                    <ViewCell Height="1200">
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 1" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field1}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes1" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize1}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 2" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field2}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes2" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize2}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 3" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field3}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes3" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize3}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 4" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field4}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes4" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize4}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 5" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field5}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes5" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize5}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 6" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field6}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes6" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize6}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 7" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field7}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes7" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize7}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 8" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field8}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes8" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize8}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 9" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field9}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes9" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize9}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 10" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field10}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes10" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize10}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 11" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field11}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes11" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize11}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 12" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field12}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes12" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize12}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 13" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field13}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes13" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize13}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 14" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field14}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes14" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize14}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Campo 15" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Entry TextColor="Black" Text="{Binding Field15}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                    <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
+                                                </StackLayout>
+                                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                    <Picker x:Name="Sizes15" Title="Bytes"  Margin="0,20,0,0" HorizontalOptions="FillAndExpand" VerticalOptions="End" TextColor="Black" ItemsSource="{Binding lSizes}" SelectedItem="{Binding SelectSize15}"/>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </TableSection>
+                            </TableRoot>
+                        </TableView>
+                    </StackLayout>
+                </AbsoluteLayout>
+            </ListView.Header>
+            <ListView.Footer>
+                <StackLayout>
+                    <Label Text="Nota: Los campos con 0 bytes no serán guardados" TextColor="#657786" FontSize="Medium" FontAttributes="Italic" Margin="40,40,30,0" />
+                    <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" Margin="40,60,40,35">
+                        <Button Text="ACEPTAR" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Command="{Binding AddCommand}" BackgroundColor="#657786" TextColor="White" FontSize="20" />
+                        <Button Text="CANCELAR" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Command="{Binding CancelCommand}" BackgroundColor="Red" Opacity="0.9" TextColor="White" FontSize="20" />
+                    </StackLayout>
+                </StackLayout>
+            </ListView.Footer>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteDeviceCommand, Source={x:Reference Name=lFields}} " CommandParameter="{Binding .}" />
+                        </ViewCell.ContextActions>
+                        <StackLayout BackgroundColor="White" Orientation="Vertical">
+                            <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="40,20,20,20">
+                                <Label Text="{Binding Description}" TextColor="#657786" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                            </StackLayout>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+   </pages:PopupPage>
