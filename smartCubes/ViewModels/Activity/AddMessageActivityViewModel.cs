@@ -157,7 +157,7 @@ namespace smartCubes.ViewModels.Activity
         {
              if (lMessages.Count == 0)
              {
-                Application.Current.MainPage.DisplayAlert("Atención", "Debe añadir al menos un mensaje", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe añadir al menos un mensaje", "Aceptar");
             }
             else
             {
@@ -181,12 +181,12 @@ namespace smartCubes.ViewModels.Activity
                     Json.addActivity(activity);
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha creado correctamente", "Aceptar");
                 }
-                   
-                await Navigation.PopToRootAsync();
+                
+                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count-1]);
+                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count-1]);
+                await Navigation.PopAsync();
+
             }
-
-
-            
         }
 
         private ICommand _DeleteCommand;

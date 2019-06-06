@@ -56,8 +56,8 @@ namespace smartCubes.ViewModels.Session
 
             ActivityModel activity = Json.getActivityByName(session.ActivityName);
             lDevices = activity.Devices;
-
-             Start(lDevices);
+            adapter.StartScanningForDevicesAsync();
+            Start(lDevices);
 
 
         }
@@ -349,7 +349,7 @@ namespace smartCubes.ViewModels.Session
             lDevices = lDev;
 
             ble = CrossBluetoothLE.Current;
-            adapter = adapter;
+            
             adapter.ScanTimeout = 3000;
 
            
@@ -417,10 +417,9 @@ namespace smartCubes.ViewModels.Session
                             });
 
                         };
-                    if (!ble.Adapter.IsScanning)
-                    {
-                        await adapter.StartScanningForDevicesAsync();
-                    }
+                    
+                        
+                    
                     
 
                 }

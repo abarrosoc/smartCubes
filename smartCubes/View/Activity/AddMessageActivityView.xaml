@@ -58,7 +58,7 @@
                                 <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lMessages}} " CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
                             <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="FillAndExpand">
-                                <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
+                                <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,20,0,20">
                                     <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand" />
                                 </StackLayout>
                             </StackLayout>

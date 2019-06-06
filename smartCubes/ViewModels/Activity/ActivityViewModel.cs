@@ -105,7 +105,6 @@ namespace smartCubes.ViewModels.Activity
                 }else{
                     await Application.Current.MainPage.DisplayAlert("Error", "No se ha podido eliminar la actividad", "Aceptar");
                 }
-
             }
         }
 

@@ -30,13 +30,9 @@ namespace smartCubes.ViewModels.Session
         private int intMinutes;
         private List<DeviceModel> lDevices;
         private SessionInit sessionInit;
-
-        private DateTime datetime;
         private IAdapter adapter;
-        private IBluetoothLE ble;
 
         private List<DeviceData> lDeviceData;
-        private List<IDevice> lDevicesConnected;
 
 
         public PlaySessionViewModel2(SessionModel session)
@@ -52,8 +48,6 @@ namespace smartCubes.ViewModels.Session
 
             lDeviceData = new List<DeviceData>();
 
-
-
             Title = session.Name;
             ActivityName = session.ActivityName;
 
@@ -61,24 +55,25 @@ namespace smartCubes.ViewModels.Session
 
             ActivityModel activity = Json.getActivityByName(session.ActivityName);
             lDevices = new List<DeviceModel>(activity.Devices);
-
+            
+            
             adapter = CrossBluetoothLE.Current.Adapter;
-            CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
-
-            if (isAllConnectedDevices(lDevices))
-            {
-                ColorFrame = "Green";
-                Loading = false;
-                IsEnabledPage = true;
-            }
-            else
-            {
-                ColorFrame = "Red";
-            }
+         
+            /* if (isAllConnectedDevices(lDevices))
+             {
+                 ColorFrame = "Green";
+                 Loading = false;
+                 IsEnabledPage = true;
+             }
+             else
+             {
+                 ColorFrame = "Red";
+             }*/
 
             SearchDevice();
 
         }
+
         private Boolean _StudentCodeEntry;
 
         public Boolean StudentCodeEntry
@@ -226,14 +221,13 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged();
             }
         }
+
+
         private ICommand _timerCommand;
         public ICommand TimerCommand
         {
             get { return _timerCommand ?? (_timerCommand = new Command(() => TimerCommandExecute())); }
         }
-
-
-
         private async void TimerCommandExecute()
         {
             if (String.IsNullOrEmpty(StudentCode))
@@ -244,6 +238,7 @@ namespace smartCubes.ViewModels.Session
 
             if (!isAllConnectedDevices(lDevices))
             {
+
                 Loading = true;
                 IsEnabledPage = false;
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "No se ha podido establecer conexión con todos los dispositivos. ¿Desea intentarlo de nuevo?", "Reintentar", "Cancelar");
@@ -399,9 +394,14 @@ namespace smartCubes.ViewModels.Session
          * 
          * 
          */
-
+        
         private async Task SearchDevice()
         {
+            await WaitAndExecute(1000, () =>
+
+            {
+                CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
+            });
             try
             {
                 adapter.DeviceConnected += (s, a) =>
@@ -429,13 +429,13 @@ namespace smartCubes.ViewModels.Session
                         ColorFrame = "Red";
 
                     };
+
                 adapter.ScanTimeoutElapsed += (s, a) =>
                 {
                     Loading = false;
                     IsEnabledPage = true;
                 };
             }
-
             catch (DeviceConnectionException er)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un error al conectar con el dispositivo.", "Aceptar");
@@ -446,11 +446,12 @@ namespace smartCubes.ViewModels.Session
                 await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un innesperado.", "Aceptar");
                 Debug.WriteLine("ERROR: " + er.Message);
             }
-
         }
-
-
-
+        protected async Task WaitAndExecute(int milisec, Action actionToExecute)
+        {
+            await Task.Delay(milisec);
+            actionToExecute();
+        }
 
         public async Task DisconnectAll()
         {
@@ -489,8 +490,6 @@ namespace smartCubes.ViewModels.Session
                     await CrossBluetoothLE.Current.Adapter.DisconnectDeviceAsync(device);
                 }
             }
-
-
         }
 
 
@@ -533,12 +532,15 @@ namespace smartCubes.ViewModels.Session
         public bool isAllConnectedDevices(List<DeviceModel> lDevicesActivity)
         {
             if (adapter.ConnectedDevices.Count() == lDevicesActivity.Count())
+            {
+                Loading = false;
+                IsEnabledPage = true;
                 return true;
+            }
             else
+            {
                 return false;
+            }             
         }
-
-
-
     }
 }

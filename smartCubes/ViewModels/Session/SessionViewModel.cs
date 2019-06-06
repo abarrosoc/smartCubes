@@ -100,7 +100,7 @@ namespace smartCubes.ViewModels.Session
 
         public bool Loading
         {
-            get { return _isVisibleLabel; }
+            get { return _Loading; }
             set
             {
                 _Loading = value;
@@ -118,7 +118,6 @@ namespace smartCubes.ViewModels.Session
           
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
-
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
 
                 if (lSessionInit == null || lSessionInit.Count == 0)
@@ -150,8 +149,7 @@ namespace smartCubes.ViewModels.Session
                     bodyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
                     bodyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
                     bodyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                    bodyStyle.EndUpdate();
-  
+                    bodyStyle.EndUpdate();  
 
                     //Access first worksheet from the workbook instance.
 
@@ -171,7 +169,6 @@ namespace smartCubes.ViewModels.Session
                         worksheet[2, 2].Value = session.ActivityName;
                         worksheet[2, 3].Value = user.UserName;
                         worksheet[2, 4].Value = sessionInit.StudentCode;
-
 
                         worksheet.Name = cont.ToString() + " - " + sessionInit.StudentCode;
                         worksheet.UsedRange.AutofitColumns();

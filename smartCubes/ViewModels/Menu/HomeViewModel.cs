@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Prism.Navigation;
 using smartCubes.Models;
@@ -116,10 +118,12 @@ namespace smartCubes.ViewModels.Menu
 
         private async void OnItemTappedExecute()
         {
+            //isLoading = true;
             SessionModel item = SelectItem;
             SelectItem = null;
             //RefreshData();
             await Navigation.PushAsync(new PlaySessionView(item));
+          
         }
        
         public ICommand RefreshCommand

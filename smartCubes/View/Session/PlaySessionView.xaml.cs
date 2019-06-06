@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading.Tasks;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using smartCubes.Models;
@@ -19,8 +20,8 @@ namespace smartCubes.View.Session
         public PlaySessionView(SessionModel session)
         {
             InitializeComponent();
+  
             BindingContext = new PlaySessionViewModel2(session);
-
         }
 
         protected override void OnDisappearing()

@@ -65,7 +65,7 @@
         <Label TextColor="Gray" Text="No hay datos para mostrar" HorizontalOptions="CenterAndExpand" Margin="0,20" IsVisible="{Binding isVisibleLabel,Mode=TwoWay}" FontAttributes="Italic" />
 
     </StackLayout>
-    <StackLayout IsVisible="{Binding isLoading}" BackgroundColor="Gray" Opacity="0.1" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+    <StackLayout IsVisible="{Binding isLoading}" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
         <ActivityIndicator IsRunning="{Binding isLoading}" IsVisible="{Binding isLoading}" Color ="#80000000" VerticalOptions="CenterAndExpand"/>
                     <Label Text="Cargando..." TextColor="#657786" FontSize="16" FontAttributes="Italic" IsVisible="{Binding isLoading}"/>
 

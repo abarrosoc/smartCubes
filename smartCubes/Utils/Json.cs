@@ -71,6 +71,8 @@ namespace smartCubes.Utils
                 {
                     activityOriginal.Name = activity.Name;
                     activityOriginal.Devices = activity.Devices;
+                    activityOriginal.Messages = activity.Messages;
+                    activityOriginal.Description  = activity.Description;
                 }
             }
 
