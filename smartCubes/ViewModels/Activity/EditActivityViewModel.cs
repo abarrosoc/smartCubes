@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Plugin.BLE.Abstractions;
-using Rg.Plugins.Popup.Services;
 using smartCubes.Models;
 using smartCubes.Utils;
 using smartCubes.View.Activity;
@@ -15,18 +11,18 @@ namespace smartCubes.ViewModels.Activity
     {
         public INavigation Navigation { get; set; }
 
-        private bool modify;
-        private ActivityModel activity;
+        private bool Modify;
+        private ActivityModel Activity;
 
         public EditActivityViewModel(INavigation navigation, bool modify, ActivityModel activity)
         {
-            this.Navigation = navigation;
-            this.modify = modify;
-            this.activity = activity;
+            Navigation = navigation;
+            Modify = modify;
+            Activity = activity;
 
             if (modify)
             {
-                Title = "Modificar";
+                Title = "Editar";
                 Name = activity.Name;
                 Description = activity.Description;
             }
@@ -81,60 +77,7 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-
-
-
-
-        /*  private ICommand _saveCommand;
-
-        public ICommand SaveCommand
-        {
-            get { return _saveCommand ?? (_saveCommand = new Command(() => SaveCommandExecute())); }
-        }
-
-       private async void SaveCommandExecute()
-        {
-            if (String.IsNullOrEmpty(Name) || lDevices.Count == 0)
-            {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
-            }
-            else
-            {
-                ActivityModel newActivity = new ActivityModel();
-
-                if (modify)
-                    newActivity.Id = activity.Id;
-                newActivity.Name = Name;
-                newActivity.Description = Description;
-                List<DeviceModel> devices = new List<DeviceModel>();
-                foreach (DeviceModel device in lDevices)
-                    devices.Add(device);
-                
-                newActivity.Devices = devices;
-                bool isAdd = false;
-                if(modify)
-                    isAdd = Json.updateActivity(newActivity);
-                else
-                    isAdd = Json.addActivity(newActivity);
-
-                if(isAdd){
-                    if(modify)
-                        await Application.Current.MainPage.DisplayAlert("Información", "La actividad ha sido modificada correctamente", "Aceptar");
-                    else
-                        await Application.Current.MainPage.DisplayAlert("Información", "La actividad ha sido guardada correctamente", "Aceptar");
-                    
-                    await Navigation.PopAsync();
-                    lDevices = new ObservableCollection<DeviceModel>();
-                    Name = null;
-                    Description = null;
-                }else{
-                    await Application.Current.MainPage.DisplayAlert("Error", "El nombre de la actividad ya existe", "Aceptar");
-                }
-            }
-        }
-       */
         private ICommand _nextCommand;
-
         public ICommand NextCommand
         {
             get { return _nextCommand ?? (_nextCommand = new Command(() => NextCommandExecute())); }
@@ -145,14 +88,17 @@ namespace smartCubes.ViewModels.Activity
             if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description))
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
+            } else if (Json.getActivityByName(Name) != null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Ya existe una actividad con el mismo nombre", "Aceptar");
             }
             else
             {
-                if (modify)
+                if (Modify)
                 {
-                    activity.Name = Name;
-                    activity.Description = Description;
-                    await Navigation.PushAsync(new AddDeviceActivityView(activity, modify));
+                    Activity.Name = Name;
+                    Activity.Description = Description;
+                    await Navigation.PushAsync(new AddDeviceActivityView(Activity, Modify));
                 }
                 else
                 {
@@ -160,10 +106,8 @@ namespace smartCubes.ViewModels.Activity
                     ActivityModel newActivity = new ActivityModel();
                     newActivity.Name = Name;
                     newActivity.Description = Description;
-                    await Navigation.PushAsync(new AddDeviceActivityView(newActivity, modify));
+                    await Navigation.PushAsync(new AddDeviceActivityView(newActivity, Modify));
                 }
-
-               
             }
         }
 

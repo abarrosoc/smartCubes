@@ -5,6 +5,8 @@ using System;
 using System.IO;
 using smartCubes.View.Login;
 using smartCubes.Utils;
+using System.Reactive.Linq;
+using Akavache;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace smartCubes
@@ -24,6 +26,7 @@ namespace smartCubes
 
         protected override void OnStart()
         {
+            BlobCache.ApplicationName = "SmartGames";
             ConnectDevices connect = new ConnectDevices();
         }
 

@@ -12,6 +12,8 @@ using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
 using System.Text;
 using System.Linq;
+using Akavache;
+using System.Reactive.Linq;
 
 namespace smartCubes.ViewModels.Session
 {
@@ -55,20 +57,10 @@ namespace smartCubes.ViewModels.Session
 
             ActivityModel activity = Json.getActivityByName(session.ActivityName);
             lDevices = new List<DeviceModel>(activity.Devices);
-            
-            
-            adapter = CrossBluetoothLE.Current.Adapter;
          
-            /* if (isAllConnectedDevices(lDevices))
-             {
-                 ColorFrame = "Green";
-                 Loading = false;
-                 IsEnabledPage = true;
-             }
-             else
-             {
-                 ColorFrame = "Red";
-             }*/
+            BlobCache.UserAccount.InsertObject("currentActivity", activity);
+
+            adapter = CrossBluetoothLE.Current.Adapter;
 
             SearchDevice();
 
@@ -331,7 +323,7 @@ namespace smartCubes.ViewModels.Session
             if (StartStop.Equals(INICIAR))
             {
                 StartStop = REANUDAR;
-                var action = await Application.Current.MainPage.DisplayActionSheet("¿Que desea hacer?", "Cancelar", FINALIZAR, PAUSAR);
+                var action = await Application.Current.MainPage.DisplayActionSheet("¿Que desea hacer?", PAUSAR, FINALIZAR);
 
                 if (action.Equals(FINALIZAR))
                 {
@@ -452,22 +444,35 @@ namespace smartCubes.ViewModels.Session
             await Task.Delay(milisec);
             actionToExecute();
         }
-
+        async void OnPreviousPageButtonClicked(object sender, EventArgs e)
+        {
+             Debug.WriteLine("");
+        }
         public async Task DisconnectAll()
         {
             await adapter.StopScanningForDevicesAsync();
-
-
+            ActivityModel currentActivity = null;
+            try
+            {
+                currentActivity = (ActivityModel)await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error al recuperar la actividad de la sesion: " + e.Message);
+            }
 
             foreach (IDevice device in adapter.ConnectedDevices)
             {
+
                 if (device.State == DeviceState.Connected)
                 {
+                    string serviceDevice = currentActivity.Devices.Find(d => d.Name.Equals(device.Name)).Service;
+
                     var services = await device.GetServicesAsync();
                     IService customerService = null;
                     foreach (IService service in services)
                     {
-                        if (service.Id.Equals(new Guid("0000ffe0-0000-1000-8000-00805f9b34fb")))
+                       if (service.Id.Equals(new Guid(serviceDevice)))
                         {
                             customerService = service;
                         }
@@ -498,13 +503,24 @@ namespace smartCubes.ViewModels.Session
 
             if (lDevices != null)
             {
+                ActivityModel currentActivity = null;
+                try
+                {
+                    currentActivity = (ActivityModel)await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Error al recuperar la actividad de la sesion: " + e.Message);
+                }
+
                 foreach (IDevice device in adapter.ConnectedDevices)
                 {
+                    string serviceDevice = currentActivity.Devices.Find(d => d.Name.Equals(device.Name)).Service;
                     var services = await device.GetServicesAsync();
                     IService customerService = null;
                     foreach (IService service in services)
                     {
-                        if (service.Id.Equals(new Guid("0000ffe0-0000-1000-8000-00805f9b34fb")))
+                        if (service.Id.Equals(new Guid(serviceDevice)))
                         {
                             customerService = service;
                         }

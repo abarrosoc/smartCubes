@@ -22,18 +22,17 @@
       "Devices": [
         {
           "ID": 1,
-          "Uuid": "25e272c9-8fb3-187b-c29a-ebb1f5929a76",
+          "Uuid": "01ba3852-b5be-9108-5934-3f746e76a4e0",
           "Name": "Cube2",
-          "State": "Disconnected"
-
+          "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
         },
-
-        {
-          "ID": 1,
+		{
+          "ID": 2,
           "Uuid": "764832f8-59ee-aad5-b6c9-a83bc069f016",
           "Name": "Cube3",
           "State": "Disconnected",
-
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
         }
       ]
 
@@ -60,9 +59,10 @@
       "Devices": [
         {
           "ID": 1,
-          "Uuid": "25e272c9-8fb3-187b-c29a-ebb1f5929a76",
+          "Uuid": "01ba3852-b5be-9108-5934-3f746e76a4e0",
           "Name": "Cube2",
-          "State": "Disconnected"
+          "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
 
         },
 
@@ -71,6 +71,7 @@
           "Uuid": "764832f8-59ee-aad5-b6c9-a83bc069f016",
           "Name": "Cube3",
           "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
 
         }
       ]

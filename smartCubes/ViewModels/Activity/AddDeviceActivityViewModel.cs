@@ -13,17 +13,18 @@ namespace smartCubes.ViewModels.User
     {
         public INavigation Navigation { get; set; }
 
-        private bool modify;
-        private ActivityModel activity;
+        private bool Modify;
+        private ActivityModel Activity;
 
         public AddDeviceActivityViewModel(INavigation navigation, ActivityModel activityModel, bool isModified)
         {
-            this.Navigation = navigation;
-            this.modify = isModified;
-            this.activity = activityModel;
-            if (modify)
+            Navigation = navigation;
+            Modify = isModified;
+            Activity = activityModel;
+
+            if (Modify)
             {
-                Title = "Modificar";
+                Title = "Editar";
             }
             else
             {
@@ -55,9 +56,9 @@ namespace smartCubes.ViewModels.User
             }
         }
 
-        private String _NameDevice;
+        private string _NameDevice;
 
-        public String NameDevice
+        public string NameDevice
         {
             get
             {
@@ -69,9 +70,8 @@ namespace smartCubes.ViewModels.User
                 RaisePropertyChanged();
             }
         }
-        private String _Uuid;
-
-        public String Uuid
+        private string _Uuid;
+        public string Uuid
         {
             get
             {
@@ -84,6 +84,20 @@ namespace smartCubes.ViewModels.User
             }
         }
 
+        private string _UuidService;
+        public string UuidService
+        {
+            get
+            {
+                return _UuidService;
+            }
+            set
+            {
+                _UuidService = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ICommand _addDeviceCommand;
 
         public ICommand AddDeviceCommand
@@ -92,22 +106,29 @@ namespace smartCubes.ViewModels.User
         }
         private void AddDeviceCommandExecute()
         {
-            if(String.IsNullOrEmpty(NameDevice) || String.IsNullOrEmpty(Uuid))
+            List<DeviceModel> lDevicesTemp = new List<DeviceModel>(lDevices);
+
+            if(String.IsNullOrEmpty(NameDevice) || String.IsNullOrEmpty(Uuid) || String.IsNullOrEmpty(UuidService))
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
+            }
+            else if (lDevicesTemp.Find( d => d.Name.Equals(NameDevice)) != null)
+            {
+                 Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un dispositivo con el mismo nombre", "Aceptar");
             }
             else { 
                 DeviceModel newDevice = new DeviceModel();
                 newDevice.Name = NameDevice;
                 newDevice.Uuid = Uuid;
+                newDevice.Service = UuidService;
                 newDevice.State = DeviceState.Disconnected.ToString();
                 lDevices.Add(newDevice);
                 NameDevice = null;
                 Uuid = null;
+                UuidService = null;
             }
         }
         private ICommand _deleteDeviceCommand;
-
         public ICommand DeleteDeviceCommand
         {
             get { return _deleteDeviceCommand ?? (_deleteDeviceCommand = new Command<DeviceModel>((device) => DeleteDeviceCommandExecute(device))); }
@@ -132,25 +153,25 @@ namespace smartCubes.ViewModels.User
             }
             else
             {
-                if (activity.Devices != null)
+                if (Activity.Devices != null)
                 {
                     foreach (DeviceModel device in lDevices)
                     {
-                        if (!activity.Devices.Contains(device))
+                        if (!Activity.Devices.Contains(device))
                         {
-                            activity.Devices.Add(device);
+                            Activity.Devices.Add(device);
                         }
                     }
                 }
                 else
                 {
-                    activity.Devices = new List<DeviceModel>();
+                    Activity.Devices = new List<DeviceModel>();
                     foreach (DeviceModel device in lDevices)
                     {
-                        activity.Devices.Add(device);
+                        Activity.Devices.Add(device);
                     }                       
                 }
-                await Navigation.PushAsync(new AddMessageActivityView(activity,modify));
+                await Navigation.PushAsync(new AddMessageActivityView(Activity,Modify));
                
             }
 

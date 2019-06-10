@@ -14,27 +14,29 @@ namespace smartCubes.ViewModels.Activity
     public class AddMessageActivityViewModel : BaseViewModel
     {
         public INavigation Navigation { get; set; }
-        public List<FieldMessage> lFieldsTemp { get; set; }
+        public List<FieldMessage> FieldsTemp { get; set; }
 
-        private bool modify;
-        private ActivityModel activity;
+        private bool Modify;
+        private ActivityModel Activity;
         private MessageDevice message;
 
         public AddMessageActivityViewModel(INavigation navigation, ActivityModel activity, bool modify)
         {
-            this.Navigation = navigation;
-            this.modify = modify;
-            this.activity = activity;
-            lFieldsTemp = new List<FieldMessage>();
+            Navigation = navigation;
+            Modify = modify;
+            Activity = activity;
+            FieldsTemp = new List<FieldMessage>();
             lMessages = new ObservableCollection<MessageDevice>();
+
             if (modify)
             {
-                Title = "Modificar";
+                Title = "Editar";
             }
             else
             {
                 Title = "Nueva";
             }
+
             if (activity != null && activity.Messages != null){
                 foreach ( MessageDevice message in activity.Messages){
                     lMessages.Add(message);
@@ -43,7 +45,6 @@ namespace smartCubes.ViewModels.Activity
         }
 
         private ObservableCollection<MessageDevice> _lMessages;
-
         public ObservableCollection<MessageDevice> lMessages
         {
             get
@@ -57,9 +58,9 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-        private String _Name;
+        private string _Name;
 
-        public String Name
+        public string Name
         {
             get
             {
@@ -72,9 +73,8 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-        private String _Size;
-
-        public String Size
+        private string _Size;
+        public string Size
         {
             get
             {
@@ -88,7 +88,6 @@ namespace smartCubes.ViewModels.Activity
         }
 
         private MessageDevice _SelectMessage;
-
         public MessageDevice SelectMessage
         {
             get
@@ -110,6 +109,8 @@ namespace smartCubes.ViewModels.Activity
         }
         private void AddMessageCommandExecute()
         {
+            List<MessageDevice> lMessagesTemp = new List<MessageDevice>(lMessages);
+
             if (Size != null && Size.Equals("0"))
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "El tamaño debe ser mayor que 0", "Aceptar");
@@ -118,15 +119,19 @@ namespace smartCubes.ViewModels.Activity
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
             }
+            else if (lMessagesTemp.Find( m => m.Name.Equals(Name)) !=  null)
+            {
+                Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un mensaje con el mismo nombre", "Aceptar");
+            }
             else
             {
                 if (message == null)
                 {
-                    lFieldsTemp.RemoveAll(f => f.Bytes == 0);
+                    FieldsTemp.RemoveAll(f => f.Bytes == 0);
                     message = new MessageDevice();
                     message.Name = Name;
-                    message.Fields = lFieldsTemp;
-                    lFieldsTemp = new List<FieldMessage>();
+                    message.Fields = FieldsTemp;
+                    FieldsTemp = new List<FieldMessage>();
                     lMessages.Add(message);
                 }
                 else
@@ -146,8 +151,8 @@ namespace smartCubes.ViewModels.Activity
                 message = null;
             }
         }
-        private ICommand _SaveCommand;
 
+        private ICommand _SaveCommand;
         public ICommand SaveCommand
         {
             get { return _SaveCommand ?? (_SaveCommand = new Command(() => SaveCommandExecute())); }
@@ -161,24 +166,24 @@ namespace smartCubes.ViewModels.Activity
             }
             else
             {
-                if (modify)
+                if (Modify)
                 {
-                    activity.Messages.RemoveAll(m => m != null);
+                    Activity.Messages.RemoveAll(m => m != null);
                     foreach (MessageDevice message in lMessages)
                     {
-                        activity.Messages.Add(message);
+                        Activity.Messages.Add(message);
                     }
-                    Json.updateActivity(activity);
+                    Json.updateActivity(Activity);
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha modificado correctamente", "Aceptar");
                 }
                 else
                 {
-                    activity.Messages = new List<MessageDevice>();
+                    Activity.Messages = new List<MessageDevice>();
                     foreach (MessageDevice message in lMessages)
                     {
-                        activity.Messages.Add(message);
+                        Activity.Messages.Add(message);
                     }
-                    Json.addActivity(activity);
+                    Json.addActivity(Activity);
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha creado correctamente", "Aceptar");
                 }
                 
@@ -219,7 +224,7 @@ namespace smartCubes.ViewModels.Activity
         }
         private void AddFieldsCommandExecute()
         {
-            PopupNavigation.PushAsync(new AddFieldsPopUp(this, modify));
+            PopupNavigation.PushAsync(new AddFieldsPopUp(this, Modify));
 
         }
 

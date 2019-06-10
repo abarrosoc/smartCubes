@@ -4,18 +4,9 @@
         <ToolbarItem Name="MenuItem1" Order="Primary" Icon="refresh.png" Text="Add" Priority="0" Command="{Binding ReconnectCommand}" />
     </ContentPage.ToolbarItems>
     <AbsoluteLayout BackgroundColor="White">
-       <!-- <AbsoluteLayout AbsoluteLayout.LayoutBounds="0.5,0.1,.7,.25" AbsoluteLayout.LayoutFlags="All" IsEnabled="{Binding IsEnabledPage}" >
-            <StackLayout AbsoluteLayout.LayoutBounds=".0,.0,1,1" AbsoluteLayout.LayoutFlags="All">
-                <Label TextColor="#657786" FontSize="20" Text="Actividad" />
-                <Entry Text="{Binding ActivityName}" TextColor="Silver" IsEnabled="false" Margin="0,0,0,0" Keyboard="Text" Grid.Row="1" Grid.Column="1" />
-                <BoxView HeightRequest="0.5" BackgroundColor="Silver" Margin="0,0,0,25" />
-                <Label TextColor="#657786" FontSize="20" Text="Código alumno" Margin="0,10,0,10" Grid.Row="3" Grid.Column="0" />
-                <Entry Placeholder="Introduzca el código" Text="{Binding StudentCode}" Margin="0,0,0,0" Keyboard="Text" Grid.Row="4" Grid.Column="1" />
-                <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,35" Grid.Row="5" Grid.Column="0" />
-            </StackLayout>
-        </AbsoluteLayout>-->
-   
-                        <StackLayout BackgroundColor="White" Margin="0,30,0,0" IsEnabled="{Binding IsEnabledPage}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
+        <StackLayout BackgroundColor="red" Margin="0,0,0,0" IsEnabled="{Binding IsEnabledPage}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
+        </StackLayout>
+        <StackLayout BackgroundColor="White" Margin="0,30,0,0" IsEnabled="{Binding IsEnabledPage}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
                             <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="40" Margin="0,20,0,0">
                                 <TableRoot>
                                     <TableSection Title="{Binding ActivityName}">

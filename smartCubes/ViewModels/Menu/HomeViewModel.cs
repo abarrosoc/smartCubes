@@ -118,12 +118,20 @@ namespace smartCubes.ViewModels.Menu
 
         private async void OnItemTappedExecute()
         {
-            //isLoading = true;
-            SessionModel item = SelectItem;
-            SelectItem = null;
-            //RefreshData();
-            await Navigation.PushAsync(new PlaySessionView(item));
-          
+        
+            if (!CrossBluetoothLE.Current.State.Equals(BluetoothState.On))
+            {
+                SelectItem = null;
+                await Application.Current.MainPage.DisplayAlert("Atención", "Encienda el bluetooth del dispositivo", "Aceptar");
+            }
+            else
+            {
+                //isLoading = true;
+                SessionModel item = SelectItem;
+                SelectItem = null;
+                //RefreshData();
+                await Navigation.PushModalAsync(new PlaySessionView(item));
+            }
         }
        
         public ICommand RefreshCommand

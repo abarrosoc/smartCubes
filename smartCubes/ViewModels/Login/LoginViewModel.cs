@@ -64,13 +64,13 @@ namespace smartCubes.ViewModels.Login
                 Application.Current.MainPage.DisplayAlert("Login", "Debe rellenar todos los campos", "Aceptar");
             }else{
 
-                UserModel user = App.Database.GetUser(User);
-                if (user != null)
+                UserModel User = App.Database.GetUser(User);
+                if (User != null)
                 {
-                    String userPass = Crypt.Decrypt(user.Password, "uah2019");
+                    String userPass = Crypt.Decrypt(User.Password, "uah2019");
                     if (Password.Equals(userPass))
                     {
-                        Application.Current.MainPage = new MainPage(user);
+                        Application.Current.MainPage = new MainPage(User);
                     }
                     else
                     {

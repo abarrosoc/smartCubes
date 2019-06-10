@@ -12,6 +12,7 @@ namespace smartCubes.Models
         public String Uuid { get; set; }
         public String Name { get; set; }
         public String State { get; set; }
+        public String Service { get; set; }
     }
 }
 

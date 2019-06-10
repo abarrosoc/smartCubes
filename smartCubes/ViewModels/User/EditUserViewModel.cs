@@ -14,16 +14,16 @@ namespace smartCubes.ViewModels.User
     {
         public INavigation Navigation { get; set; }
 
-        private bool modify{ get; set; }
-        private UserModel user{ get; set; }
-        private UserModel userLogin { get; set; }
+        private bool Modify{ get; set; }
+        private UserModel User{ get; set; }
+        private UserModel UserLogin { get; set; }
 
         public EditUserViewModel(INavigation navigation,UserModel userLogin, bool modify, UserModel user)
         {
-            this.Navigation = navigation;
-            this.modify = modify;
-            this.user = user;
-            this.userLogin = userLogin;
+            Navigation = navigation;
+            Modify = modify;
+            User = user;
+            UserLogin = userLogin;
 
             lRoles = new ObservableCollection<String>();
 
@@ -46,7 +46,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private string _UserName;
-
         public string UserName
         {
             get
@@ -61,7 +60,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private string _Password;
-
         public string Password
         {
             get
@@ -76,7 +74,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private string _Email;
-
         public string Email
         {
             get
@@ -89,8 +86,8 @@ namespace smartCubes.ViewModels.User
                 RaisePropertyChanged();
             }
         }
-        private String _SelectedRole;
 
+        private String _SelectedRole;
         public String SelectedRole
         {
             get
@@ -105,7 +102,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private ObservableCollection<String> _lRoles;
-
         public ObservableCollection<String> lRoles
         {
             get
@@ -118,6 +114,7 @@ namespace smartCubes.ViewModels.User
                 RaisePropertyChanged();
             }
         }
+
         private ICommand _saveCommand;
         public ICommand SaveCommand
         {
@@ -126,22 +123,31 @@ namespace smartCubes.ViewModels.User
 
         private async void SaveCommandExecuteAsync()
         {
-            if(String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password) || SelectedRole == null){
+
+            if (String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password) || SelectedRole == null)
+            {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
-            }else{
+            }
+            else if (App.Database.GetUsers().Find(u => u.UserName.Equals(UserName)) != null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un usuario con el mismo nombre", "Aceptar");
+            }
+            else
+            {
                 bool resultValidate = validateEmail(Email);
 
-                if(resultValidate){
+                if (resultValidate)
+                {
                     UserModel newUser = new UserModel();
-                    if (modify)
-                        newUser.ID = user.ID;
+                    if (Modify)
+                        newUser.ID = User.ID;
                     newUser.UserName = UserName;
                     newUser.Password = Crypt.Encrypt(Password, "uah2019");
                     newUser.Email = Email;
                     newUser.Role = SelectedRole;
 
                     App.Database.SaveUser(newUser);
-                    if (modify)
+                    if (Modify)
                         await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha modificado correctamente", "Aceptar");
                     else
                         await Application.Current.MainPage.DisplayAlert("Información", "El usuario se ha creado correctamente", "Aceptar");
@@ -151,10 +157,8 @@ namespace smartCubes.ViewModels.User
                     UserName = "";
                     Password = "";
                     Email = "";
-                } 
-              
+                }
             }
-
         }
 
         private bool validateEmail(String email){

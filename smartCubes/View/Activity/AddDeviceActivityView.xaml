@@ -10,10 +10,10 @@
               
                 <ListView.Header>
                     <StackLayout>
-                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="250" Margin="0,20,0,0">
+                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="350" Margin="0,20,0,0">
                             <TableRoot>
                                 <TableSection Title="Dispositivos">
-                                    <ViewCell Height="190">
+                                    <ViewCell Height="290">
                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
@@ -31,7 +31,16 @@
                                                             <Label Text="UUID" TextColor="#657786" FontSize="Medium" Margin="0,40,80,0" />
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                                                            <Entry Placeholder="uuid" Text="{Binding Uuid}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
+                                                            <Entry Placeholder="UUID" Text="{Binding Uuid}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
+                                                            <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                            <Label Text="UUID Servicio" TextColor="#657786" FontSize="Medium" Margin="0,40,50,0" />
+                                                        </StackLayout>
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                            <Entry Placeholder="UUID Servicio" Text="{Binding UuidService}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
                                                             <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,30" />
                                                         </StackLayout>
                                                     </StackLayout>
