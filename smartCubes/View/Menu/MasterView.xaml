@@ -12,7 +12,7 @@
             </AbsoluteLayout>
         </Frame>
         <AbsoluteLayout BackgroundColor="White" AbsoluteLayout.LayoutBounds="1,1,1,.7" AbsoluteLayout.LayoutFlags="All" Margin=" 0,20,0,0">
-            <ListView x:Name="lMenu" VerticalOptions="FillAndExpand" RefreshCommand="false" SeparatorVisibility="None" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" ItemsSource="{Binding lMenu}" RowHeight="90" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ListView x:Name="lMenu" VerticalOptions="FillAndExpand"  SeparatorVisibility="None" SelectedItem="{Binding SelectedItem,Mode=TwoWay}" ItemsSource="{Binding lMenu}" RowHeight="90" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <ListView.Behaviors>
                     <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}" />
                 </ListView.Behaviors>

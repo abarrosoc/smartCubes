@@ -33,13 +33,15 @@ namespace smartCubes.ViewModels.Session
         private List<DeviceModel> lDevices;
         private SessionInit sessionInit;
         private IAdapter adapter;
+        private INavigation Navigation;
 
         private List<DeviceData> lDeviceData;
 
 
-        public PlaySessionViewModel2(SessionModel session)
+        public PlaySessionViewModel2(SessionModel session, INavigation navigation)
         {
             this.session = session;
+            Navigation = navigation;
             sessionInit = new SessionInit();
             sessionInit.SessionId = session.ID;
             sessionInit.Date = DateTime.Now;
@@ -333,19 +335,19 @@ namespace smartCubes.ViewModels.Session
                 }
             }
         }
-        private ICommand _reconnectCommand;
-        public ICommand ReconnectCommand
+        private ICommand _OnTapGestureRecognizerTappedReconnect;
+        public ICommand OnTapGestureRecognizerTappedReconnect
         {
-            get { return _reconnectCommand ?? (_reconnectCommand = new Command(() => ReconnectCommandExecute())); }
+            get { return _OnTapGestureRecognizerTappedReconnect ?? (_OnTapGestureRecognizerTappedReconnect = new Command(() => OnTapGestureRecognizerTappedReconnectExecute())); }
         }
 
-        private async void ReconnectCommandExecute()
+        private async void OnTapGestureRecognizerTappedReconnectExecute()
         {
             Loading = true;
             IsEnabledPage = false;
             if (!adapter.IsScanning && !isAllConnectedDevices(lDevices))
             {
-                var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Desea volver a intentar conectar con los dispositivos?", "Si", "No");
+                var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Desea volver a intentar conectar con los dispositivos? ", "Si", "No");
                 if (answer)
                 {
                     await CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
@@ -361,6 +363,37 @@ namespace smartCubes.ViewModels.Session
                 await Application.Current.MainPage.DisplayAlert("Información", "Todos los dispositivos están conectados", "Aceptar");
             }
         }
+        private ICommand _OnTapGestureRecognizerTappedClose;
+        public ICommand OnTapGestureRecognizerTappedClose
+        {
+            get { return _OnTapGestureRecognizerTappedClose ?? (_OnTapGestureRecognizerTappedClose = new Command(() => OnTapGestureRecognizerTappedCloseExecute())); }
+        }
+
+        private async void OnTapGestureRecognizerTappedCloseExecute()
+        {
+            if (!StartStop.Equals(INICIAR))
+            {
+                StartStop = REANUDAR;
+                var answer = await Application.Current.MainPage.DisplayAlert("Atención", " La actividad en curso no será guardada. ¿Está seguro que desea salir?", "Si", "No");
+
+                if (answer)
+                {
+                    await Navigation.PopModalAsync();
+                }
+            }
+            else
+            { 
+                var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Está seguro que desea salir de la sesión?", "Si", "No");
+
+                if (answer)
+                {
+                    await Navigation.PopModalAsync();
+                }
+                StartStop = INICIAR;
+            }
+        }
+
+    
 
         private void ResetChronometer()
         {
@@ -444,10 +477,7 @@ namespace smartCubes.ViewModels.Session
             await Task.Delay(milisec);
             actionToExecute();
         }
-        async void OnPreviousPageButtonClicked(object sender, EventArgs e)
-        {
-             Debug.WriteLine("");
-        }
+
         public async Task DisconnectAll()
         {
             await adapter.StopScanningForDevicesAsync();

@@ -5,12 +5,12 @@ using System;
 using System.IO;
 using smartCubes.View.Login;
 using smartCubes.Utils;
-using System.Reactive.Linq;
 using Akavache;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace smartCubes
 {
+ 
     public partial class App : Application
     {
         static Database database;

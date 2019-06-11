@@ -15,13 +15,14 @@ namespace smartCubes.View.Session
         public PlaySessionView()
         {
             InitializeComponent();
+        
         }
 
         public PlaySessionView(SessionModel session)
         {
             InitializeComponent();
   
-            BindingContext = new PlaySessionViewModel2(session);
+            BindingContext = new PlaySessionViewModel2(session, this.Navigation);
         }
 
         protected override void OnDisappearing()
@@ -32,7 +33,10 @@ namespace smartCubes.View.Session
        
            
         }
-
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
         private void lostEvent(object sender, EventArgs e)
         {
            

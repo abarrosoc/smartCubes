@@ -19,7 +19,7 @@
                                 </ViewCell.ContextActions>
                                 <StackLayout BackgroundColor="White" Orientation="Vertical">
                                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
-                                        <Label Text="{Binding Name}" TextColor="#657786" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                                        <Label Text="{Binding Name}" TextColor="#657786" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
                                         <Image Source="arrow.png" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" />
                                     </StackLayout>
                                 </StackLayout>

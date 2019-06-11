@@ -19,7 +19,7 @@ namespace smartCubes.Android
 
             if (Control != null)
             {
-
+                //Control.SetBackgroundColor(global::Android.Graphics.Color.Red);
             }
         }
     }

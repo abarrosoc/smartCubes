@@ -128,7 +128,7 @@ namespace smartCubes.ViewModels.User
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }
-            else if (App.Database.GetUsers().Find(u => u.UserName.Equals(UserName)) != null)
+            else if (!Modify && App.Database.GetUsers().Find(u => u.UserName.Equals(UserName)) != null)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un usuario con el mismo nombre", "Aceptar");
             }

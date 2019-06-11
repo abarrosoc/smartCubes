@@ -264,7 +264,7 @@
                         </ViewCell.ContextActions>
                         <StackLayout BackgroundColor="White" Orientation="Vertical">
                             <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="40,20,20,20">
-                                <Label Text="{Binding Description}" TextColor="#657786" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                                <Label Text="{Binding Description}" TextColor="#657786" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
                             </StackLayout>
                         </StackLayout>
                     </ViewCell>

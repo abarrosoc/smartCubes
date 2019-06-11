@@ -64,7 +64,7 @@
                             </ViewCell.ContextActions>
                             <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="FillAndExpand">
                                 <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
-                                    <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                                    <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
                                 </StackLayout>
                                 <Label Text="{Binding Path=Uuid, StringFormat='uuid: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="20,0,0,0" />
                             </StackLayout>

@@ -119,7 +119,7 @@ namespace smartCubes.ViewModels.Activity
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
             }
-            else if (lMessagesTemp.Find( m => m.Name.Equals(Name)) !=  null)
+            else if (!Modify && lMessagesTemp.Find( m => m.Name.Equals(Name)) !=  null)
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un mensaje con el mismo nombre", "Aceptar");
             }

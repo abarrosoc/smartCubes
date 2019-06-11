@@ -112,7 +112,7 @@ namespace smartCubes.ViewModels.User
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
             }
-            else if (lDevicesTemp.Find( d => d.Name.Equals(NameDevice)) != null)
+            else if (!Modify && lDevicesTemp.Find( d => d.Name.Equals(NameDevice)) != null)
             {
                  Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un dispositivo con el mismo nombre", "Aceptar");
             }
