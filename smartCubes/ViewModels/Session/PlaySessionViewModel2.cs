@@ -47,7 +47,6 @@ namespace smartCubes.ViewModels.Session
             sessionInit.Date = DateTime.Now;
 
             Loading = true;
-            IsEnabledPage = false;
             ColorFrame = "Red";
 
             lDeviceData = new List<DeviceData>();
@@ -201,21 +200,6 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged();
             }
         }
-        private bool _IsEnabledPage = false;
-
-        public bool IsEnabledPage
-        {
-            get
-            {
-                return _IsEnabledPage;
-            }
-            set
-            {
-                _IsEnabledPage = value;
-                RaisePropertyChanged();
-            }
-        }
-
 
         private ICommand _timerCommand;
         public ICommand TimerCommand
@@ -234,7 +218,6 @@ namespace smartCubes.ViewModels.Session
             {
 
                 Loading = true;
-                IsEnabledPage = false;
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "No se ha podido establecer conexión con todos los dispositivos. ¿Desea intentarlo de nuevo?", "Reintentar", "Cancelar");
                 if (answer)
                 {
@@ -245,7 +228,6 @@ namespace smartCubes.ViewModels.Session
                     {
                         ColorFrame = "Green";
                         Loading = false;
-                        IsEnabledPage = true;
                     }
                     else
                     {
@@ -257,7 +239,6 @@ namespace smartCubes.ViewModels.Session
                 else
                 {
                     Loading = false;
-                    IsEnabledPage = true;
                 }
             }
 
@@ -344,7 +325,6 @@ namespace smartCubes.ViewModels.Session
         private async void OnTapGestureRecognizerTappedReconnectExecute()
         {
             Loading = true;
-            IsEnabledPage = false;
             if (!adapter.IsScanning && !isAllConnectedDevices(lDevices))
             {
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Desea volver a intentar conectar con los dispositivos? ", "Si", "No");
@@ -355,7 +335,6 @@ namespace smartCubes.ViewModels.Session
                 else
                 {
                     Loading = false;
-                    IsEnabledPage = true;
                 }
             }
             else if (isAllConnectedDevices(lDevices))
@@ -435,7 +414,6 @@ namespace smartCubes.ViewModels.Session
                     {
                         ColorFrame = "Green";
                         Loading = false;
-                        IsEnabledPage = true;
                     }
                 };
 
@@ -458,7 +436,6 @@ namespace smartCubes.ViewModels.Session
                 adapter.ScanTimeoutElapsed += (s, a) =>
                 {
                     Loading = false;
-                    IsEnabledPage = true;
                 };
             }
             catch (DeviceConnectionException er)
@@ -580,7 +557,6 @@ namespace smartCubes.ViewModels.Session
             if (adapter.ConnectedDevices.Count() == lDevicesActivity.Count())
             {
                 Loading = false;
-                IsEnabledPage = true;
                 return true;
             }
             else

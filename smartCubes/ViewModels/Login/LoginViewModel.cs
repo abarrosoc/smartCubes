@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -14,6 +15,7 @@ namespace smartCubes.ViewModels.Login
         public LoginViewModel(INavigation navigation)
         {
             this.Navigation = navigation;
+            Loading = false;
         } 
 
         private String _User;
@@ -45,6 +47,18 @@ namespace smartCubes.ViewModels.Login
                 RaisePropertyChanged();
             }
         }
+
+        private bool _Loading = true;
+        public bool Loading
+        {
+            get { return _Loading; }
+            set
+            {
+                _Loading = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public static MasterDetailPage MasterDetail { get; set; }
         private ICommand _LoginCommand;
         public ICommand LoginCommand
@@ -52,38 +66,44 @@ namespace smartCubes.ViewModels.Login
             get { return _LoginCommand ?? (_LoginCommand = new Command(() => LoginCommandExecuteAsync())); }
         }
 
-        private void LoginCommandExecuteAsync()
+        private async void LoginCommandExecuteAsync()
         {
-            if(App.Database.GetUsers().Count == 0)
-                App.Database.ResetDataBase();
-            UserModel user = App.Database.GetUsers()[0];
-            Application.Current.MainPage = new MainPage(user);
-            /*
-            //Application.Current.MainPage = new MainPage();
-            if(User==null || Password==null){
-                Application.Current.MainPage.DisplayAlert("Login", "Debe rellenar todos los campos", "Aceptar");
-            }else{
 
-                UserModel User = App.Database.GetUser(User);
-                if (User != null)
-                {
-                    String userPass = Crypt.Decrypt(User.Password, "uah2019");
-                    if (Password.Equals(userPass))
+            Loading = true;
+            await Task.Run(() =>
+            {
+
+                if (App.Database.GetUsers().Count == 0)
+                    App.Database.ResetDataBase();
+                UserModel user = App.Database.GetUsers()[0];
+                Application.Current.MainPage = new MainPage(user);
+                /*
+                //Application.Current.MainPage = new MainPage();
+                if(User==null || Password==null){
+                    Application.Current.MainPage.DisplayAlert("Login", "Debe rellenar todos los campos", "Aceptar");
+                }else{
+
+                    UserModel User = App.Database.GetUser(User);
+                    if (User != null)
                     {
-                        Application.Current.MainPage = new MainPage(User);
+                        String userPass = Crypt.Decrypt(User.Password, "uah2019");
+                        if (Password.Equals(userPass))
+                        {
+                            Application.Current.MainPage = new MainPage(User);
+                        }
+                        else
+                        {
+                            Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
+                        }
                     }
                     else
                     {
                         Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
                     }
-                }
-                else
-                {
-                    Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
-                }
 
             }*/
-
+            });
+            Loading = false;
         }
 
     }

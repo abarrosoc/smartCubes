@@ -28,7 +28,12 @@
              </AbsoluteLayout>
 
         </Frame>
-     </AbsoluteLayout>
+        
+        <StackLayout IsVisible="{Binding Loading}" BackgroundColor="#80F1F4F7" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.5,1,1">
+            <ActivityIndicator IsRunning="true" IsVisible="true" Color="#80000000" VerticalOptions="EndAndExpand" HeightRequest="100"/>
+            <Label TextColor="#657786" FontSize="Medium" Text="Cargando..." HorizontalTextAlignment="Center"  VerticalOptions="StartAndExpand" Margin="0,20,0,0" />
+        </StackLayout>
+    </AbsoluteLayout>
     <!--<AbsoluteLayout BackgroundColor="White">
         <Image Source="menu_back.png"  AbsoluteLayout.LayoutBounds="1,1,1,1" AbsoluteLayout.LayoutFlags="All" Aspect="AspectFill"></Image>
         <Frame BorderColor="#1da1f2" AbsoluteLayout.LayoutBounds=".5,.5,.6,.6" BackgroundColor="White" HasShadow="false" AbsoluteLayout.LayoutFlags="All">

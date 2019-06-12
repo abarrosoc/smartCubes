@@ -28,7 +28,7 @@ namespace smartCubes.ViewModels.Menu
             isVisibleList = false;
             Title = "Inicio";
             RefreshData();
-            isLoading = false;
+            Loading = false;
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -97,14 +97,14 @@ namespace smartCubes.ViewModels.Menu
             }
         } 
 
-        private bool _isLoading = true;
+        private bool _Loading = true;
 
-        public bool isLoading
+        public bool Loading
         {
-            get { return _isLoading; }
+            get { return _Loading; }
             set
             {
-                _isLoading = value;
+                _Loading = value;
                 RaisePropertyChanged();
             }
         }
@@ -113,7 +113,7 @@ namespace smartCubes.ViewModels.Menu
 
         public ICommand OnItemTapped
         {
-            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
+            get { return _OnItemTapped ?? (_OnItemTapped = new Command(()  =>  OnItemTappedExecute())); }
         }
 
         private async void OnItemTappedExecute()
@@ -126,11 +126,20 @@ namespace smartCubes.ViewModels.Menu
             }
             else
             {
-                //isLoading = true;
+
+                Loading = true;
+                await Task.Delay(500);
                 SessionModel item = SelectItem;
                 SelectItem = null;
-                //RefreshData();
-                await Navigation.PushModalAsync(new PlaySessionView(item));
+                try
+                {
+                    await Navigation.PushModalAsync(new PlaySessionView(item));
+                }
+                finally
+                {
+                    Loading = false;
+                }
+             
             }
         }
        

@@ -187,8 +187,9 @@ namespace smartCubes.ViewModels.Activity
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha creado correctamente", "Aceptar");
                 }
                 
-                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count-1]);
-                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count-1]);
+                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count-2]);
+                Navigation.RemovePage(Navigation.NavigationStack[Navigation.NavigationStack.Count-2]);
+            
                 await Navigation.PopAsync();
 
             }

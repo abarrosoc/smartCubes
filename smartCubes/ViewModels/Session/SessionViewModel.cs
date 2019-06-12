@@ -97,10 +97,12 @@ namespace smartCubes.ViewModels.Session
         } 
 
         private bool _Loading;
-
         public bool Loading
         {
-            get { return _Loading; }
+            get
+            {
+                return _Loading;
+            }
             set
             {
                 _Loading = value;
@@ -118,12 +120,15 @@ namespace smartCubes.ViewModels.Session
           
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
+                Loading = true;
+                await Task.Delay(200);
+
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
 
                 if (lSessionInit == null || lSessionInit.Count == 0)
                 {
-                    await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
                     Loading = false;
+                    await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
                 }
                 else
                 {
@@ -195,8 +200,9 @@ namespace smartCubes.ViewModels.Session
 
                     //Save the stream as a file in the device and invoke it for viewing
                     string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ","") + ".xlsx", "application/msexcel", stream);
-
+                    
                     Mail mail = new Mail(filepath, user);
+                    Loading = false;
                 }
             }
 
