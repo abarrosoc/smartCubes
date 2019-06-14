@@ -16,7 +16,6 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                         <Entry TextColor="Black" Text="{Binding Description}" Margin="0,20,0,0" MaxLength="50" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" Margin="0,0,0,0" />
                                     </StackLayout>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
@@ -29,9 +28,5 @@
                 </TableRoot>
             </TableView>
         </StackLayout>
-        <!--<StackLayout BackgroundColor="White" Orientation="Horizontal" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Margin="0,40,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,.7,1">
-            <Button Text="Guardar" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" Command="{Binding SaveCommand}" BackgroundColor="#657786" TextColor="White" FontSize="20" Margin="0,50,0,50" />
-        </StackLayout>-->
     </AbsoluteLayout>
-   
 </ContentPage>

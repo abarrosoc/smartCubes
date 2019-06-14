@@ -31,40 +31,4 @@
             </ListView>
         </AbsoluteLayout>
     </AbsoluteLayout>
-    <!--<Frame Padding="0" BorderColor="Transparent">
-         <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="7*" />
-              </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-
-              </Grid.ColumnDefinitions>
-             <AbsoluteLayout Grid.Row="0" Grid.Column="0" >
-                        <Image Source="menu_back.png" Opacity="0.3"  AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Aspect="AspectFill"/>
-                        <Frame CornerRadius="50" BorderColor="White" AbsoluteLayout.LayoutBounds=".5,.5,100,100" HasShadow="false" BackgroundColor="#657786" AbsoluteLayout.LayoutFlags="PositionProportional">
-                             <Label Text = "{Binding Letter}" FontSize="80" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds=".5,.5,.5,.5"  AbsoluteLayout.LayoutFlags="All"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                        </Frame>
-              </AbsoluteLayout>
-             <StackLayout VerticalOptions="FillAndExpand" Grid.Row="1" Grid.Column="0">
-                <ListView x:Name="lMenu" 
-                          VerticalOptions="FillAndExpand"
-                          RefreshCommand = "false"
-                          SeparatorVisibility="None"
-                          SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
-                          ItemsSource="{Binding lMenu}"                         
-                          RowHeight="90">
-                <ListView.Behaviors>
-                    <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
-                </ListView.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ImageCell Text="{Binding Title}" TextColor="#657786" ImageSource="{Binding IconSource}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-            </Grid>
-            </Frame>-->
 </ContentPage>

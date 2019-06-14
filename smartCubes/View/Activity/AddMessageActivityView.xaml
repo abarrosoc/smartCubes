@@ -24,7 +24,6 @@
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                             <Entry Placeholder="Nombre del mensaje" Text="{Binding Name}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
-                                                            <BoxView HeightRequest="0.5"  HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
@@ -33,7 +32,6 @@
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                             <Entry Placeholder="Tamaño (Bytes)" IsEnabled="False" Text="{Binding Size}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
-                                                            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" Margin="0,0,0,30" />
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                             <Button Text="Ver/añadir" BackgroundColor="#1da1f2" VerticalOptions="Center" HorizontalOptions="End" Command="{Binding AddFieldsCommand}" Padding="20,0,20,0" TextColor="White" FontSize="Medium" Margin="40,20,0,10" />

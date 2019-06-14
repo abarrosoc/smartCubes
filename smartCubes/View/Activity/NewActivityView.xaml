@@ -16,7 +16,7 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                         <Entry Placeholder="Nombre" Text="{Binding Name}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
-                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                                        <BoxView HeightRequest="0.5" BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                     </StackLayout>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
@@ -25,7 +25,6 @@
                                     </StackLayout>
                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                         <Entry Placeholder="Descripción" Text="{Binding Description}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
-                                        <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,30" />
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>

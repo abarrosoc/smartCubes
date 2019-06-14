@@ -20,7 +20,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field1}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -35,7 +34,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field2}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -50,7 +48,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field3}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -65,7 +62,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field4}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -80,7 +76,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field5}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -95,7 +90,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field6}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -110,7 +104,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field7}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -125,7 +118,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field8}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -140,7 +132,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field9}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -155,7 +146,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field10}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -170,7 +160,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field11}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -185,7 +174,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field12}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -200,7 +188,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field13}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -215,7 +202,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field14}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
@@ -230,7 +216,6 @@
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                     <Entry TextColor="Black" Text="{Binding Field15}" Margin="0,20,0,0" MaxLength="30" HorizontalOptions="FillAndExpand" Keyboard="Text" />
-                                                    <BoxView HeightRequest="0.5" BackgroundColor="Silver" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                                                 </StackLayout>
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="Start">
                                                     <Label Text="Tamaño" TextColor="#657786" FontSize="Medium" Margin="40,40,30,0" />
