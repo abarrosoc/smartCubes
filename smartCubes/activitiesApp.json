@@ -4,35 +4,79 @@
       "Name": "Actividad 1",
       "Id": "1",
       "Description": "Hacer una torre con los cubos",
+      "Messages": [
+        {
+          "Name": "Message 1",
+          "Fields": [
+            {
+              "Description": "Campo1",
+              "Bytes": 31
+            },
+            {
+              "Description": "Campo2",
+              "Bytes": 1
+            }
+          ]
+        }
+      ],
       "Devices": [
         {
           "ID": 1,
-          "Uuid": "25e272c9-8fb3-187b-c29a-ebb1f5929a76",
+          "Uuid": "01ba3852-b5be-9108-5934-3f746e76a4e0",
           "Name": "Cube2",
-          "State":  "Disconnected"
+          "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
         },
-        {
-          "ID": 1,
+		{
+          "ID": 2,
           "Uuid": "764832f8-59ee-aad5-b6c9-a83bc069f016",
           "Name": "Cube3",
-          "State": "Disconnected"
+          "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
         }
       ]
+
     },
     {
       "Name": "Actividad 2",
       "Id": "2",
       "Description": "Esto es una descripcion",
+      "Messages": [
+        {
+          "Name": "Message 1",
+          "Fields": [
+            {
+              "Description": "Campo1",
+              "Bytes": 31
+            },
+            {
+              "Description": "Campo2",
+              "Bytes": 1
+            }
+          ]
+        }
+      ],
       "Devices": [
         {
-          "Uuid": "1234",
-          "Name": "device1"
+          "ID": 1,
+          "Uuid": "01ba3852-b5be-9108-5934-3f746e76a4e0",
+          "Name": "Cube2",
+          "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+
         },
+
         {
-          "Uuid": "5678",
-          "Name": "device2"
+          "ID": 1,
+          "Uuid": "764832f8-59ee-aad5-b6c9-a83bc069f016",
+          "Name": "Cube3",
+          "State": "Disconnected",
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+
         }
       ]
+
     }
+
   ]
 }

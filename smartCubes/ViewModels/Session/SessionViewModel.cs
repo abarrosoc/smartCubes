@@ -10,6 +10,8 @@ using smartCubes.View.Session;
 using Syncfusion.XlsIO;
 using Syncfusion.Drawing;
 using Xamarin.Forms;
+using System.Threading.Tasks;
+using smartCubes.View.Login;
 
 namespace smartCubes.ViewModels.Session
 {
@@ -24,12 +26,8 @@ namespace smartCubes.ViewModels.Session
             this.user = user;
 
             Title = "Sesiones";
-
-            lSessions = new ObservableCollection<SessionModel>();
-            List<SessionModel> listSessions = App.Database.GetSessions();
-
-            foreach (SessionModel session in listSessions)
-                lSessions.Add(session);
+            Loading = false;
+            RefreshData();
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -98,6 +96,19 @@ namespace smartCubes.ViewModels.Session
             }
         } 
 
+        private bool _Loading;
+        public bool Loading
+        {
+            get
+            {
+                return _Loading;
+            }
+            set
+            {
+                _Loading = value;
+                RaisePropertyChanged();
+            }
+        } 
         private ICommand _exportCommand;
         public ICommand ExportCommand
         {
@@ -105,13 +116,18 @@ namespace smartCubes.ViewModels.Session
         }
 
         private async void ExportCommandExecute(SessionModel session)
-        { 
+        {
+          
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
+                Loading = true;
+                await Task.Delay(200);
+
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
 
                 if (lSessionInit == null || lSessionInit.Count == 0)
                 {
+                    Loading = false;
                     await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
                 }
                 else
@@ -138,8 +154,7 @@ namespace smartCubes.ViewModels.Session
                     bodyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
                     bodyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
                     bodyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                    bodyStyle.EndUpdate();
-  
+                    bodyStyle.EndUpdate();  
 
                     //Access first worksheet from the workbook instance.
 
@@ -159,7 +174,6 @@ namespace smartCubes.ViewModels.Session
                         worksheet[2, 2].Value = session.ActivityName;
                         worksheet[2, 3].Value = user.UserName;
                         worksheet[2, 4].Value = sessionInit.StudentCode;
-
 
                         worksheet.Name = cont.ToString() + " - " + sessionInit.StudentCode;
                         worksheet.UsedRange.AutofitColumns();
@@ -182,12 +196,13 @@ namespace smartCubes.ViewModels.Session
                     //Save the workbook to stream in xlsx format. 
                     MemoryStream stream = new MemoryStream();
                     workbook.SaveAs(stream);
-
                     workbook.Close();
 
                     //Save the stream as a file in the device and invoke it for viewing
-                    Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name + ".xlsx", "application/msexcel", stream);
-                    Mail mail = new Mail(session.Name + ".xlsx", user);
+                    string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ","") + ".xlsx", "application/msexcel", stream);
+                    
+                    Mail mail = new Mail(filepath, user);
+                    Loading = false;
                 }
             }
 
@@ -222,7 +237,7 @@ namespace smartCubes.ViewModels.Session
 
         private void NewSessionCommandExecute()
         {
-            Navigation.PushAsync(new NewSessionView(Navigation, user,false,null));
+            Navigation.PushAsync(new SessionEditView(Navigation, user,false,null));
         }
 
         private ICommand _OnItemTapped;
@@ -234,7 +249,7 @@ namespace smartCubes.ViewModels.Session
 
         private void OnItemTappedExecute()
         {
-            Navigation.PushAsync(new NewSessionView(Navigation, user, true, SelectItem));
+            Navigation.PushAsync(new SessionFormView(Navigation, user, true, SelectItem));
             SelectItem = null;
         }
 

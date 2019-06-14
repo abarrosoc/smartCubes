@@ -4,10 +4,13 @@ using smartCubes.Data;
 using System;
 using System.IO;
 using smartCubes.View.Login;
+using smartCubes.Utils;
+using Akavache;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace smartCubes
 {
+ 
     public partial class App : Application
     {
         static Database database;
@@ -23,7 +26,8 @@ namespace smartCubes
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            BlobCache.ApplicationName = "SmartGames";
+            ConnectDevices connect = new ConnectDevices();
         }
 
         protected override void OnSleep()
@@ -38,14 +42,14 @@ namespace smartCubes
        
 
         public static Database Database
-        {
+        {           
             get
             {
                 //database.ResetDataBase();
                 if (database == null)
                 {
                     database = new Database(
-                      Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataBaseSQLite.db3"));
+                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataBaseSQLite.db3"));
                 }
                 return database;
             }

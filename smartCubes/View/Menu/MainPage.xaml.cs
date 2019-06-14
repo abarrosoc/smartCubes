@@ -11,6 +11,7 @@ namespace smartCubes.View.Menu
         {
             InitializeComponent();
             Master = new MasterView(user);
+            this.MasterBehavior = MasterBehavior.Popover;
             Detail = new NavigationPage(new Home(user))
             { 
                 BarBackgroundColor = Color.FromHex("#1da1f2"),

@@ -20,7 +20,7 @@
             <ViewCell>
                  <StackLayout BackgroundColor="White" Orientation="Vertical">
                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
-                        <Label Text="{Binding Text}" TextColor="{Binding Color}" FontSize="Medium" VerticalOptions=" CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="{Binding Text}" TextColor="{Binding Color}" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
                     </StackLayout>
                 </StackLayout>
             </ViewCell>

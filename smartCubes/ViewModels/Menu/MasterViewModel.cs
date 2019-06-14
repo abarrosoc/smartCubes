@@ -16,14 +16,14 @@ namespace smartCubes.ViewModels.Menu
 {
     public class MasterViewModel : BaseViewModel
     {
-        public INavigation navigation { get; set; }
+        public INavigation Navigation { get; set; }
+        private UserModel UserLogin;
 
-        private UserModel userLogin;
 
         public MasterViewModel(INavigation navigation,UserModel userLogin)
         {
-            this.navigation = navigation;
-            this.userLogin = userLogin;
+            Navigation = navigation;
+            UserLogin = userLogin;
             Title = "Menú";
             Letter = userLogin.UserName.Substring(0, 1).ToUpper();    
             lMenu = new ObservableCollection<MasterPageItem>();
@@ -120,27 +120,29 @@ namespace smartCubes.ViewModels.Menu
             {
                 SessionView session = new SessionView(userLogin);
                 SelectedItem = null;
-                App.MasterDetail.Detail.Navigation.PushAsync(session);
+                await App.MasterDetail.Detail.Navigation.PushAsync(session);
                 App.MasterDetail.IsPresented = false;
             }
             else if (SelectedItem.TargetType == typeof(UserView))
             {
                 UserView users = new UserView(userLogin);
                 SelectedItem = null;
-                App.MasterDetail.Detail.Navigation.PushAsync(users);
+                await App.MasterDetail.Detail.Navigation.PushAsync(users);
                 App.MasterDetail.IsPresented = false;
             }
             else if(SelectedItem.TargetType == typeof(LoginView)){
                 var answer =  await Application.Current.MainPage.DisplayAlert("Cerrar sesión", "¿Está seguro de cerrar la sesión actual?", "Si", "No");
 
                 if (answer)
+                {
                     App.Current.MainPage = new LoginView();
+                }
 
                 SelectedItem = null;
             }
             else
             {
-                App.MasterDetail.Detail.Navigation.PushAsync((Page)Activator.CreateInstance(SelectedItem.TargetType));
+                await  App.MasterDetail.Detail.Navigation.PushAsync((Page)Activator.CreateInstance(SelectedItem.TargetType));
                 SelectedItem = null;
                 App.MasterDetail.IsPresented = false;
             }

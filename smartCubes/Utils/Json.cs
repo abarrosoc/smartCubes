@@ -18,7 +18,7 @@ namespace smartCubes.Utils
         internal static ActivitiesModel getActivities()
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             if (!File.Exists(filename))
                 loadActivities();
             var text = File.ReadAllText(filename);
@@ -29,7 +29,7 @@ namespace smartCubes.Utils
         internal static ActivityModel getActivityByName(String activityName)
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             //if (File.Exists(filename))
             //     Console.WriteLine("existe");
             var text = File.ReadAllText(filename);
@@ -57,7 +57,7 @@ namespace smartCubes.Utils
             string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             File.WriteAllText(filename, output);
             return true;
         }
@@ -71,13 +71,15 @@ namespace smartCubes.Utils
                 {
                     activityOriginal.Name = activity.Name;
                     activityOriginal.Devices = activity.Devices;
+                    activityOriginal.Messages = activity.Messages;
+                    activityOriginal.Description  = activity.Description;
                 }
             }
 
             string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             File.WriteAllText(filename, output);
             return true;
 
@@ -101,7 +103,7 @@ namespace smartCubes.Utils
             string output = JsonConvert.SerializeObject(activities, Formatting.Indented);
 
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             File.WriteAllText(filename, output);
             return true;
         }
@@ -109,21 +111,21 @@ namespace smartCubes.Utils
         internal static void deleteFilesActivities()
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             if (File.Exists(filename))
                 File.Delete(filename);
         }
         internal static void loadActivities()
         {
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Json)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("smartCubes.activitiesApp.json");
+            Stream stream = assembly.GetManifestResourceStream("smartCubes.ActivitiesApp.json");
             string text = "";
             using (var reader = new System.IO.StreamReader(stream))
             {
                 text = reader.ReadToEnd();
             }
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var filename = Path.Combine(documents, "activitiesApp.json");
+            var filename = Path.Combine(documents, "ActivitiesApp.json");
             File.WriteAllText(filename, text);
         }
     }

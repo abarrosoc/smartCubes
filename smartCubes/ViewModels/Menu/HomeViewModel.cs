@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using Prism.Navigation;
 using smartCubes.Models;
@@ -26,6 +28,7 @@ namespace smartCubes.ViewModels.Menu
             isVisibleList = false;
             Title = "Inicio";
             RefreshData();
+            Loading = false;
         }
 
         private ObservableCollection<SessionModel> _lSessions;
@@ -94,19 +97,50 @@ namespace smartCubes.ViewModels.Menu
             }
         } 
 
+        private bool _Loading = true;
+
+        public bool Loading
+        {
+            get { return _Loading; }
+            set
+            {
+                _Loading = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped
         {
-            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
+            get { return _OnItemTapped ?? (_OnItemTapped = new Command(()  =>  OnItemTappedExecute())); }
         }
 
-        private void OnItemTappedExecute()
+        private async void OnItemTappedExecute()
         {
-            SessionModel item = SelectItem;
-            SelectItem = null;
-            RefreshData();
-            Navigation.PushAsync(new PlaySessionView(item));
+        
+            if (!CrossBluetoothLE.Current.State.Equals(BluetoothState.On))
+            {
+                SelectItem = null;
+                await Application.Current.MainPage.DisplayAlert("Atención", "Encienda el bluetooth del dispositivo", "Aceptar");
+            }
+            else
+            {
+
+                Loading = true;
+                await Task.Delay(500);
+                SessionModel item = SelectItem;
+                SelectItem = null;
+                try
+                {
+                    await Navigation.PushModalAsync(new PlaySessionView(item));
+                }
+                finally
+                {
+                    Loading = false;
+                }
+             
+            }
         }
        
         public ICommand RefreshCommand

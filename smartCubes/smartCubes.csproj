@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,47 +8,49 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
   </PropertyGroup>
+
   <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="akavache" Version="6.5.9" />
     <PackageReference Include="Plugin.BLE" Version="1.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="16.3.0.29" />
-    <PackageReference Include="Xamarin.Forms" Version="3.3.0.967583" />
-    <PackageReference Include="Mobilist.AdvancedTimer.Forms.Plugin" Version="1.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="17.1.0.50" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="Prism.Forms" Version="7.1.0.431" />
     <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.3.0.36" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="17.1.0.50" />
     <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="MyPage.xaml.cs" />
     <Compile Remove="MasterPageItem.xaml.cs" />
     <Compile Remove="Master.cs" />
     <Compile Remove="MainPage.xaml.cs" />
     <Compile Remove="Activities.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="activitiesApp.json" />
+    <EmbeddedResource Remove="View\DevicesPopupView %28copia%29.xaml" />
+    <EmbeddedResource Remove="View\Activity\AddDevicePopUp %28copia%29.xaml" />
+    <EmbeddedResource Remove="View\Session\SessionFormView %28copia%29.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="View\Menu\MainPage.xaml">
-      <LogicalName>smartCubes.Menu.xaml</LogicalName>
-    </EmbeddedResource>
+    <EmbeddedResource Include="ActivitiesApp.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\" />
+    <EmbeddedResource Update="View\Menu\MainPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="View\Menu\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Models\" />
-    <Folder Include="View\Activity\" />
-    <Folder Include="ViewModels\Activity\" />
     <Folder Include="ViewModels\Menu\" />
     <Folder Include="View\Session\" />
     <Folder Include="View\User\" />
     <Folder Include="Utils\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\" />
     <Folder Include="Data\" />
     <Folder Include="ViewModels\User\" />
     <Folder Include="ViewModels\Session\" />
@@ -61,9 +63,79 @@
     <Folder Include="ViewModels\Configuration\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Resources\app.config" />
     <None Remove="act.json" />
     <None Remove="activities.json" />
     <None Remove="activitiesApp.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="View\Activity\AddFieldsPopUp.xaml.cs">
+      <DependentUpon>AddFieldsPopUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="View\Session\NewSessionView.xaml %28copia%29.cs">
+      <DependentUpon>SessionFormView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="TabbedPages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Activity\ActivityView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Activity\AddDeviceActivityView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Activity\AddFieldsPopUp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Activity\AddMessageActivityView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Activity\NewActivityView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Configuration\ConfigurationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\DevicesPopupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Menu\Home.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Menu\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Menu\MasterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Session\NewSessionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Session\PlaySessionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Session\SessionEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Session\SessionFormView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\Session\SessionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\User\NewUserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="View\User\UserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

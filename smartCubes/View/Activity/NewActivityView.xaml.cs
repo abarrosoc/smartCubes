@@ -16,6 +16,7 @@ namespace smartCubes.View.Activity
     public partial class NewActivityView : ContentPage
     {
         public NewActivityView(){
+            InitializeComponent();
             
         }
         public NewActivityView(bool modify, ActivityModel activity)
