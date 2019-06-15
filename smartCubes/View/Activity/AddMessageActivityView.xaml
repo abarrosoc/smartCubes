@@ -5,16 +5,16 @@
     </ContentPage.ToolbarItems>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
-            <ListView x:Name="lMessages" IsPullToRefreshEnabled="false" RowHeight="75" SeparatorVisibility="Default" SeparatorColor="#E6E6E6" ItemsSource="{Binding lMessages}" SelectedItem="{Binding SelectMessage,Mode=TwoWay}" BackgroundColor="White">
+            <ListView x:Name="lMessages" IsPullToRefreshEnabled="false" RowHeight="75" SeparatorVisibility="Default" SeparatorColor="#1976D2" ItemsSource="{Binding lMessages}" SelectedItem="{Binding SelectMessage,Mode=TwoWay}" BackgroundColor="White">
                 <ListView.Behaviors>
                     <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTappedCommand}" />
                 </ListView.Behaviors>
                 <ListView.Header>
                     <StackLayout>
-                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="260" Margin="0,20,0,0">
+                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="290" Margin="0,20,0,0">
                             <TableRoot>
-                                <TableSection Title="Mensajes">
-                                    <ViewCell Height="200">
+                                <TableSection Title="Nuevo mensaje">
+                                    <ViewCell Height="180">
                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
@@ -43,6 +43,8 @@
                                         </StackLayout>
                                     </ViewCell>
                                 </TableSection>
+                                <TableSection Title="Mensajes">
+                                </TableSection>
                             </TableRoot>
                         </TableView>
                     </StackLayout>
@@ -55,9 +57,14 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lMessages}} " CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
-                            <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="FillAndExpand">
-                                <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,20,0,20">
-                                    <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="30,0,0,0">
+                                    <Frame VerticalOptions="CenterAndExpand" BackgroundColor="Teal" CornerRadius="50"></Frame>
+                                </StackLayout>
+                                <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand">
+                                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
+                                        <Label Text="{Binding Name}" TextColor="Black" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" />
+                                    </StackLayout>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

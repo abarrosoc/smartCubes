@@ -23,10 +23,7 @@ namespace smartCubes.Utils
         private static List<DeviceData> lDeviceData;
         private List<IDevice> lDevicesConnected;
 
-
         public String StudentCode { get; set; }
-
-
         public ConnectDevices()
         {
             InitBLE();
@@ -191,24 +188,22 @@ namespace smartCubes.Utils
                     characteristicRW.ValueUpdated += (s, a) =>
                     {
                         byte[] valueBytes = a.Characteristic.Value;
-                        Debug.WriteLine("BYTE 1:" + valueBytes[0]);
-                        Debug.WriteLine("BYTE 1:" + valueBytes[1]);
-                        Debug.WriteLine("BYTE 1:" + valueBytes[2]);
-                        Debug.WriteLine("BYTE 1:" + valueBytes[3]);
-                        Debug.WriteLine("BYTE 1:" + valueBytes[4]);
-                        String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
 
-                        for (var n = 0; n < valueBytes.Length; n++)
-                        {
-                            Console.WriteLine(string.Format("BYTES   [{0}] = {1}", n, valueBytes[n]));
-                        }
+                        String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
+                        String datastr = string.Concat(valueBytes.Select(b => b.ToString()));
+
+                       // Debug.WriteLine("ASCII Leyendo datos de " + deviceConnected.Name + ": "+ datastr);
+                       // Debug.WriteLine("BigEndianUnicode Leyendo datos de " + deviceConnected.Name + ": " + Encoding.BigEndianUnicode.GetString(valueBytes));
+
 
                         DeviceData deviceData = new DeviceData();
                         deviceData.DeviceName = deviceConnected.Name;
                         deviceData.Data = data;
                         lDeviceData.Add(deviceData);
 
-                        Debug.WriteLine(data, "Leyendo datos de " + deviceConnected.Name + ": ");
+                        Debug.WriteLine(data, "X2 Leyendo datos de " + deviceConnected.Name + ": " + data );
+                        Debug.WriteLine(a.Characteristic.StringValue, "STRING Leyendo datos de " + deviceConnected.Name + ": ");
+
                     };
                     await characteristicRW.StartUpdatesAsync();
 

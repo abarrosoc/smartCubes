@@ -29,21 +29,20 @@
                                 <TableRoot>
                                     <TableSection Title="{Binding ActivityName}">
                                         <ViewCell Height="140">
-                                            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
-                                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="40,0,40,0" >
+                                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                     <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                                        <Label Text="Código alumno" TextColor="#657786" FontSize="Medium" Margin="0,40,30,0" />
+                                                        <Label Text="Código alumno" TextColor="#657786" VerticalOptions="FillAndExpand" VerticalTextAlignment="Center"  FontSize="Medium" Margin="20,0,30,0" />
                                                     </StackLayout>
                                                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                                                        <Entry TextColor="Black" Text="{Binding StudentCode}" Margin="0,20,0,0" MaxLength="50" HorizontalOptions="FillAndExpand" Keyboard="Text" />
+                                                         <Entry TextColor="Black" Text="{Binding StudentCode}" Margin="0,0,0,0" MaxLength="50" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Keyboard="Text" />
                                                     </StackLayout>
                                                 </StackLayout>
 
                                             </StackLayout>
                                         </ViewCell>
                                     </TableSection>
-                                    <TableSection Title="">
-                                    </TableSection>
+
                                 </TableRoot>
                             </TableView>
                         </StackLayout>

@@ -22,13 +22,13 @@ namespace smartCubes.View.Session
         {
             InitializeComponent();
   
-            BindingContext = new PlaySessionViewModel2(session, this.Navigation);
+            BindingContext = new PlaySessionViewModel(session, this.Navigation);
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            var vm = BindingContext as PlaySessionViewModel2;
+            var vm = BindingContext as PlaySessionViewModel;
             vm.DisconnectAll();
        
            

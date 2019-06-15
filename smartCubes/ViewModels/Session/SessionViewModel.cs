@@ -237,6 +237,7 @@ namespace smartCubes.ViewModels.Session
 
         private void NewSessionCommandExecute()
         {
+
             Navigation.PushAsync(new SessionEditView(Navigation, user,false,null));
         }
 
@@ -249,8 +250,11 @@ namespace smartCubes.ViewModels.Session
 
         private void OnItemTappedExecute()
         {
+            Loading = true;
+            Task.Delay(200);
             Navigation.PushAsync(new SessionFormView(Navigation, user, true, SelectItem));
             SelectItem = null;
+            Loading = false;
         }
 
         public ICommand RefreshCommand

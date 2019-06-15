@@ -17,7 +17,7 @@ using System.Reactive.Linq;
 
 namespace smartCubes.ViewModels.Session
 {
-    public class PlaySessionViewModel2 : BaseViewModel
+    public class PlaySessionViewModel : BaseViewModel
     {
         private const String INICIAR = "Iniciar";
         private const String REANUDAR = "Reanudar";
@@ -38,7 +38,7 @@ namespace smartCubes.ViewModels.Session
         private List<DeviceData> lDeviceData;
 
 
-        public PlaySessionViewModel2(SessionModel session, INavigation navigation)
+        public PlaySessionViewModel(SessionModel session, INavigation navigation)
         {
             this.session = session;
             Navigation = navigation;
@@ -372,8 +372,6 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-    
-
         private void ResetChronometer()
         {
             StartStop = INICIAR;
@@ -436,15 +434,21 @@ namespace smartCubes.ViewModels.Session
                 adapter.ScanTimeoutElapsed += (s, a) =>
                 {
                     Loading = false;
+                    if (!isAllConnectedDevices(lDevices))
+                    {
+                         DisconnectAll();
+                    }
                 };
             }
             catch (DeviceConnectionException er)
             {
+                await DisconnectAll();
                 await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un error al conectar con el dispositivo.", "Aceptar");
                 Debug.WriteLine("ERROR: " + er.Message);
             }
             catch (Exception er)
             {
+                await DisconnectAll();
                 await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un innesperado.", "Aceptar");
                 Debug.WriteLine("ERROR: " + er.Message);
             }

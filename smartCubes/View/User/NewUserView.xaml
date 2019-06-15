@@ -21,8 +21,18 @@
                                 <Label Text="Contraseña" TextColor="#657786" FontSize="Medium" Margin="0,40,60,0" />
                             </StackLayout>
                             <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                                <Entry Placeholder="Contraseña" Text="{Binding Password}" Margin="0,30,0,0" Keyboard="Text" IsPassword="true" />
+                                <Entry Placeholder="Contraseña" Text="{Binding Password}" Margin="0,30,0,0" Keyboard="Text" IsPassword="{Binding ViewPassword}" />
                             </StackLayout>
+                            <StackLayout Orientation="Vertical" HorizontalOptions="End">
+                                <Image Source="eye.png"  VerticalOptions="EndAndExpand"  HorizontalOptions="EndAndExpand" Margin="40,0,0,0">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding  OnTapGestureRecognizerTappedViewPassword}"
+                                            NumberOfTapsRequired="1" /> 
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </StackLayout>
+
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
                             <StackLayout Orientation="Vertical" HorizontalOptions="Start">
@@ -40,8 +50,7 @@
                     <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="0,30,20,0">
                             <Label Text="Seleccione perfil" TextColor="#657786" FontSize="Medium" HorizontalOptions="Start" Margin="0,10,30,0" />
-                            <Picker x:Name="pRole" Title="Role" 
-                Margin="0,0,0,20"
+                            <Picker x:Name="pRole" Title="Role" Margin="0,0,0,20"
                 ItemsSource="{Binding lRoles}" 
                 SelectedItem="{Binding SelectedRole,Mode=TwoWay}" HorizontalOptions="FillAndExpand">
                             </Picker>

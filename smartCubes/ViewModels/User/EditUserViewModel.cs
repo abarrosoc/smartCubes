@@ -27,20 +27,23 @@ namespace smartCubes.ViewModels.User
 
             lRoles = new ObservableCollection<String>();
 
-            if(userLogin.Role.Equals(Role.Admin))
+            if (userLogin.Role.Equals(Role.Admin))
+            {
                 lRoles.Add(Role.Admin);
+            }
             lRoles.Add(Role.User);
+            ViewPassword = true;
 
             if (modify)
             {
-                Title = "Modificar";
+                Title = "Editar usuario";
                 UserName = user.UserName;
                 Password = Crypt.Decrypt(user.Password, "uah2019");
                 Email = user.Email;
                 SelectedRole = user.Role;
 
             }else{
-                Title = "Nuevo";
+                Title = "Nuevo usuario";
             }
            
         }
@@ -83,6 +86,20 @@ namespace smartCubes.ViewModels.User
             set
             {
                 _Email = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _ViewPassword;
+        public bool ViewPassword
+        {
+            get
+            {
+                return _ViewPassword;
+            }
+            set
+            {
+                _ViewPassword = value;
                 RaisePropertyChanged();
             }
         }
@@ -161,7 +178,24 @@ namespace smartCubes.ViewModels.User
             }
         }
 
-        private bool validateEmail(String email){
+        private ICommand _OnTapGestureRecognizerTappedViewPassword;
+        public ICommand OnTapGestureRecognizerTappedViewPassword
+        {
+            get { return _OnTapGestureRecognizerTappedViewPassword ?? (_OnTapGestureRecognizerTappedViewPassword = new Command(() => OnTapGestureRecognizerTappedViewPasswordExecute())); }
+        }
+
+        private void OnTapGestureRecognizerTappedViewPasswordExecute()
+        {
+            if (ViewPassword)
+            {
+                ViewPassword = false;
+            }
+            else
+            {
+                ViewPassword = true;
+            }
+        }
+            private bool validateEmail(String email){
             string[] emailSplitAt = email.Split('@');
 
             if (emailSplitAt.Length != 2)

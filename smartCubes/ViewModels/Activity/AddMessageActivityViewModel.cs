@@ -30,11 +30,11 @@ namespace smartCubes.ViewModels.Activity
 
             if (modify)
             {
-                Title = "Editar";
+                Title = "Editar actividad";
             }
             else
             {
-                Title = "Nueva";
+                Title = "Nueva actividad";
             }
 
             if (activity != null && activity.Messages != null){

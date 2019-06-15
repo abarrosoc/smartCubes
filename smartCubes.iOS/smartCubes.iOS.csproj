@@ -177,4 +177,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\close.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\eye.png" />
+  </ItemGroup>
 </Project>

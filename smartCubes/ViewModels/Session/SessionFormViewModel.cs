@@ -30,8 +30,8 @@ namespace smartCubes.ViewModels.Session
             
             isEnabledPicker = true;
 
-            if(modify){
-                Title = "Modificar sesión";
+            if(modify)
+            {
                 Name = session.Name;
                 Description = session.Description;
                 ActivityModel activitySession = Json.getActivityByName(session.ActivityName);
@@ -42,8 +42,9 @@ namespace smartCubes.ViewModels.Session
                 }
                 lSessionsInit = new ObservableCollection<SessionInit>();
                 RefreshData();
-
-            }else{
+                Title = "Editar sesión";
+            }
+            else{
                 Title = "Nueva sesión";
                 isVisible = false;
                 Name = getNameNewSession();

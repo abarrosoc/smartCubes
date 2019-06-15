@@ -53,7 +53,6 @@
     <Folder Include="Utils\" />
     <Folder Include="Data\" />
     <Folder Include="ViewModels\User\" />
-    <Folder Include="ViewModels\Session\" />
     <Folder Include="View\Login\" />
     <Folder Include="ViewModels\Login\" />
     <Folder Include="Interface\" />

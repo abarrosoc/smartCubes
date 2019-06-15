@@ -5,11 +5,11 @@
     </ContentPage.ToolbarItems>
     <AbsoluteLayout>
         <StackLayout BackgroundColor="White" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1" Margin="0,0,0,0">
-            <ListView x:Name="lSessionsInit" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RowHeight="110" SeparatorVisibility="Default" SeparatorColor="#E6E6E6" ItemsSource="{Binding lSessionsInit}" BackgroundColor="White">
+            <ListView x:Name="lSessionsInit" IsPullToRefreshEnabled="true" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}" RowHeight="110" SeparatorVisibility="Default" SeparatorColor="#1976D2" ItemsSource="{Binding lSessionsInit}" BackgroundColor="White">
                 <ListView.Header>
                     <AbsoluteLayout>
                         <StackLayout BackgroundColor="White" Margin="0,0,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,1,1">
-                            <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="330" Margin="0,20,0,0">
+                            <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="290" Margin="0,20,0,0">
                                 <TableRoot>
                                     <TableSection Title="{Binding Name}">
                                         <ViewCell Height="180">
@@ -42,13 +42,23 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Eliminar" IsDestructive="True" Command="{Binding BindingContext.DeleteCommand, Source={x:Reference Name=lSessionsInit}} " CommandParameter="{Binding .}" />
                             </ViewCell.ContextActions>
-                            <AbsoluteLayout BackgroundColor="White">
-                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,15,0,0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds=".5,.0,.7,1">
-                                    <Label Text="{Binding StudentCode}" TextColor="Black" FontSize="Medium" HorizontalOptions="StartAndExpand" />
-                                    <Label Text="{Binding Path=Time, StringFormat='Duración: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" />
-                                    <Label Text="{Binding Path=Date, StringFormat='Fecha: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="0,5,0,0" />
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="30,0,0,0">
+                                    <Frame VerticalOptions="CenterAndExpand" BackgroundColor="Teal" CornerRadius="50"></Frame>
                                 </StackLayout>
-                            </AbsoluteLayout>
+                                <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand">
+                                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
+                                        <Label Text="{Binding StudentCode}" TextColor="Black" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                                        </StackLayout>
+                                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
+                                        <Label Text="{Binding Path=Time, StringFormat='Duración: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" />
+                                        </StackLayout>
+                                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
+                                        <Label Text="{Binding Path=Date, StringFormat='Fecha: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="0,5,0,0" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                          
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

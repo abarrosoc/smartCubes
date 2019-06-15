@@ -24,11 +24,11 @@ namespace smartCubes.ViewModels.User
 
             if (Modify)
             {
-                Title = "Editar";
+                Title = "Editar actividad";
             }
             else
             {
-                Title = "Nueva";
+                Title = "Nueva actividad";
             }
 
             lDevices = new ObservableCollection<DeviceModel>();
@@ -153,24 +153,13 @@ namespace smartCubes.ViewModels.User
             }
             else
             {
-                if (Activity.Devices != null)
+
+                Activity.Devices = new List<DeviceModel>();
+                foreach (DeviceModel device in lDevices)
                 {
-                    foreach (DeviceModel device in lDevices)
-                    {
-                        if (!Activity.Devices.Contains(device))
-                        {
-                            Activity.Devices.Add(device);
-                        }
-                    }
-                }
-                else
-                {
-                    Activity.Devices = new List<DeviceModel>();
-                    foreach (DeviceModel device in lDevices)
-                    {
-                        Activity.Devices.Add(device);
-                    }                       
-                }
+                    Activity.Devices.Add(device);
+                }                       
+                
                 await Navigation.PushAsync(new AddMessageActivityView(Activity,Modify));
                
             }

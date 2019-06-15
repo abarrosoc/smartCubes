@@ -27,6 +27,7 @@ namespace smartCubes.ViewModels.Menu
             Title = "Menú";
             Letter = userLogin.UserName.Substring(0, 1).ToUpper();    
             lMenu = new ObservableCollection<MasterPageItem>();
+            Loading = false;
 
             lMenu.Add(new MasterPageItem
             {
@@ -108,6 +109,19 @@ namespace smartCubes.ViewModels.Menu
                 RaisePropertyChanged();
             }
         }
+        private bool _Loading;
+        public bool Loading
+        {
+            get
+            {
+                return _Loading;
+            }
+            set
+            {
+                _Loading = value;
+                RaisePropertyChanged();
+            }
+        }
         private ICommand _OnItemTapped;
 
         public ICommand OnItemTapped
@@ -116,21 +130,23 @@ namespace smartCubes.ViewModels.Menu
         }
         private async void OnItemTappedExecute()
         {
+            Loading = true;
             if (SelectedItem.TargetType == typeof(SessionView))
             {
-                SessionView session = new SessionView(userLogin);
+                SessionView session = new SessionView(UserLogin);
                 SelectedItem = null;
                 await App.MasterDetail.Detail.Navigation.PushAsync(session);
                 App.MasterDetail.IsPresented = false;
             }
             else if (SelectedItem.TargetType == typeof(UserView))
             {
-                UserView users = new UserView(userLogin);
+                UserView users = new UserView(UserLogin);
                 SelectedItem = null;
                 await App.MasterDetail.Detail.Navigation.PushAsync(users);
                 App.MasterDetail.IsPresented = false;
             }
             else if(SelectedItem.TargetType == typeof(LoginView)){
+                Loading = false;
                 var answer =  await Application.Current.MainPage.DisplayAlert("Cerrar sesión", "¿Está seguro de cerrar la sesión actual?", "Si", "No");
 
                 if (answer)
@@ -146,6 +162,7 @@ namespace smartCubes.ViewModels.Menu
                 SelectedItem = null;
                 App.MasterDetail.IsPresented = false;
             }
+            Loading = false;
         }
     }
 }
