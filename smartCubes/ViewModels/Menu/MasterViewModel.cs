@@ -52,7 +52,7 @@ namespace smartCubes.ViewModels.Menu
 
                 lMenu.Add(new MasterPageItem
                 {
-                    Title = "Configuración",
+                    Title = "Ajustes",
                     IconSource = "settings.png",
                     TargetType = typeof(ConfigurationView)
                 });

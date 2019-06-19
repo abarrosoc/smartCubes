@@ -14,14 +14,7 @@ namespace smartCubes.ViewModels.Configuration
         public ConfigurationViewModel()
         {
             lSettings = new ObservableCollection<SettingModel>();
-            Title = "Configuración";
-
-            SettingModel settingModel = new SettingModel();
-            settingModel.Text = "Restaurar aplicación";
-            settingModel.Color = "Red";
-
-            lSettings.Add(settingModel);
-
+            Title = "Ajustes";
         }
 
         private ObservableCollection<SettingModel> _lSettings;
@@ -54,14 +47,13 @@ namespace smartCubes.ViewModels.Configuration
             }
         }
 
-        private ICommand _OnItemTapped;
 
-        public ICommand OnItemTapped
+        private ICommand _ResetCommand;
+        public ICommand ResetCommand
         {
-            get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
+            get { return _ResetCommand ?? (_ResetCommand = new Command(() => ResetCommandExecute())); }
         }
-
-        private async void OnItemTappedExecute()
+        private async void ResetCommandExecute()
         {
             var answer = await Application.Current.MainPage.DisplayAlert("Restaurar aplicación", "Se eliminarán todos los datos de la aplicación ¿Desea continuar?", "Si", "No");
 

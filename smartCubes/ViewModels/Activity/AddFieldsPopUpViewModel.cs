@@ -22,6 +22,11 @@ namespace smartCubes.ViewModels.Activity
                 lSizes.Add(i);
             }
 
+            lFormats = new ObservableCollection<string>();
+            lFormats.Add("");
+            lFormats.Add("Tiempo");
+            lFormats.Add("Fecha");
+
             this.addMessageActivityViewModel = addMessageActivityViewModel;
 
             if (addMessageActivityViewModel.FieldsTemp.Count == 15)
@@ -58,6 +63,22 @@ namespace smartCubes.ViewModels.Activity
                     Field13 = addMessageActivityViewModel.FieldsTemp[12].Description;
                     Field14 = addMessageActivityViewModel.FieldsTemp[13].Description;
                     Field15 = addMessageActivityViewModel.FieldsTemp[14].Description;
+
+                    SelectFormat1 = addMessageActivityViewModel.FieldsTemp[0].Format;
+                    SelectFormat2 = addMessageActivityViewModel.FieldsTemp[1].Format;
+                    SelectFormat3 = addMessageActivityViewModel.FieldsTemp[2].Format;
+                    SelectFormat4 = addMessageActivityViewModel.FieldsTemp[3].Format;
+                    SelectFormat5 = addMessageActivityViewModel.FieldsTemp[4].Format;
+                    SelectFormat6 = addMessageActivityViewModel.FieldsTemp[5].Format;
+                    SelectFormat7 = addMessageActivityViewModel.FieldsTemp[6].Format;
+                    SelectFormat8 = addMessageActivityViewModel.FieldsTemp[7].Format;
+                    SelectFormat9 = addMessageActivityViewModel.FieldsTemp[8].Format;
+                    SelectFormat10 = addMessageActivityViewModel.FieldsTemp[9].Format;
+                    SelectFormat11 = addMessageActivityViewModel.FieldsTemp[10].Format;
+                    SelectFormat12 = addMessageActivityViewModel.FieldsTemp[11].Format;
+                    SelectFormat13 = addMessageActivityViewModel.FieldsTemp[12].Format;
+                    SelectFormat14 = addMessageActivityViewModel.FieldsTemp[13].Format;
+                    SelectFormat15 = addMessageActivityViewModel.FieldsTemp[14].Format;
 
             }
         }
@@ -505,6 +526,227 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
+        private string _SelectFormat1;
+
+        public string SelectFormat1
+        {
+            get
+            {
+                return _SelectFormat1;
+            }
+            set
+            {
+                _SelectFormat1 = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _SelectFormat2;
+
+        public string SelectFormat2
+        {
+            get
+            {
+                return _SelectFormat2;
+            }
+            set
+            {
+                _SelectFormat2 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat3;
+
+        public string SelectFormat3
+        {
+            get
+            {
+                return _SelectFormat3;
+            }
+            set
+            {
+                _SelectFormat3 = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _SelectFormat4;
+
+        public string SelectFormat4
+        {
+            get
+            {
+                return _SelectFormat4;
+            }
+            set
+            {
+                _SelectFormat4 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat5;
+
+        public string SelectFormat5
+        {
+            get
+            {
+                return _SelectFormat5;
+            }
+            set
+            {
+                _SelectFormat5 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat6;
+
+        public string SelectFormat6
+        {
+            get
+            {
+                return _SelectFormat6;
+            }
+            set
+            {
+                _SelectFormat6 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat7;
+
+        public string SelectFormat7
+        {
+            get
+            {
+                return _SelectFormat7;
+            }
+            set
+            {
+                _SelectFormat7 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat8;
+
+        public string SelectFormat8
+        {
+            get
+            {
+                return _SelectFormat8;
+            }
+            set
+            {
+                _SelectFormat8 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat9;
+
+        public string SelectFormat9
+        {
+            get
+            {
+                return _SelectFormat9;
+            }
+            set
+            {
+                _SelectFormat9 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat10;
+
+        public string SelectFormat10
+        {
+            get
+            {
+                return _SelectFormat10;
+            }
+            set
+            {
+                _SelectFormat10 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat11;
+
+        public string SelectFormat11
+        {
+            get
+            {
+                return _SelectFormat11;
+            }
+            set
+            {
+                _SelectFormat11 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat12;
+
+        public string SelectFormat12
+        {
+            get
+            {
+                return _SelectFormat12;
+            }
+            set
+            {
+                _SelectFormat12 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat13;
+
+        public string SelectFormat13
+        {
+            get
+            {
+                return _SelectFormat13;
+            }
+            set
+            {
+                _SelectFormat13 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat14;
+        public string SelectFormat14
+        {
+            get
+            {
+                return _SelectFormat14;
+            }
+            set
+            {
+                _SelectFormat14 = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _SelectFormat15;
+
+        public string SelectFormat15
+        {
+            get
+            {
+                return _SelectFormat15;
+            }
+            set
+            {
+                _SelectFormat15 = value;
+                RaisePropertyChanged();
+            }
+        }
         private ObservableCollection<int> _lSizes;
 
         public ObservableCollection<int> lSizes
@@ -519,7 +761,20 @@ namespace smartCubes.ViewModels.Activity
                 RaisePropertyChanged();
             }
         }
+        private ObservableCollection<string> _lFormats;
 
+        public ObservableCollection<string> lFormats
+        {
+            get
+            {
+                return _lFormats;
+            }
+            set
+            {
+                _lFormats = value;
+                RaisePropertyChanged();
+            }
+        }
         private ICommand _AddCommand;
 
         public ICommand AddCommand
@@ -532,76 +787,91 @@ namespace smartCubes.ViewModels.Activity
             FieldMessage fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize1;
             fieldTemp.Description = Field1;
+            fieldTemp.Format = SelectFormat1;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize2;
             fieldTemp.Description = Field2;
+            fieldTemp.Format = SelectFormat2;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize3;
             fieldTemp.Description = Field3;
+            fieldTemp.Format = SelectFormat3;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize4;
             fieldTemp.Description = Field4;
+            fieldTemp.Format = SelectFormat4;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize5;
             fieldTemp.Description = Field5;
+            fieldTemp.Format = SelectFormat5;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize6;
             fieldTemp.Description = Field6;
+            fieldTemp.Format = SelectFormat6;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize7;
             fieldTemp.Description = Field7;
+            fieldTemp.Format = SelectFormat7;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize8;
             fieldTemp.Description = Field8;
+            fieldTemp.Format = SelectFormat8;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize9;
             fieldTemp.Description = Field9;
+            fieldTemp.Format = SelectFormat9;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize10;
             fieldTemp.Description = Field10;
+            fieldTemp.Format = SelectFormat10;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize11;
             fieldTemp.Description = Field11;
+            fieldTemp.Format = SelectFormat11;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize12;
             fieldTemp.Description = Field12;
+            fieldTemp.Format = SelectFormat12;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize13;
             fieldTemp.Description = Field13;
+            fieldTemp.Format = SelectFormat13;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize14;
             fieldTemp.Description = Field14;
+            fieldTemp.Format = SelectFormat14;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize15;
             fieldTemp.Description = Field15;
+            fieldTemp.Format = SelectFormat15;
             addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             int totalSize = 0;
@@ -610,8 +880,12 @@ namespace smartCubes.ViewModels.Activity
                 totalSize += fieldSize.Bytes;
             }
 
-            addMessageActivityViewModel.Size = totalSize.ToString();
+            if (totalSize >= 20)
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "El tamaño máximo es de 20 bytes", "Aceptar");
+            }
 
+            addMessageActivityViewModel.Size = totalSize.ToString();
             await PopupNavigation.Instance.PopAsync();
         }
 

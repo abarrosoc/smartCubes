@@ -402,7 +402,12 @@ namespace smartCubes.ViewModels.Session
             await WaitAndExecute(1000, () =>
 
             {
-                CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
+                ActivityModel activityCurrent = Json.getActivityByName(session.ActivityName);
+                foreach (DeviceModel deviceModel in activityCurrent.Devices)
+                {
+
+                    CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
+                }
             });
             try
             {

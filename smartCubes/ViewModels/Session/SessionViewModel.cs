@@ -11,7 +11,7 @@ using Syncfusion.XlsIO;
 using Syncfusion.Drawing;
 using Xamarin.Forms;
 using System.Threading.Tasks;
-using smartCubes.View.Login;
+using System.Linq;
 
 namespace smartCubes.ViewModels.Session
 {
@@ -117,93 +117,187 @@ namespace smartCubes.ViewModels.Session
 
         private async void ExportCommandExecute(SessionModel session)
         {
-          
+
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 Loading = true;
-                await Task.Delay(200);
-
+                //await Task.Delay(200);
+                await Task.Run(() =>
+                {
                 List<SessionInit> lSessionInit = App.Database.GetSessionInit(session.ID);
 
-                if (lSessionInit == null || lSessionInit.Count == 0)
-                {
-                    Loading = false;
-                    await Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
-                }
-                else
-                {
-                    //Set the default application version as Excel 2013.
-                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-                    //Create a workbook with a worksheet
-                    IWorkbook workbook = excelEngine.Excel.Workbooks.Create(lSessionInit.Count);
-                    IStyle headerStyle = workbook.Styles.Add("HeaderStyle");
-                    headerStyle.BeginUpdate();
-                    headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(29, 161, 242);
-                    headerStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
-                    headerStyle.Font.Bold = true;
-                    headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                    headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                    headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                    headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                    headerStyle.EndUpdate();
-
-                    IStyle bodyStyle = workbook.Styles.Add("BodyStyle");
-                    bodyStyle.BeginUpdate();
-                    bodyStyle.Color = Syncfusion.Drawing.Color.White;
-                    bodyStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                    bodyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                    bodyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                    bodyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                    bodyStyle.EndUpdate();  
-
-                    //Access first worksheet from the workbook instance.
-
-                    int cont = 0;
-                    foreach (SessionInit sessionInit in lSessionInit)
+                    if (lSessionInit == null || lSessionInit.Count == 0)
                     {
-                        IWorksheet worksheet = workbook.Worksheets[cont];
-
-                        //Adding text to a cell
-                        worksheet[1, 1].Value = "Sesión";
-                        worksheet[1, 2].Value = "Actividad";
-                        worksheet[1, 3].Value = "Profesional";
-                        worksheet[1, 4].Value = "Alumno";
-
-                        UserModel user = App.Database.GetUser(App.Database.GetSession(sessionInit.SessionId).UserID);
-                        worksheet[2, 1].Value = session.Name;
-                        worksheet[2, 2].Value = session.ActivityName;
-                        worksheet[2, 3].Value = user.UserName;
-                        worksheet[2, 4].Value = sessionInit.StudentCode;
-
-                        worksheet.Name = cont.ToString() + " - " + sessionInit.StudentCode;
-                        worksheet.UsedRange.AutofitColumns();
-
-                        worksheet.Rows[0].CellStyle = headerStyle;
-                        List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
-
-                        int i = 4;
-                        foreach (SessionData sd in sessionsData)
-                        {
-                            worksheet[i, 1].Value = sd.Data;
-                            worksheet.Range["$A$"+i+":$F$" +i].Merge();
-
-                            i++;
-                        }
-                        worksheet.Range["A4:F"+i].CellStyle = bodyStyle;
-                        cont++;
+                        Loading = false;
+                        Application.Current.MainPage.DisplayAlert("No hay datos", "La sesión no se puede exportar, aún no contiene datos", "Aceptar");
                     }
+                    else
+                    {
+                        //Set the default application version as Excel 2013.
+                        excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+                        //Create a workbook with a worksheet
+                        IWorkbook workbook = excelEngine.Excel.Workbooks.Create(lSessionInit.Count);
+                        IStyle headerStyle = workbook.Styles.Add("HeaderStyle");
+                        headerStyle.BeginUpdate();
+                        headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(29, 161, 242);
+                        headerStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
+                        headerStyle.Font.Bold = true;
+                        headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                        headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                        headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                        headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                        headerStyle.EndUpdate();
 
-                    //Save the workbook to stream in xlsx format. 
-                    MemoryStream stream = new MemoryStream();
-                    workbook.SaveAs(stream);
-                    workbook.Close();
+                        IStyle bodyStyle = workbook.Styles.Add("BodyStyle");
+                        bodyStyle.BeginUpdate();
+                        bodyStyle.Color = Syncfusion.Drawing.Color.White;
+                        bodyStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                        bodyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                        bodyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                        bodyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                        bodyStyle.EndUpdate();
 
-                    //Save the stream as a file in the device and invoke it for viewing
-                    string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ","") + ".xlsx", "application/msexcel", stream);
-                    
-                    Mail mail = new Mail(filepath, user);
-                    Loading = false;
+                        //Access first worksheet from the workbook instance.
+                        ActivityModel activity = Json.getActivityByName(session.ActivityName);
+
+                        int cont = 0;
+                        foreach (SessionInit sessionInit in lSessionInit)
+                        {
+                            IWorksheet worksheet = workbook.Worksheets[cont];
+
+                            //Adding text to a cell
+                            worksheet[1, 1].Value = "Sesión";
+                            worksheet[2, 1].Value = "Actividad";
+                            worksheet[3, 1].Value = "Fecha";
+                            worksheet[4, 1].Value = "Duración";
+                            worksheet[5, 1].Value = "Profesional";
+                            worksheet[6, 1].Value = "Alumno";
+
+                            UserModel user = App.Database.GetUser(App.Database.GetSession(sessionInit.SessionId).UserID);
+                            worksheet[1, 2].Value = session.Name;
+                            worksheet[2, 2].Value = session.ActivityName;
+                            worksheet[3, 2].Text = sessionInit.Date.ToString("dd/MM/yyyy HH:mm:ss");
+                            worksheet[4, 2].Text = sessionInit.Time;
+                            worksheet[5, 2].Value = user.UserName;
+                            worksheet[6, 2].Value = sessionInit.StudentCode;
+
+                            worksheet.Name = cont.ToString() + " - " + sessionInit.StudentCode;
+
+                            worksheet[1, 1].CellStyle = headerStyle;
+                            worksheet[2, 1].CellStyle = headerStyle;
+                            worksheet[3, 1].CellStyle = headerStyle;
+                            worksheet[4, 1].CellStyle = headerStyle;
+                            worksheet[5, 1].CellStyle = headerStyle;
+                            worksheet[6, 1].CellStyle = headerStyle;
+
+                            int column = 1;
+                            foreach (MessageDevice message in activity.Messages)
+                            {
+                                foreach (FieldMessage field in message.Fields)
+                                {
+                                    worksheet[9, column].Value = field.Description;
+                                    worksheet[9, column].CellStyle = headerStyle;
+                                    column++;
+                                }
+                            }
+
+                            Dictionary<MessageDevice, int> messagesColumns = new Dictionary<MessageDevice, int>();
+                            int calculateColumn = 1;
+
+                            foreach (MessageDevice message in activity.Messages)
+                            {
+                                messagesColumns.Add(message, calculateColumn);
+                                calculateColumn += message.Fields.Count();
+                            }
+
+                            List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
+                            /*
+                            List<SessionData> s20 = new List<SessionData>();
+                            s20  =  sessionsData.FindAll(s => s.Data.Length == 20);
+
+                            List<SessionData> s9 = new List<SessionData>();
+                            s9 = sessionsData.FindAll(s => s.Data.Length == 9);
+                            */
+                            int row = 10;
+                            column = 1;
+                            int numByte = 0;
+
+
+                            for (int j = 0; j < sessionsData.Count; j++)
+                            {
+                                MessageDevice messageType1 = activity.Messages.Find(m => m.Fields.Sum(f => f.Bytes) == sessionsData[j].Data.Length);
+
+                                if (messageType1 == null)
+                                {
+                                    int size = Convert.ToInt32(string.Concat(sessionsData[j].Data[3].ToString("X2")), 16) + 4;
+                                    SessionData sessionDataComplementary = sessionsData.Find(s => s.Data.Length + sessionsData[j].Data.Length == size && s.DeviceName.Equals(sessionsData[j].DeviceName));
+
+                                    byte[] messageTemp = null;
+
+                                    if (sessionDataComplementary != null)
+                                    {
+                                        messageTemp = new byte[sessionsData[j].Data.Length + sessionDataComplementary.Data.Length];
+                                        Array.Copy(sessionsData[j].Data, 0, messageTemp, 0, sessionsData[j].Data.Length);
+                                        Array.Copy(sessionDataComplementary.Data, 0, messageTemp, sessionsData[j].Data.Length, sessionDataComplementary.Data.Length);
+                                        messageType1 = activity.Messages.Find(m => m.Fields.Sum(f => f.Bytes) == messageTemp.Length);
+                                    }
+
+                                    if (messageType1 != null)
+                                    {
+                                        column = messagesColumns[messageType1];
+                                        numByte = 0;
+                                        foreach (FieldMessage field in messageType1.Fields)
+                                        {
+                                            String m = Convert.ToInt32(string.Concat(messageTemp.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
+                                            if (field.Format.Equals("Tiempo"))
+                                            {
+                                                double millis = Convert.ToDouble(m);
+                                                worksheet[row, column].NumberFormat = "###,###,##0.0#########";
+                                                worksheet[row, column].Number = millis / 1000.0; ;
+                                            }
+                                            else
+                                            {
+                                                worksheet[row, column].Text = m;
+                                            }
+                                            worksheet[row, column].CellStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                                            column++;
+                                            numByte += field.Bytes;
+                                        }
+                                        row++;
+                                    }
+                                }
+                                else
+                                {
+                                    column = messagesColumns[messageType1];
+                                    numByte = 0;
+                                    foreach (FieldMessage field in messageType1.Fields)
+                                    {
+                                        String m = Convert.ToInt32(string.Concat(sessionsData[j].Data.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
+                                        worksheet[row, column].Value = m;
+
+                                        column++;
+                                        numByte += field.Bytes;
+                                    }
+                                    row++;
+                                }
+                            }
+
+                            worksheet.UsedRange.AutofitColumns();
+                        }
+
+
+                        //Save the workbook to stream in xlsx format. 
+                        MemoryStream stream = new MemoryStream();
+                        workbook.SaveAs(stream);
+                        workbook.Close();
+
+                        //Save the stream as a file in the device and invoke it for viewing
+                        string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ", "") + ".xlsx", "application/msexcel", stream);
+
+                        Mail mail = new Mail(filepath, user);
                 }
+                });
+                Loading = false;
             }
 
         }

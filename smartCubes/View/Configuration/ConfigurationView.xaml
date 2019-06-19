@@ -1,31 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
-             x:Class="smartCubes.View.Configuration.ConfigurationView">
-    <StackLayout BackgroundColor="#E6E6E6">
-        <ListView x:Name="lSettings"
-              IsPullToRefreshEnabled="false"
-              RowHeight="60"
-              SelectedItem="{Binding SelectItem,Mode=TwoWay}"
-              SeparatorVisibility="Default"
-              SeparatorColor="#E6E6E6"
-              ItemsSource="{Binding lSettings}" 
-              BackgroundColor="#E6E6E6">
-        <ListView.Behaviors>
-                <behavior:EventToCommandBehavior EventName="ItemTapped" Command="{Binding OnItemTapped}"/>
-        </ListView.Behaviors>
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-                 <StackLayout BackgroundColor="White" Orientation="Vertical">
-                    <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="15,20,20,20">
-                        <Label Text="{Binding Text}" TextColor="{Binding Color}" FontSize="Medium" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Configuration.ConfigurationView" Title="{Binding Title}" BackgroundColor="White">
+    <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="350" Margin="0,20,0,0">
+        <TableRoot>
+            <TableSection Title="Aplicación">
+                <ViewCell Height="50">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="0,0">
+                        <Button Text="Reestablecer valores" TextColor="Red" Command="{Binding ResetCommand}" BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></Button>
                     </StackLayout>
-                </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableRoot>
+    </TableView>
 </ContentPage>

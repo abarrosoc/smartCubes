@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
 using smartCubes.Models;
 using smartCubes.Utils;
 using smartCubes.View.Menu;
@@ -16,6 +18,8 @@ namespace smartCubes.ViewModels.Login
         {
             this.Navigation = navigation;
             Loading = false;
+
+          
         } 
 
         private String _User;
@@ -68,43 +72,91 @@ namespace smartCubes.ViewModels.Login
 
         private async void LoginCommandExecuteAsync()
         {
-
-            Loading = true;
-            await Task.Run(() =>
+            bool access = false;
+            try
             {
 
-                if (App.Database.GetUsers().Count == 0)
-                    App.Database.ResetDataBase();
-                UserModel user = App.Database.GetUsers()[0];
-                Application.Current.MainPage = new MainPage(user);
-                /*
-                //Application.Current.MainPage = new MainPage();
-                if(User==null || Password==null){
-                    Application.Current.MainPage.DisplayAlert("Login", "Debe rellenar todos los campos", "Aceptar");
-                }else{
+                var statusLocation = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (statusLocation != PermissionStatus.Granted)
+                {
 
-                    UserModel User = App.Database.GetUser(User);
-                    if (User != null)
+                    var requestedPermissionsLocation = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    statusLocation = requestedPermissionsLocation[Permission.Location];
+                }
+
+
+                if (statusLocation == PermissionStatus.Granted)
+                {
+                    var statusStorage = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+                    if (statusStorage != PermissionStatus.Granted)
                     {
-                        String userPass = Crypt.Decrypt(User.Password, "uah2019");
-                        if (Password.Equals(userPass))
+
+                        var requestedPermissionsStorage = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
+                        statusStorage = requestedPermissionsStorage[Permission.Storage];
+                    }
+
+                    if (statusLocation == PermissionStatus.Granted && statusStorage == PermissionStatus.Granted)
+                    {
+                        access = true;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Acceso denegado", "Es necesario aceptar los permisos para poder continuar", "Aceptar");
+                        return;
+
+                    }
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Acceso denegado", "Es necesario aceptar los permisos para poder continuar", "Aceptar");
+                    return;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Se ha producido un error inesperado y no es posible continuar.", "Aceptar");
+            }
+
+            if (access)
+            {
+                Loading = true;
+                await Task.Run(() =>
+                {
+
+                    if (App.Database.GetUsers().Count == 0)
+                        App.Database.ResetDataBase();
+                    UserModel user = App.Database.GetUsers()[0];
+                    Application.Current.MainPage = new MainPage(user);
+                    /*
+                    //Application.Current.MainPage = new MainPage();
+                    if(User==null || Password==null){
+                        Application.Current.MainPage.DisplayAlert("Login", "Debe rellenar todos los campos", "Aceptar");
+                    }else{
+
+                        UserModel User = App.Database.GetUser(User);
+                        if (User != null)
                         {
-                            Application.Current.MainPage = new MainPage(User);
+                            String userPass = Crypt.Decrypt(User.Password, "uah2019");
+                            if (Password.Equals(userPass))
+                            {
+                                Application.Current.MainPage = new MainPage(User);
+                            }
+                            else
+                            {
+                                Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
+                            }
                         }
                         else
                         {
                             Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
                         }
-                    }
-                    else
-                    {
-                        Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
-                    }
 
-            }*/
-            });
-            Loading = false;
+                }*/
+                });
+                Loading = false;
+            }
+           
         }
-
     }
 }

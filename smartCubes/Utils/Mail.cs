@@ -23,8 +23,8 @@ namespace smartCubes.Utils
                 .To(user.Email)
                   //.Cc("cc.plugins@xamarin.com")
                   //.Bcc(new[] { "bcc1.plugins@xamarin.com", "bcc2.plugins@xamarin.com" })
-                .Subject("Exportar sesion")
-                .Body("Se adjunta la sesion seleccionada")
+                .Subject("Smart Games - Exportar sesión")
+                .Body("Se adjunta la sesión seleccionada")
                 .WithAttachment(filePath, "application/msexcel")
                 .Build();
 

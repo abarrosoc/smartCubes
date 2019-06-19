@@ -9,12 +9,94 @@
           "Name": "Message 1",
           "Fields": [
             {
-              "Description": "Campo1",
-              "Bytes": 31
+              "Description": "Device ID",
+              "Bytes": 1,
+			  "Format": ""
             },
             {
-              "Description": "Campo2",
-              "Bytes": 1
+              "Description": "Sensor",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Sequence",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Length",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Motion time",
+              "Bytes": 4,
+			 "Format": "Tiempo"
+            },
+			{
+              "Description": "Shake",
+              "Bytes": 4,
+			  "Format": ""
+            },
+			{
+              "Description": "Avg. Speed",
+              "Bytes": 4,
+			  "Format": "Tiempo"
+            },
+			{
+              "Description": "Max. Speed",
+              "Bytes": 4,
+			  "Format": "Tiempo"
+            },
+			{
+              "Description": "Max. Accel.",
+              "Bytes": 4,
+			  "Format": "Tiempo"
+            },
+			{
+              "Description": "Max. Speed Time",
+              "Bytes": 2,
+			  "Format": "Tiempo"
+            },
+			{
+              "Description": "Activity Time",
+              "Bytes": 4,
+			  "Format": "Tiempo"
+            }
+          ]
+        },
+		{
+          "Name": "Message 2",
+          "Fields": [
+            {
+              "Description": "Device ID",
+              "Bytes": 1,
+			  "Format": ""
+            },
+            {
+              "Description": "Sensor",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Sequence",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Length",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Faces",
+              "Bytes": 1,
+			  "Format": ""
+            },
+			{
+              "Description": "Activity Time",
+              "Bytes": 4,
+			  "Format": "Tiempo"
             }
           ]
         }

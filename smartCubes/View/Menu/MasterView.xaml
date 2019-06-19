@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="smartCubes.View.Menu.MasterView" xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" Title="{Binding Title}" Icon="menu.png">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="smartCubes.View.Menu.MasterView" 
+             xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" Title="{Binding Title}" Icon="menu.png">
     <AbsoluteLayout BackgroundColor="White">
         <Frame Padding="0" BorderColor="Transparent" HasShadow="false" AbsoluteLayout.LayoutBounds="0,0,1,.3" AbsoluteLayout.LayoutFlags="All">
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">

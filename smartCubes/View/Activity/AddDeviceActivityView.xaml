@@ -63,7 +63,7 @@
                             </ViewCell.ContextActions>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="30,0,0,0">
-                                    <Frame VerticalOptions="CenterAndExpand" BackgroundColor="Teal" CornerRadius="50"></Frame>
+                                    <Frame VerticalOptions="CenterAndExpand" BackgroundColor="#599999" CornerRadius="50"></Frame>
                                 </StackLayout>
                                 <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand">
                                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">

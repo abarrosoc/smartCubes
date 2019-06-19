@@ -13,6 +13,6 @@ namespace smartCubes.Models
         [ForeignKey(typeof(SessionInit))] 
         public int SessionInitId { get; set; }
         public String DeviceName { get; set; }
-        public String Data { get; set; }
+        public byte[] Data { get; set; }
     }
 }

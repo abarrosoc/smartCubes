@@ -5,5 +5,6 @@ namespace smartCubes.Models
     {
         public String Description { get; set; }
         public int Bytes { get; set; }
+        public String Format { get; set; }
     }
 }

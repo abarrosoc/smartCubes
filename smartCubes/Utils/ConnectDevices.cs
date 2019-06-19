@@ -12,6 +12,7 @@ using Plugin.BLE.Abstractions.Exceptions;
 using smartCubes.Models;
 using System.Reactive.Linq;
 using Xamarin.Forms;
+using System.Threading;
 
 namespace smartCubes.Utils
 {
@@ -30,8 +31,7 @@ namespace smartCubes.Utils
         }
 
         private async Task InitBLE()
-        {
-            
+        {           
             lDevicesConnected = new List<IDevice>();
             lDeviceData = new List<DeviceData>();
 
@@ -39,9 +39,6 @@ namespace smartCubes.Utils
             adapter = CrossBluetoothLE.Current.Adapter;
             adapter.ScanTimeout = 10000;
 
-
-            
-            
             ble.StateChanged += async (s, e) =>
             {
                 if (ble.State.Equals(BluetoothState.On))
@@ -69,7 +66,8 @@ namespace smartCubes.Utils
 
                 try
                 {
-                    adapter.DeviceDiscovered += async (s, a) =>
+
+                   adapter.DeviceDiscovered += async (s, a) =>
                     {
                         ActivityModel currentActivity = null;
                         try
@@ -170,6 +168,8 @@ namespace smartCubes.Utils
                             customerService = iService;
                         }
                     }
+                    //if customerservice == null
+
 
                     var characteristics = await customerService.GetCharacteristicsAsync();
                     UnicodeEncoding uniencoding = new UnicodeEncoding();
@@ -190,24 +190,18 @@ namespace smartCubes.Utils
                         byte[] valueBytes = a.Characteristic.Value;
 
                         String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
-                        String datastr = string.Concat(valueBytes.Select(b => b.ToString()));
-
-                       // Debug.WriteLine("ASCII Leyendo datos de " + deviceConnected.Name + ": "+ datastr);
-                       // Debug.WriteLine("BigEndianUnicode Leyendo datos de " + deviceConnected.Name + ": " + Encoding.BigEndianUnicode.GetString(valueBytes));
-
-
+ 
                         DeviceData deviceData = new DeviceData();
                         deviceData.DeviceName = deviceConnected.Name;
-                        deviceData.Data = data;
+                        deviceData.Data = valueBytes;
                         lDeviceData.Add(deviceData);
 
                         Debug.WriteLine(data, "X2 Leyendo datos de " + deviceConnected.Name + ": " + data );
-                        Debug.WriteLine(a.Characteristic.StringValue, "STRING Leyendo datos de " + deviceConnected.Name + ": ");
 
                     };
                     await characteristicRW.StartUpdatesAsync();
 
-                    //var bytes = await characteristics[0].ReadAsync();
+                    var bytes = await characteristics[0].ReadAsync();
                 }
 
             }
