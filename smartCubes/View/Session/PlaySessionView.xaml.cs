@@ -27,9 +27,12 @@ namespace smartCubes.View.Session
 
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
-            var vm = BindingContext as PlaySessionViewModel;
-            vm.DisconnectAll();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                base.OnDisappearing();
+                var vm = BindingContext as PlaySessionViewModel;
+                await vm.DisconnectAll();
+            });
        
            
         }

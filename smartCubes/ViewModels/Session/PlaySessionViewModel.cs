@@ -14,6 +14,8 @@ using System.Text;
 using System.Linq;
 using Akavache;
 using System.Reactive.Linq;
+using System.Threading;
+using Plugin.BLE.Abstractions.EventArgs;
 
 namespace smartCubes.ViewModels.Session
 {
@@ -36,6 +38,8 @@ namespace smartCubes.ViewModels.Session
         private INavigation Navigation;
 
         private List<DeviceData> lDeviceData;
+        private List<ICharacteristic> characteristics;
+        private ActivityModel currentActivity;
 
 
         public PlaySessionViewModel(SessionModel session, INavigation navigation)
@@ -47,23 +51,29 @@ namespace smartCubes.ViewModels.Session
             sessionInit.Date = DateTime.Now;
 
             Loading = true;
-            ColorFrame = "Red";
+            ColorFrame = "#e6475f";
 
             lDeviceData = new List<DeviceData>();
+            characteristics = new List<ICharacteristic>();
 
             Title = session.Name;
             ActivityName = session.ActivityName;
 
             ResetChronometer();
 
-            ActivityModel activity = Json.getActivityByName(session.ActivityName);
-            lDevices = new List<DeviceModel>(activity.Devices);
-         
-            BlobCache.UserAccount.InsertObject("currentActivity", activity);
+            currentActivity = Json.getActivityByName(session.ActivityName);
 
+
+            lDevices = new List<DeviceModel>(currentActivity.Devices);
+         
+            BlobCache.UserAccount.InsertObject("currentActivity", currentActivity);
             adapter = CrossBluetoothLE.Current.Adapter;
 
-            SearchDevice();
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await InitBLEConexion();
+            });
+            
 
         }
 
@@ -216,30 +226,8 @@ namespace smartCubes.ViewModels.Session
 
             if (!isAllConnectedDevices(lDevices))
             {
-
-                Loading = true;
-                var answer = await Application.Current.MainPage.DisplayAlert("Atención", "No se ha podido establecer conexión con todos los dispositivos. ¿Desea intentarlo de nuevo?", "Reintentar", "Cancelar");
-                if (answer)
-                {
-
-                    await CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
-
-                    if (isAllConnectedDevices(lDevices))
-                    {
-                        ColorFrame = "Green";
-                        Loading = false;
-                    }
-                    else
-                    {
-                        ColorFrame = "Red";
-                    }
-
-                    return;
-                }
-                else
-                {
-                    Loading = false;
-                }
+               await Application.Current.MainPage.DisplayAlert("Atención", "Hay dispositivos que no están conectados. Por favor, pulse el botón reconnectar", "Aceptar");
+               return;
             }
 
             sessionInit = new SessionInit();
@@ -312,7 +300,17 @@ namespace smartCubes.ViewModels.Session
                 {
                     sessionInit.Time = Minutes + ":" + Seconds + ":" + Milliseconds;
                     ResetChronometer();
-                    ConnectDevices.saveData(sessionInit);
+                    Debug.WriteLine("Guardando datos.....");
+                    App.Database.SaveSessionInit(sessionInit);
+
+                    foreach (DeviceData deviceData in lDeviceData)
+                    {
+                        SessionData sessionData = new SessionData();
+                        sessionData.SessionInitId = sessionInit.ID;
+                        sessionData.DeviceName = deviceData.DeviceName;
+                        sessionData.Data = deviceData.Data;
+                        App.Database.SaveSessionData(sessionData);
+                    }
                 }
             }
         }
@@ -324,18 +322,16 @@ namespace smartCubes.ViewModels.Session
 
         private async void OnTapGestureRecognizerTappedReconnectExecute()
         {
-            Loading = true;
-            if (!adapter.IsScanning && !isAllConnectedDevices(lDevices))
+            if (!isAllConnectedDevices(lDevices))
             {
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Desea volver a intentar conectar con los dispositivos? ", "Si", "No");
                 if (answer)
                 {
-                    await CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
+                    Loading = true;
+                    await Connect();
                 }
-                else
-                {
-                    Loading = false;
-                }
+
+                Loading = false;
             }
             else if (isAllConnectedDevices(lDevices))
             {
@@ -385,102 +381,157 @@ namespace smartCubes.ViewModels.Session
             StudentCode = null;
         }
 
-        /*
-         * 
-         * 
-         * 
-         * 
-         * CONEXION DISPOSITIVOS BLE
-         * 
-         * 
-         * 
-         * 
-         */
-        
-        private async Task SearchDevice()
+        /***************************************************
+         ***************************************************
+         ********** CONEXION DISPOSITIVOS BLE **************
+         ***************************************************
+         ***************************************************/
+
+
+        private async Task InitBLEConexion()
         {
-            await WaitAndExecute(1000, () =>
 
+            IBluetoothLE ble = CrossBluetoothLE.Current;
+            adapter = CrossBluetoothLE.Current.Adapter;
+            adapter.ScanTimeout = 10000;
+
+            ble.StateChanged += async (s, e) =>
             {
-                ActivityModel activityCurrent = Json.getActivityByName(session.ActivityName);
-                foreach (DeviceModel deviceModel in activityCurrent.Devices)
+                if (ble.State.Equals(BluetoothState.On))
                 {
-
-                    CrossBluetoothLE.Current.Adapter.StartScanningForDevicesAsync();
+                    await Connect();
                 }
-            });
+                else if (ble.State.Equals(BluetoothState.TurningOff))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "El bluetooth del dispositivo ha sido apagado, por favor vuelva a encenderlo", "Aceptar");
+                }
+
+            };
+            if (ble.State.Equals(BluetoothState.On))
+            {
+                await Connect();
+            }
+        }
+        private async Task Connect()
+        {
+            await SubscribeEvents();
+
+            foreach (DeviceModel device in currentActivity.Devices)
+            {
+                await Task.Run(async () =>
+                 {
+                     CancellationTokenSource source = new CancellationTokenSource();
+                     CancellationToken token = source.Token;
+
+                     await ConnectDevice(device, token);
+                 });
+            }
+        }
+        private async Task ConnectDevice(DeviceModel device, CancellationToken cancellationToken)
+        {
             try
             {
-                adapter.DeviceConnected += (s, a) =>
+                if(adapter.ConnectedDevices.ToList().Find(d => d.Name.Equals(device.Name)) == null)
                 {
-                    if (isAllConnectedDevices(lDevices))
+                    var connectedDevice = await adapter.ConnectToKnownDeviceAsync(Guid.Parse(device.Uuid), new ConnectParameters(false,false), cancellationToken);
+                    var service = await connectedDevice.GetServiceAsync(Guid.Parse(device.Service));
+                    var characteristic = await service.GetCharacteristicAsync(Guid.Parse("0000ffe1-0000-1000-8000-00805f9b34fb"));
+
+                    UnicodeEncoding uniencoding = new UnicodeEncoding();
+                    byte[] zero = uniencoding.GetBytes("0");
+                    Device.BeginInvokeOnMainThread(() =>
                     {
-                        ColorFrame = "Green";
-                        Loading = false;
-                    }
-                };
+                         characteristic.WriteAsync(zero);
+                    });
 
-                adapter.DeviceConnectionLost += (s, a) =>
+                    characteristic.ValueUpdated += (s, a) =>
                     {
+                        byte[] valueBytes = a.Characteristic.Value;
 
-                        if (!StartStop.Equals(INICIAR))
-                        {
-                            StartStop = REANUDAR;
-                        }
-                        else
-                        {
-                            StartStop = INICIAR;
-                        }
+                        String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
 
-                        ColorFrame = "Red";
+                        DeviceData deviceData = new DeviceData();
+                        deviceData.DeviceName = connectedDevice.Name;
+                        deviceData.Data = valueBytes;
+                        lDeviceData.Add(deviceData);
 
+                        Debug.WriteLine(data, "X2 Leyendo datos de " + connectedDevice.Name + ": ");
                     };
+                    characteristics.Add(characteristic);
 
-                adapter.ScanTimeoutElapsed += (s, a) =>
-                {
-                    Loading = false;
-                    if (!isAllConnectedDevices(lDevices))
-                    {
-                         DisconnectAll();
-                    }
-                };
+                    await characteristic.StartUpdatesAsync();
+                }
             }
-            catch (DeviceConnectionException er)
+            catch (DeviceConnectionException e)
             {
-                await DisconnectAll();
-                await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un error al conectar con el dispositivo.", "Aceptar");
-                Debug.WriteLine("ERROR: " + er.Message);
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "No es posible conectar con el dispositivo " + device.Name, "Aceptar");
+                    Debug.WriteLine("Error al conectar con el dispositivo: " + device.Name + "." + e);
+                    Loading = false;
+                });
+            }
+            catch (Exception e)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un error innesperado", "Aceptar");
+                    Debug.WriteLine("Error al conectar con el dispositivo: " + device.Name + "." + e);
+                    Loading = false;
+                });
+            }
+        }
+        private async Task SubscribeEvents()
+        {
+            try
+            {
+                adapter.DeviceConnected += DeviceConnectedEvent;
+                adapter.DeviceConnectionLost += LostDeviceEvent;
             }
             catch (Exception er)
             {
                 await DisconnectAll();
-                await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un innesperado.", "Aceptar");
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Se ha producido un innesperado.", "Aceptar");
+                });
                 Debug.WriteLine("ERROR: " + er.Message);
             }
         }
-        protected async Task WaitAndExecute(int milisec, Action actionToExecute)
+        private void LostDeviceEvent(object sender, DeviceErrorEventArgs e)
         {
-            await Task.Delay(milisec);
-            actionToExecute();
-        }
+            if (!StartStop.Equals(INICIAR))
+            {
+                StartStop = REANUDAR;
+            }
+            else
+            {
+                StartStop = INICIAR;
+            }
 
+            ColorFrame = "#e6475f";
+            Debug.WriteLine("Dispositivo desconectado: " + e.Device.Name + " ID: " + e.Device.Id);
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await Application.Current.MainPage.DisplayAlert("Atención", "Se ha perdido la conexión con el dispositivo " + e.Device.Name + ". Reintente de nuevo la conexión", "Aceptar");
+                await DisconnectAll();
+            });
+        }
+        private void DeviceConnectedEvent(object sender, EventArgs e)
+        {
+            if (isAllConnectedDevices(lDevices))
+            {
+                ColorFrame = "#3faf83";
+                Loading = false;
+            }
+        }
+        
         public async Task DisconnectAll()
         {
-            await adapter.StopScanningForDevicesAsync();
-            ActivityModel currentActivity = null;
-            try
-            {
-                currentActivity = (ActivityModel)await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("Error al recuperar la actividad de la sesion: " + e.Message);
-            }
-
             foreach (IDevice device in adapter.ConnectedDevices)
             {
-
-                if (device.State == DeviceState.Connected)
+                if (device.State == DeviceState.Connected && lDevices.Find(d => d.Name.Equals(device.Name))!=null)
                 {
                     string serviceDevice = currentActivity.Devices.Find(d => d.Name.Equals(device.Name)).Service;
 
@@ -506,58 +557,46 @@ namespace smartCubes.ViewModels.Session
                             characteristic.ValueUpdated -= null;
                         }
                     }
-
-                    adapter.DeviceConnectionLost -= null;
                     await CrossBluetoothLE.Current.Adapter.DisconnectDeviceAsync(device);
                 }
             }
+            characteristics = new List<ICharacteristic>();
+            adapter.DeviceConnectionLost -= LostDeviceEvent;
+            adapter.DeviceConnected -= DeviceConnectedEvent;
         }
 
 
-        public async void WriteDevices(String number)
+        public void WriteDevices(String number)
         {
-
-            if (lDevices != null)
-            {
-                ActivityModel currentActivity = null;
-                try
+            try { 
+                if (characteristics != null && characteristics.Count > 0)
                 {
-                    currentActivity = (ActivityModel)await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error al recuperar la actividad de la sesion: " + e.Message);
-                }
-
-                foreach (IDevice device in adapter.ConnectedDevices)
-                {
-                    string serviceDevice = currentActivity.Devices.Find(d => d.Name.Equals(device.Name)).Service;
-                    var services = await device.GetServicesAsync();
-                    IService customerService = null;
-                    foreach (IService service in services)
-                    {
-                        if (service.Id.Equals(new Guid(serviceDevice)))
+                        UnicodeEncoding uniencoding = new UnicodeEncoding();
+                        byte[] one = uniencoding.GetBytes(number);
+                        //Buscamos la caracteristica que permite escribir, leer y actualizar
+                        foreach (ICharacteristic characteristic in characteristics)
                         {
-                            customerService = service;
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                characteristic.WriteAsync(one);
+                            });
                         }
-                    }
-                    var characteristics = await customerService.GetCharacteristicsAsync();
-
-                    UnicodeEncoding uniencoding = new UnicodeEncoding();
-                    byte[] one = uniencoding.GetBytes(number);
-                    //Buscamos la caracteristica que permite escribir, leer y actualizar
-                    foreach (ICharacteristic characteristic in characteristics)
+                 }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
-                        if (characteristic.CanRead && characteristic.CanWrite && characteristic.CanUpdate)
-                        {
-                            await characteristic.WriteAsync(one);
-                        }
-                    }
+                        await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar el código de alumno", "Aceptar");
+                    });
                 }
             }
-            else
+            catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar el código de alumno", "Aceptar");
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atención", "Error no controlado", "Aceptar");
+                });
+                Debug.WriteLine("Error al conectar con el dispositivo." + e);
             }
         }
 

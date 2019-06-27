@@ -38,44 +38,32 @@
                                                          <Entry TextColor="Black" Text="{Binding StudentCode}" Margin="0,0,0,0" MaxLength="50" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Keyboard="Text" />
                                                     </StackLayout>
                                                 </StackLayout>
-
                                             </StackLayout>
                                         </ViewCell>
                                     </TableSection>
-
                                 </TableRoot>
                             </TableView>
                         </StackLayout>
                    
         <AbsoluteLayout AbsoluteLayout.LayoutBounds=".5,.6,.5,.18" AbsoluteLayout.LayoutFlags="All">
-            <Frame CornerRadius="40" AbsoluteLayout.LayoutBounds="0,.5,1,1" AbsoluteLayout.LayoutFlags="All" HasShadow="false" OutlineColor="{Binding ColorFrame}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3.6*" />
-                        <ColumnDefinition Width=".6*" />
-                        <ColumnDefinition Width="3.6*" />
-                        <ColumnDefinition Width=".6*" />
-                        <ColumnDefinition Width="3.6*" />
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Row="0" Grid.Column="0">
-                        <Label Text="{Binding Minutes}" TextColor="#657786" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+            <Frame BackgroundColor="{Binding ColorFrame}" CornerRadius="40" AbsoluteLayout.LayoutBounds="0,.5,1,1" AbsoluteLayout.LayoutFlags="All" HasShadow="False" OutlineColor="{Binding ColorFrame}">
+                <StackLayout BackgroundColor="{Binding ColorFrame}" Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding Minutes}" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="70" />
                     </StackLayout>
-                    <StackLayout Grid.Row="0" Grid.Column="1">
-                        <Label Text=":" TextColor="#657786" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label Text=":" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="70" />
                     </StackLayout>
-                    <StackLayout Grid.Row="0" Grid.Column="2">
-                        <Label Text="{Binding Seconds}" TextColor="#657786" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding Seconds}" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="70" />
                     </StackLayout>
-                    <StackLayout Grid.Row="0" Grid.Column="3">
-                        <Label Text=":" TextColor="#657786" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="70" />
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label Text=":" TextColor="White" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="70" />
                     </StackLayout>
-                    <StackLayout Grid.Row="0" Grid.Column="4">
-                        <Label Text="{Binding Milliseconds}" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" TextColor="#657786" FontAttributes="Bold" FontSize="70" />
+                    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                        <Label Text="{Binding Milliseconds}" HorizontalTextAlignment="Center" TextColor="White" FontAttributes="Bold" FontSize="70" />
                     </StackLayout>
-                </Grid>
+                </StackLayout>
             </Frame>
         </AbsoluteLayout>
         <AbsoluteLayout AbsoluteLayout.LayoutBounds=".5,.95,.7,.07" AbsoluteLayout.LayoutFlags="All"  >

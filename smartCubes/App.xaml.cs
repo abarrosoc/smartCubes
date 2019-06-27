@@ -19,15 +19,12 @@ namespace smartCubes
         public App()
         {
             InitializeComponent();
-            //MainPage = new MainPage();
             MainPage = new LoginView();
-            //MainPage = new NavigationPage(new LoginView());
         }
 
         protected override void OnStart()
         {
             BlobCache.ApplicationName = "SmartGames";
-            ConnectDevices connect = new ConnectDevices();
         }
 
         protected override void OnSleep()
@@ -45,11 +42,10 @@ namespace smartCubes
         {           
             get
             {
-                //database.ResetDataBase();
                 if (database == null)
                 {
                     database = new Database(
-                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataBaseSQLite.db3"));
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataBaseSQLite.db3"));
                 }
                 return database;
             }
