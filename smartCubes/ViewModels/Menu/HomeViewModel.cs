@@ -32,7 +32,6 @@ namespace smartCubes.ViewModels.Menu
         }
 
         private ObservableCollection<SessionModel> _lSessions;
-
         public ObservableCollection<SessionModel> lSessions
         {
             get
@@ -47,7 +46,6 @@ namespace smartCubes.ViewModels.Menu
         }
 
         private SessionModel _SelectItem;
-
         public SessionModel SelectItem
         {
             get
@@ -62,7 +60,6 @@ namespace smartCubes.ViewModels.Menu
         }
 
         private bool _isRefreshing = false;
-
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -74,7 +71,6 @@ namespace smartCubes.ViewModels.Menu
         } 
 
         private bool _isVisibleList = false;
-
         public bool isVisibleList
         {
             get { return _isVisibleList; }
@@ -86,7 +82,6 @@ namespace smartCubes.ViewModels.Menu
         } 
 
         private bool _isVisibleLabel = false;
-
         public bool isVisibleLabel
         {
             get { return _isVisibleLabel; }
@@ -98,7 +93,6 @@ namespace smartCubes.ViewModels.Menu
         } 
 
         private bool _Loading = true;
-
         public bool Loading
         {
             get { return _Loading; }
@@ -110,7 +104,6 @@ namespace smartCubes.ViewModels.Menu
         }
 
         private ICommand _OnItemTapped;
-
         public ICommand OnItemTapped
         {
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(()  =>  OnItemTappedExecute())); }
@@ -128,17 +121,19 @@ namespace smartCubes.ViewModels.Menu
             {
 
                 Loading = true;
-                await Task.Delay(500);
-                SessionModel item = SelectItem;
-                SelectItem = null;
-                try
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await Navigation.PushModalAsync(new PlaySessionView(item));
-                }
-                finally
-                {
-                    Loading = false;
-                }
+                    SessionModel item = SelectItem;
+                    SelectItem = null;
+                    try
+                    {
+                        await Navigation.PushModalAsync(new PlaySessionView(item));
+                    }
+                    finally
+                    {
+                        Loading = false;
+                    }
+                });
              
             }
         }

@@ -13,6 +13,7 @@ namespace smartCubes.Models
         public String Name { get; set; }
         public String State { get; set; }
         public String Service { get; set; }
+        public String Characteristic { get; set; }
     }
 }
 

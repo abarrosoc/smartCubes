@@ -21,11 +21,11 @@ namespace smartCubes.ViewModels.Session
 {
     public class PlaySessionViewModel : BaseViewModel
     {
-        private const String INICIAR = "Iniciar";
-        private const String REANUDAR = "Reanudar";
-        private const String DETENER = "Detener";
-        private const String FINALIZAR = "Finalizar";
-        private const String PAUSAR = "Pausar";
+        private const string INICIAR = "Iniciar";
+        private const string REANUDAR = "Reanudar";
+        private const string DETENER = "Detener";
+        private const string FINALIZAR = "Finalizar";
+        private const string PAUSAR = "Pausar";
 
 
         private SessionModel session;
@@ -36,6 +36,8 @@ namespace smartCubes.ViewModels.Session
         private SessionInit sessionInit;
         private IAdapter adapter;
         private INavigation Navigation;
+        private CancellationToken token;
+        private CancellationTokenSource source;
 
         private List<DeviceData> lDeviceData;
         private List<ICharacteristic> characteristics;
@@ -56,6 +58,10 @@ namespace smartCubes.ViewModels.Session
             lDeviceData = new List<DeviceData>();
             characteristics = new List<ICharacteristic>();
 
+            source = new CancellationTokenSource();
+            token.WaitHandle.WaitOne(TimeSpan.FromSeconds(5));
+            token = source.Token;
+
             Title = session.Name;
             ActivityName = session.ActivityName;
 
@@ -71,7 +77,7 @@ namespace smartCubes.ViewModels.Session
 
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await InitBLEConexion();
+                await InitBLEConexion(token);
             });
             
 
@@ -92,9 +98,9 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _StudentCode;
+        private string _StudentCode;
 
-        public String StudentCode
+        public string StudentCode
         {
             get
             {
@@ -107,9 +113,9 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _ColorFrame;
+        private string _ColorFrame;
 
-        public String ColorFrame
+        public string ColorFrame
         {
             get
             {
@@ -122,9 +128,9 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _Minutes;
+        private string _Minutes;
 
-        public String Minutes
+        public string Minutes
         {
             get
             {
@@ -137,9 +143,9 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _Seconds;
+        private string _Seconds;
 
-        public String Seconds
+        public string Seconds
         {
             get
             {
@@ -152,9 +158,9 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _Milliseconds;
+        private string _Milliseconds;
 
-        public String Milliseconds
+        public string Milliseconds
         {
             get
             {
@@ -167,9 +173,9 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _StartStop;
+        private string _StartStop;
 
-        public String StartStop
+        public string StartStop
         {
             get
             {
@@ -181,9 +187,9 @@ namespace smartCubes.ViewModels.Session
                 RaisePropertyChanged();
             }
         }
-        private String _ActivityName;
+        private string _ActivityName;
 
-        public String ActivityName
+        public string ActivityName
         {
             get
             {
@@ -328,7 +334,9 @@ namespace smartCubes.ViewModels.Session
                 if (answer)
                 {
                     Loading = true;
-                    await Connect();
+                    source = new CancellationTokenSource();
+                    token = source.Token;
+                    await Connect(token);
                 }
 
                 Loading = false;
@@ -381,14 +389,15 @@ namespace smartCubes.ViewModels.Session
             StudentCode = null;
         }
 
-        /***************************************************
+        /*
+         ***************************************************
          ***************************************************
          ********** CONEXION DISPOSITIVOS BLE **************
          ***************************************************
-         ***************************************************/
+         ***************************************************
+         */
 
-
-        private async Task InitBLEConexion()
+        private async Task InitBLEConexion(CancellationToken token )
         {
 
             IBluetoothLE ble = CrossBluetoothLE.Current;
@@ -399,7 +408,7 @@ namespace smartCubes.ViewModels.Session
             {
                 if (ble.State.Equals(BluetoothState.On))
                 {
-                    await Connect();
+                    await Connect(token);
                 }
                 else if (ble.State.Equals(BluetoothState.TurningOff))
                 {
@@ -409,10 +418,10 @@ namespace smartCubes.ViewModels.Session
             };
             if (ble.State.Equals(BluetoothState.On))
             {
-                await Connect();
+                await Connect(token);
             }
         }
-        private async Task Connect()
+        private async Task Connect(CancellationToken token)
         {
             await SubscribeEvents();
 
@@ -420,8 +429,7 @@ namespace smartCubes.ViewModels.Session
             {
                 await Task.Run(async () =>
                  {
-                     CancellationTokenSource source = new CancellationTokenSource();
-                     CancellationToken token = source.Token;
+  
 
                      await ConnectDevice(device, token);
                  });
@@ -431,11 +439,11 @@ namespace smartCubes.ViewModels.Session
         {
             try
             {
-                if(adapter.ConnectedDevices.ToList().Find(d => d.Name.Equals(device.Name)) == null)
+                if(adapter.ConnectedDevices.ToList().Find(d => d.Name != null && d.Name.Equals(device.Name)) == null)
                 {
                     var connectedDevice = await adapter.ConnectToKnownDeviceAsync(Guid.Parse(device.Uuid), new ConnectParameters(false,false), cancellationToken);
                     var service = await connectedDevice.GetServiceAsync(Guid.Parse(device.Service));
-                    var characteristic = await service.GetCharacteristicAsync(Guid.Parse("0000ffe1-0000-1000-8000-00805f9b34fb"));
+                    var characteristic = await service.GetCharacteristicAsync(Guid.Parse(device.Characteristic));
 
                     UnicodeEncoding uniencoding = new UnicodeEncoding();
                     byte[] zero = uniencoding.GetBytes("0");
@@ -448,14 +456,14 @@ namespace smartCubes.ViewModels.Session
                     {
                         byte[] valueBytes = a.Characteristic.Value;
 
-                        String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
+                        string data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
 
                         DeviceData deviceData = new DeviceData();
                         deviceData.DeviceName = connectedDevice.Name;
                         deviceData.Data = valueBytes;
                         lDeviceData.Add(deviceData);
 
-                        Debug.WriteLine(data, "X2 Leyendo datos de " + connectedDevice.Name + ": ");
+                        Debug.WriteLine(data, "Leyendo datos de " + connectedDevice.Name + ": ");
                     };
                     characteristics.Add(characteristic);
 
@@ -471,6 +479,10 @@ namespace smartCubes.ViewModels.Session
                     Loading = false;
                 });
             }
+            catch (OperationCanceledException e)
+            {
+                Console.WriteLine("Las tareas han sido canceladas");
+            }
             catch (Exception e)
             {
                 Device.BeginInvokeOnMainThread(async () =>
@@ -480,6 +492,7 @@ namespace smartCubes.ViewModels.Session
                     Loading = false;
                 });
             }
+            
         }
         private async Task SubscribeEvents()
         {
@@ -498,6 +511,7 @@ namespace smartCubes.ViewModels.Session
                 Debug.WriteLine("ERROR: " + er.Message);
             }
         }
+
         private void LostDeviceEvent(object sender, DeviceErrorEventArgs e)
         {
             if (!StartStop.Equals(INICIAR))
@@ -563,8 +577,9 @@ namespace smartCubes.ViewModels.Session
             characteristics = new List<ICharacteristic>();
             adapter.DeviceConnectionLost -= LostDeviceEvent;
             adapter.DeviceConnected -= DeviceConnectedEvent;
-        }
 
+            source.Cancel();
+        }
 
         public void WriteDevices(String number)
         {

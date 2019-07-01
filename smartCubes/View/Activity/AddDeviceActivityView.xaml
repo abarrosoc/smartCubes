@@ -10,16 +10,16 @@
               
                 <ListView.Header>
                     <StackLayout>
-                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="380" Margin="0,20,0,0">
+                        <TableView Intent="Form" HasUnevenRows="True" BackgroundColor="White" HeightRequest="480" Margin="0,20,0,0">
                             <TableRoot>
                                 <TableSection Title="Nuevo dispositivo">
-                                    <ViewCell Height="270">
+                                    <ViewCell Height="370">
                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" Margin="20,0">
                                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                                            <Label Text="Nombre" TextColor="#657786" FontSize="Medium" Margin="0,40,60,0" />
+                                                            <Label Text="Nombre" TextColor="#657786" FontSize="Medium" Margin="0,40,90,0" />
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                             <Entry Placeholder="Nombre" Text="{Binding NameDevice}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
@@ -27,7 +27,7 @@
                                                     </StackLayout>
                                                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                                            <Label Text="UUID" TextColor="#657786" FontSize="Medium" Margin="0,40,80,0" />
+                                                            <Label Text="UUID" TextColor="#657786" FontSize="Medium" Margin="0,40,110,0" />
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                             <Entry Placeholder="UUID" Text="{Binding Uuid}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
@@ -39,6 +39,14 @@
                                                         </StackLayout>
                                                         <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
                                                             <Entry Placeholder="UUID Servicio" Text="{Binding UuidService}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
+                                                        </StackLayout>
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,0">
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                                            <Label Text="UUID Característica" TextColor="#657786" FontSize="Medium" Margin="0,40,60,0" />
+                                                        </StackLayout>
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                                            <Entry Placeholder="UUID Característica" Text="{Binding UuidCharacteristic}" Margin="0,30,0,0" Keyboard="Text" MaxLength="50" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </StackLayout>

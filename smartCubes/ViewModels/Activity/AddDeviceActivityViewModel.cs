@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Plugin.BLE.Abstractions;
 using smartCubes.Models;
@@ -42,7 +43,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private ObservableCollection<DeviceModel> _lDevices;
-
         public ObservableCollection<DeviceModel> lDevices
         {
             get
@@ -57,7 +57,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private string _NameDevice;
-
         public string NameDevice
         {
             get
@@ -98,6 +97,20 @@ namespace smartCubes.ViewModels.User
             }
         }
 
+        private string _UuidCharacteristic;
+        public string UuidCharacteristic
+        {
+            get
+            {
+                return _UuidCharacteristic;
+            }
+            set
+            {
+                _UuidCharacteristic = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ICommand _addDeviceCommand;
 
         public ICommand AddDeviceCommand
@@ -116,11 +129,34 @@ namespace smartCubes.ViewModels.User
             {
                  Application.Current.MainPage.DisplayAlert("Atención", "Ya existe un dispositivo con el mismo nombre", "Aceptar");
             }
-            else { 
+            else
+            {
+
+                String regexUuid = "[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}";
+
+                if (!Regex.IsMatch(Uuid, regexUuid))
+                {
+                    Application.Current.MainPage.DisplayAlert("Atención", "El Uuid del dispositivo no cumple con el formato", "Aceptar");
+                    return;
+                }
+
+                if (!Regex.IsMatch(UuidService, regexUuid))
+                {
+                    Application.Current.MainPage.DisplayAlert("Atención", "El Uuid del servicio no cumple con el formato", "Aceptar");
+                    return;
+                }
+
+                if (!Regex.IsMatch(UuidCharacteristic, regexUuid))
+                {
+                    Application.Current.MainPage.DisplayAlert("Atención", "El Uuid de ña característica no cumple con el formato", "Aceptar");
+                    return;
+                }
+
                 DeviceModel newDevice = new DeviceModel();
                 newDevice.Name = NameDevice;
                 newDevice.Uuid = Uuid;
                 newDevice.Service = UuidService;
+                newDevice.Characteristic = UuidCharacteristic;
                 newDevice.State = DeviceState.Disconnected.ToString();
                 lDevices.Add(newDevice);
                 NameDevice = null;
@@ -128,6 +164,7 @@ namespace smartCubes.ViewModels.User
                 UuidService = null;
             }
         }
+
         private ICommand _deleteDeviceCommand;
         public ICommand DeleteDeviceCommand
         {
@@ -139,12 +176,10 @@ namespace smartCubes.ViewModels.User
         }
 
         private ICommand _nextCommand;
-
         public ICommand NextCommand
         {
             get { return _nextCommand ?? (_nextCommand = new Command(() => NextCommandExecute())); }
         }
-
         private async void NextCommandExecute()
         {
             if (lDevices.Count == 0)

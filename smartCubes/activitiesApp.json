@@ -107,28 +107,32 @@
           "Uuid": "00000000-0000-0000-0000-3ca3089865e6",
           "Name": "Cube2",
           "State": "Disconnected",
-		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb",
+		  "Characteristic": "0000ffe1-0000-1000-8000-00805f9b34fb"
         },
 		{
           "ID": 2,
           "Uuid": "00000000-0000-0000-0000-3ca308986acd",
           "Name": "Cube3",
           "State": "Disconnected",
-		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb",
+		  "Characteristic": "0000ffe1-0000-1000-8000-00805f9b34fb"
         },
 		{
           "ID": 3,
           "Uuid": "00000000-0000-0000-0000-3ca3089e2a6e",
           "Name": "Cube4",
           "State": "Disconnected",
-		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb",
+		  "Characteristic": "0000ffe1-0000-1000-8000-00805f9b34fb"
         },
 		{
           "ID": 4,
           "Uuid": "00000000-0000-0000-0000-3ca3089f97be",
           "Name": "Cube1",
           "State": "Disconnected",
-		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb",
+		  "Characteristic": "0000ffe1-0000-1000-8000-00805f9b34fb"
         }
       ]
 
@@ -240,14 +244,16 @@
           "Uuid": "00000000-0000-0000-0000-3ca3089865e6",
           "Name": "Cube2",
           "State": "Disconnected",
-		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb",
+		  "Characteristic": "0000ffe1-0000-1000-8000-00805f9b34fb"
         },
 		{
           "ID": 2,
           "Uuid": "00000000-0000-0000-0000-3ca308986acd",
           "Name": "Cube3",
           "State": "Disconnected",
-		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb"
+		  "Service": "0000ffe0-0000-1000-8000-00805f9b34fb",
+		  "Characteristic": "0000ffe1-0000-1000-8000-00805f9b34fb"
         }
       ]
 

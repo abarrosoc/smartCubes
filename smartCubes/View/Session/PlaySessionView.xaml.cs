@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
@@ -10,6 +11,7 @@ using Xamarin.Forms;
 
 namespace smartCubes.View.Session
 {
+
     public partial class PlaySessionView : ContentPage
     {
         public PlaySessionView()
@@ -21,7 +23,6 @@ namespace smartCubes.View.Session
         public PlaySessionView(SessionModel session)
         {
             InitializeComponent();
-  
             BindingContext = new PlaySessionViewModel(session, this.Navigation);
         }
 
