@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
-using Prism.Navigation;
 using smartCubes.Models;
-using smartCubes.Utils;
-using smartCubes.View.Login;
 using smartCubes.View.Session;
 using Xamarin.Forms;
 
@@ -18,12 +14,12 @@ namespace smartCubes.ViewModels.Menu
     {
         public INavigation Navigation { get; set; }
 
-        private UserModel user;
+        private UserModel User;
 
         public HomeViewModel(INavigation navigation, UserModel user)
         {
-            this.Navigation = navigation;
-            this.user = user;
+            Navigation = navigation;
+            User = user;
             isVisibleLabel = false;
             isVisibleList = false;
             Title = "Inicio";
@@ -119,22 +115,12 @@ namespace smartCubes.ViewModels.Menu
             }
             else
             {
-
                 Loading = true;
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    SessionModel item = SelectItem;
-                    SelectItem = null;
-                    try
-                    {
-                        await Navigation.PushModalAsync(new PlaySessionView(item));
-                    }
-                    finally
-                    {
-                        Loading = false;
-                    }
-                });
-             
+                await Task.Delay(200);
+                SessionModel item = SelectItem;
+                SelectItem = null;
+                await Navigation.PushModalAsync(new PlaySessionView(item));
+                Loading = false;
             }
         }
        
@@ -145,9 +131,7 @@ namespace smartCubes.ViewModels.Menu
                 return new Command(() =>
                 {
                     IsRefreshing = true;
-
                     RefreshData();
-
                     IsRefreshing = false;
                 });
             }
@@ -156,7 +140,7 @@ namespace smartCubes.ViewModels.Menu
         public void RefreshData()
         {
             lSessions = new ObservableCollection<SessionModel>();
-            List<SessionModel> listSessions = App.Database.GetSessionsByUser(user);
+            List<SessionModel> listSessions = App.Database.GetSessionsByUser(User);
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);
@@ -172,7 +156,6 @@ namespace smartCubes.ViewModels.Menu
                 isVisibleList = false;
             }
         }
-    }
-       
+    } 
 }
 

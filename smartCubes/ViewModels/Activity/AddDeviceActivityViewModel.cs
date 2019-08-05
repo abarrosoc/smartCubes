@@ -121,7 +121,7 @@ namespace smartCubes.ViewModels.User
         {
             List<DeviceModel> lDevicesTemp = new List<DeviceModel>(lDevices);
 
-            if(String.IsNullOrEmpty(NameDevice) || String.IsNullOrEmpty(Uuid) || String.IsNullOrEmpty(UuidService))
+            if(string.IsNullOrEmpty(NameDevice) || string.IsNullOrEmpty(Uuid) || string.IsNullOrEmpty(UuidService))
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
             }
@@ -131,8 +131,7 @@ namespace smartCubes.ViewModels.User
             }
             else
             {
-
-                String regexUuid = "[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}";
+                string regexUuid = "[0-9a-zA-Z]{8}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{12}";
 
                 if (!Regex.IsMatch(Uuid, regexUuid))
                 {

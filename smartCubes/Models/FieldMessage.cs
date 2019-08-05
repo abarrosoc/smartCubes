@@ -3,8 +3,8 @@ namespace smartCubes.Models
 {
     public class FieldMessage
     {
-        public String Description { get; set; }
+        public string Description { get; set; }
         public int Bytes { get; set; }
-        public String Format { get; set; }
+        public string Format { get; set; }
     }
 }

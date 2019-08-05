@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using smartCubes.Enum;
 using smartCubes.Models;
@@ -18,7 +16,6 @@ namespace smartCubes.ViewModels.Menu
     {
         public INavigation Navigation { get; set; }
         private UserModel UserLogin;
-
 
         public MasterViewModel(INavigation navigation,UserModel userLogin)
         {
@@ -59,7 +56,7 @@ namespace smartCubes.ViewModels.Menu
             }
             lMenu.Add(new MasterPageItem
             {
-                Title = "Cerrar sesión",
+                Title = "Logout",
                 IconSource = "exit.png",
                 TargetType = typeof(LoginView)
             });
@@ -95,9 +92,9 @@ namespace smartCubes.ViewModels.Menu
                 RaisePropertyChanged();
             }
         }
-        private String _Letter;
+        private string _Letter;
 
-        public String Letter
+        public string Letter
         {
             get
             {

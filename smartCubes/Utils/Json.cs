@@ -1,11 +1,8 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Reflection;
 using System.IO;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using smartCubes.Models;
-using System.Collections.ObjectModel;
 
 namespace smartCubes.Utils
 {
@@ -14,24 +11,22 @@ namespace smartCubes.Utils
         public Json()
         {
         }
-
-        internal static ActivitiesModel getActivities()
+        internal static ActivitiesModel GetActivities()
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var filename = Path.Combine(documents, "ActivitiesApp.json");
             if (!File.Exists(filename))
-                loadActivities();
+                LoadActivities();
             var text = File.ReadAllText(filename);
 
             ActivitiesModel list = JsonConvert.DeserializeObject<ActivitiesModel>(text);
             return list;
         }
-        internal static ActivityModel getActivityByName(String activityName)
+
+        internal static ActivityModel GetActivityByName(String activityName)
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var filename = Path.Combine(documents, "ActivitiesApp.json");
-            //if (File.Exists(filename))
-            //     Console.WriteLine("existe");
             var text = File.ReadAllText(filename);
 
             ActivitiesModel list = JsonConvert.DeserializeObject<ActivitiesModel>(text);
@@ -42,9 +37,10 @@ namespace smartCubes.Utils
             }
             return null;
         }
-        internal static bool addActivity(ActivityModel activity)
+
+        internal static bool AddActivity(ActivityModel activity)
         {
-            ActivitiesModel activities = getActivities();
+            ActivitiesModel activities = GetActivities();
             foreach (ActivityModel act in activities.Activities)
             {
                 if (act.Name.Equals(activity.Name))
@@ -62,9 +58,9 @@ namespace smartCubes.Utils
             return true;
         }
 
-        internal static bool updateActivity(ActivityModel activity)
+        internal static bool UpdateActivity(ActivityModel activity)
         {
-            ActivitiesModel activities = getActivities();
+            ActivitiesModel activities = GetActivities();
             foreach (ActivityModel activityOriginal in activities.Activities)
             {
                 if (activityOriginal.Id.Equals(activity.Id))
@@ -85,10 +81,10 @@ namespace smartCubes.Utils
 
         }
 
-        internal static bool deleteActivity(ActivityModel activity)
+        internal static bool DeleteActivity(ActivityModel activity)
         {
             ActivityModel activityRemove = null;
-            ActivitiesModel activities = getActivities();
+            ActivitiesModel activities = GetActivities();
             foreach (ActivityModel act in activities.Activities)
             {
                 if (act.Id == activity.Id)
@@ -108,14 +104,14 @@ namespace smartCubes.Utils
             return true;
         }
 
-        internal static void deleteFilesActivities()
+        internal static void DeleteFilesActivities()
         {
             var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             var filename = Path.Combine(documents, "ActivitiesApp.json");
             if (File.Exists(filename))
                 File.Delete(filename);
         }
-        internal static void loadActivities()
+        internal static void LoadActivities()
         {
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Json)).Assembly;
             Stream stream = assembly.GetManifestResourceStream("smartCubes.ActivitiesApp.json");

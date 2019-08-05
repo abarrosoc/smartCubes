@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SQLite;
+﻿using SQLite;
 using SQLiteNetExtensions.Attributes;
 
 namespace smartCubes.Models
@@ -12,7 +10,7 @@ namespace smartCubes.Models
         public int ID { get; set; }
         [ForeignKey(typeof(SessionInit))] 
         public int SessionInitId { get; set; }
-        public String DeviceName { get; set; }
+        public string DeviceName { get; set; }
         public byte[] Data { get; set; }
     }
 }

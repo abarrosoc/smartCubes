@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="smartCubes.View.Menu.Home" 
-             xmlns:local="clr-namespace:smartCubes;assembly=smartCubes" 
              xmlns:behavior="clr-namespace:Prism.Behaviors;assembly=Prism.Forms" 
              Title="{Binding Title}"
              BackgroundColor="White">

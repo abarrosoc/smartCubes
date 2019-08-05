@@ -1,10 +1,8 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using smartCubes.Models;
 using System.Collections.ObjectModel;
 using smartCubes.Utils;
 using System.Windows.Input;
-using System.Diagnostics;
 using smartCubes.View.Activity;
 
 namespace smartCubes.ViewModels.Activity
@@ -16,7 +14,7 @@ namespace smartCubes.ViewModels.Activity
         public ActivityViewModel(INavigation navigation)
         {
             Title = "Actividades";
-            this.Navigation = navigation;
+            Navigation = navigation;
 
             RefreshData();
             
@@ -98,7 +96,7 @@ namespace smartCubes.ViewModels.Activity
 
             if (answer)
             {
-                bool isDeleted = Json.deleteActivity(activity);
+                bool isDeleted = Json.DeleteActivity(activity);
                 if(isDeleted){
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha eliminado", "Aceptar");
                     RefreshData();
@@ -151,7 +149,7 @@ namespace smartCubes.ViewModels.Activity
  
         public void RefreshData()
         {
-            ActivitiesModel activities = Json.getActivities();
+            ActivitiesModel activities = Json.GetActivities();
             lActivities = new ObservableCollection<ActivityModel>();
 
             foreach (ActivityModel activity in activities.Activities)

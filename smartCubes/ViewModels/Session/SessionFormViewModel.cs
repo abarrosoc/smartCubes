@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -12,18 +11,18 @@ namespace smartCubes.ViewModels.Session
     public class EditSessionViewModel : BaseViewModel
     {
         public INavigation Navigation { get; set; }
-        private UserModel user;
-        private bool modify;
-        private SessionModel session;
+        private UserModel User;
+        private bool Modify;
+        private SessionModel Session;
 
         public EditSessionViewModel(INavigation navigation, UserModel user,bool modify,SessionModel session)
         {
-            this.Navigation = navigation;
-            this.user = user;
-            this.modify = modify;
-            this.session = session;
+            Navigation = navigation;
+            User = user;
+            Modify = modify;
+            Session = session;
                 
-            ActivitiesModel activities = Json.getActivities();
+            ActivitiesModel activities = Json.GetActivities();
             lActivities = new ObservableCollection<ActivityModel>();
             foreach (ActivityModel activity in activities.Activities)
                 lActivities.Add(activity);
@@ -34,7 +33,7 @@ namespace smartCubes.ViewModels.Session
             {
                 Name = session.Name;
                 Description = session.Description;
-                ActivityModel activitySession = Json.getActivityByName(session.ActivityName);
+                ActivityModel activitySession = Json.GetActivityByName(session.ActivityName);
                 foreach (ActivityModel activity in activities.Activities){
                     if(activity.Name.Equals(activitySession.Name)){
                         SelectedActivity = activity;
@@ -47,13 +46,12 @@ namespace smartCubes.ViewModels.Session
             else{
                 Title = "Nueva sesión";
                 isVisible = false;
-                Name = getNameNewSession();
+                Name = GetNameNewSession();
             }
         }
 
-        private String _Name;
-
-        public String Name
+        private string _Name;
+        public string Name
         {
             get
             {
@@ -66,9 +64,8 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        private String _Description;
-
-        public String Description
+        private string _Description;
+        public string Description
         {
             get
             {
@@ -82,7 +79,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private ActivityModel _SelectedActivity;
-
         public ActivityModel SelectedActivity
         {
             get
@@ -96,7 +92,6 @@ namespace smartCubes.ViewModels.Session
             }
         }
         private ObservableCollection<ActivityModel> _lActivities;
-
         public ObservableCollection<ActivityModel> lActivities
         {
             get
@@ -125,7 +120,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private bool _isRefreshing = false;
-
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -137,7 +131,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private bool _isVisible = false;
-
         public bool isVisible
         {
             get { return _isVisible; }
@@ -149,7 +142,6 @@ namespace smartCubes.ViewModels.Session
         } 
 
         private bool _isEnabledPicker = false;
-
         public bool isEnabledPicker
         {
             get { return _isEnabledPicker; }
@@ -158,7 +150,8 @@ namespace smartCubes.ViewModels.Session
                 _isEnabledPicker = value;
                 RaisePropertyChanged();
             }
-        } 
+        }
+
         private ICommand _saveCommand;
         public ICommand SaveCommand
         {
@@ -167,31 +160,35 @@ namespace smartCubes.ViewModels.Session
 
         private async void SaveCommandExecuteAsync()
         {
-            if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(SelectedActivity.Name))
+            if (SelectedActivity != null)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
             }
             else
             {
                 SessionModel newSession = new SessionModel();
-                if (modify)
-                    newSession.ID = session.ID;
+                if (Modify)
+                    newSession.ID = Session.ID;
                 newSession.Name = Name;
                 newSession.Description = Description;
                 newSession.ActivityName = SelectedActivity.Name;
-                if (!modify)
+                if (!Modify)
                     newSession.CreateDate = DateTime.Now;
                 else
-                    newSession.CreateDate = session.CreateDate;
+                    newSession.CreateDate = Session.CreateDate;
                 newSession.ModifyDate = DateTime.Now;
-                newSession.UserID = user.ID;
+                newSession.UserID = User.ID;
 
                 App.Database.SaveSession(newSession);
-  
-                if (modify)
+
+                if (Modify)
+                {
                     await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha modificado correctamente", "Aceptar");
+                }
                 else
+                {
                     await Application.Current.MainPage.DisplayAlert("Información", "La sesión se ha creado correctamente", "Aceptar");
+                }
 
                 await Navigation.PopAsync();
 
@@ -202,7 +199,6 @@ namespace smartCubes.ViewModels.Session
             }
         }
         private ICommand _DeleteCommand;
-
         public ICommand DeleteCommand
         {
             get { return _DeleteCommand ?? (_DeleteCommand = new Command<SessionInit>((session) => DeleteCommandExecute(session))); }
@@ -210,7 +206,6 @@ namespace smartCubes.ViewModels.Session
 
         private async void DeleteCommandExecute(SessionInit session)
         {
-
             var answer = await Application.Current.MainPage.DisplayAlert("Eliminar", "¿Desea eliminar el elemento?", "Si", "No");
 
             if (answer)
@@ -227,9 +222,7 @@ namespace smartCubes.ViewModels.Session
                 return new Command(() =>
                 {
                     IsRefreshing = true;
-
                     RefreshData();
-
                     IsRefreshing = false;
                 });
             }
@@ -238,7 +231,7 @@ namespace smartCubes.ViewModels.Session
         private void RefreshData()
         {
             lSessionsInit = new ObservableCollection<SessionInit>();
-            List<SessionInit> sessionsInit = App.Database.GetSessionInit(session.ID);
+            List<SessionInit> sessionsInit = App.Database.GetSessionInit(Session.ID);
 
             if (sessionsInit.Count > 0){
                 isEnabledPicker = false;
@@ -250,8 +243,8 @@ namespace smartCubes.ViewModels.Session
                 lSessionsInit.Add(session);
 
         }
-        private String getNameNewSession(){
 
+        private string GetNameNewSession(){
             List<SessionModel> listSessions = App.Database.GetSessions();
             return "Sesión " + (listSessions.Count+1).ToString();
         }

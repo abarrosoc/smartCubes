@@ -67,8 +67,7 @@ namespace smartCubes.ViewModels.Session
 
             ResetChronometer();
 
-            currentActivity = Json.getActivityByName(session.ActivityName);
-
+            currentActivity = Json.GetActivityByName(session.ActivityName);
 
             lDevices = new List<DeviceModel>(currentActivity.Devices);
          
@@ -79,13 +78,10 @@ namespace smartCubes.ViewModels.Session
             {
                 await InitBLEConexion(token);
             });
-            
-
         }
 
-        private Boolean _StudentCodeEntry;
-
-        public Boolean StudentCodeEntry
+        private bool _StudentCodeEntry;
+        public bool StudentCodeEntry
         {
             get
             {
@@ -99,7 +95,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private string _StudentCode;
-
         public string StudentCode
         {
             get
@@ -114,7 +109,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private string _ColorFrame;
-
         public string ColorFrame
         {
             get
@@ -129,7 +123,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private string _Minutes;
-
         public string Minutes
         {
             get
@@ -144,7 +137,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private string _Seconds;
-
         public string Seconds
         {
             get
@@ -159,7 +151,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private string _Milliseconds;
-
         public string Milliseconds
         {
             get
@@ -174,7 +165,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private string _StartStop;
-
         public string StartStop
         {
             get
@@ -188,7 +178,6 @@ namespace smartCubes.ViewModels.Session
             }
         }
         private string _ActivityName;
-
         public string ActivityName
         {
             get
@@ -203,7 +192,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private bool _Loading;
-
         public bool Loading
         {
             get
@@ -230,7 +218,7 @@ namespace smartCubes.ViewModels.Session
                 return;
             }
 
-            if (!isAllConnectedDevices(lDevices))
+            if (!IsAllConnectedDevices(lDevices))
             {
                await Application.Current.MainPage.DisplayAlert("Atención", "Hay dispositivos que no están conectados. Por favor, pulse el botón reconnectar", "Aceptar");
                return;
@@ -253,6 +241,7 @@ namespace smartCubes.ViewModels.Session
                 StudentCodeEntry = true;
                 StartStop = INICIAR;
             }
+
             WriteDevices("1");
 
             Device.StartTimer(TimeSpan.FromMilliseconds(10), () =>
@@ -264,7 +253,7 @@ namespace smartCubes.ViewModels.Session
                 }
                 else
                 {
-                    intMilliseconds = intMilliseconds + 10;
+                    intMilliseconds += 10;
 
                     if (intMilliseconds == 1000)
                     {
@@ -328,7 +317,7 @@ namespace smartCubes.ViewModels.Session
 
         private async void OnTapGestureRecognizerTappedReconnectExecute()
         {
-            if (!isAllConnectedDevices(lDevices))
+            if (!IsAllConnectedDevices(lDevices))
             {
                 var answer = await Application.Current.MainPage.DisplayAlert("Atención", "¿Desea volver a intentar conectar con los dispositivos? ", "Si", "No");
                 if (answer)
@@ -341,7 +330,7 @@ namespace smartCubes.ViewModels.Session
 
                 Loading = false;
             }
-            else if (isAllConnectedDevices(lDevices))
+            else if (IsAllConnectedDevices(lDevices))
             {
                 await Application.Current.MainPage.DisplayAlert("Información", "Todos los dispositivos están conectados", "Aceptar");
             }
@@ -389,17 +378,15 @@ namespace smartCubes.ViewModels.Session
             StudentCode = null;
         }
 
-        /*
-         ***************************************************
-         ***************************************************
-         ********** CONEXION DISPOSITIVOS BLE **************
-         ***************************************************
-         ***************************************************
-         */
+        /*___________________________________________________________________________________________
+         * 
+         * 
+         ************************************ CONEXIÓN BLE ******************************************
+         * 
+         * _________________________________________________________________________________________*/
 
         private async Task InitBLEConexion(CancellationToken token )
         {
-
             IBluetoothLE ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             adapter.ScanTimeout = 10000;
@@ -534,13 +521,13 @@ namespace smartCubes.ViewModels.Session
         }
         private void DeviceConnectedEvent(object sender, EventArgs e)
         {
-            if (isAllConnectedDevices(lDevices))
+            if (IsAllConnectedDevices(lDevices))
             {
                 ColorFrame = "#3faf83";
                 Loading = false;
             }
         }
-        
+      
         public async Task DisconnectAll()
         {
             foreach (IDevice device in adapter.ConnectedDevices)
@@ -615,7 +602,7 @@ namespace smartCubes.ViewModels.Session
             }
         }
 
-        public bool isAllConnectedDevices(List<DeviceModel> lDevicesActivity)
+        public bool IsAllConnectedDevices(List<DeviceModel> lDevicesActivity)
         {
             if (adapter.ConnectedDevices.Count() == lDevicesActivity.Count())
             {

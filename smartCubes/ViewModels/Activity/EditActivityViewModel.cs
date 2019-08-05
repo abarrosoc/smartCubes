@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
 using smartCubes.View.Activity;
@@ -32,9 +31,9 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-        private String _Name;
+        private string _Name;
 
-        public String Name
+        public string Name
         {
             get
             {
@@ -47,9 +46,9 @@ namespace smartCubes.ViewModels.Activity
             }
         }
 
-        private String _Description;
+        private string _Description;
 
-        public String Description
+        public string Description
         {
             get
             {
@@ -85,10 +84,10 @@ namespace smartCubes.ViewModels.Activity
 
         private async void NextCommandExecute()
         {
-            if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Description))
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Description))
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
-            } else if (!Modify && Json.getActivityByName(Name) != null)
+            } else if (!Modify && Json.GetActivityByName(Name) != null)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Ya existe una actividad con el mismo nombre", "Aceptar");
             }
@@ -110,11 +109,6 @@ namespace smartCubes.ViewModels.Activity
                 }
             }
         }
-
-
-
-
-
     }
 }
 

@@ -9,25 +9,27 @@ namespace smartCubes.ViewModels.Activity
 {
     public class AddFieldsPopUpViewModel : BaseViewModel
     {
-        public AddMessageActivityViewModel addMessageActivityViewModel { get; set; }
+        public AddMessageActivityViewModel AddMessageActivityViewModel { get; set; }
 
-        private bool isModified { get; set; }
+        private bool IsModified { get; set; }
 
         public AddFieldsPopUpViewModel(AddMessageActivityViewModel addMessageActivityViewModel, bool isModified)
         {
-            this.isModified = isModified;
+            IsModified = isModified;
             lSizes = new ObservableCollection<int>();
             for (int i = 0; i < 33; i++)
             {
                 lSizes.Add(i);
             }
 
-            lFormats = new ObservableCollection<string>();
-            lFormats.Add("");
-            lFormats.Add("Tiempo");
-            lFormats.Add("Fecha");
+            lFormats = new ObservableCollection<string>
+            {
+                "",
+                "Tiempo",
+                "Fecha"
+            };
 
-            this.addMessageActivityViewModel = addMessageActivityViewModel;
+            this.AddMessageActivityViewModel = addMessageActivityViewModel;
 
             if (addMessageActivityViewModel.FieldsTemp.Count == 15)
             {
@@ -783,99 +785,99 @@ namespace smartCubes.ViewModels.Activity
         }
         private async void AddCommandExecute()
         {
-            addMessageActivityViewModel.FieldsTemp = new List<FieldMessage>();
+            AddMessageActivityViewModel.FieldsTemp = new List<FieldMessage>();
             FieldMessage fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize1;
             fieldTemp.Description = Field1;
             fieldTemp.Format = SelectFormat1;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize2;
             fieldTemp.Description = Field2;
             fieldTemp.Format = SelectFormat2;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize3;
             fieldTemp.Description = Field3;
             fieldTemp.Format = SelectFormat3;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize4;
             fieldTemp.Description = Field4;
             fieldTemp.Format = SelectFormat4;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize5;
             fieldTemp.Description = Field5;
             fieldTemp.Format = SelectFormat5;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize6;
             fieldTemp.Description = Field6;
             fieldTemp.Format = SelectFormat6;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize7;
             fieldTemp.Description = Field7;
             fieldTemp.Format = SelectFormat7;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize8;
             fieldTemp.Description = Field8;
             fieldTemp.Format = SelectFormat8;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize9;
             fieldTemp.Description = Field9;
             fieldTemp.Format = SelectFormat9;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize10;
             fieldTemp.Description = Field10;
             fieldTemp.Format = SelectFormat10;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize11;
             fieldTemp.Description = Field11;
             fieldTemp.Format = SelectFormat11;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize12;
             fieldTemp.Description = Field12;
             fieldTemp.Format = SelectFormat12;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize13;
             fieldTemp.Description = Field13;
             fieldTemp.Format = SelectFormat13;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize14;
             fieldTemp.Description = Field14;
             fieldTemp.Format = SelectFormat14;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             fieldTemp = new FieldMessage();
             fieldTemp.Bytes = SelectSize15;
             fieldTemp.Description = Field15;
             fieldTemp.Format = SelectFormat15;
-            addMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
+            AddMessageActivityViewModel.FieldsTemp.Add(fieldTemp);
 
             int totalSize = 0;
-            foreach(FieldMessage fieldSize in addMessageActivityViewModel.FieldsTemp)
+            foreach(FieldMessage fieldSize in AddMessageActivityViewModel.FieldsTemp)
             {
                 totalSize += fieldSize.Bytes;
             }
@@ -885,7 +887,7 @@ namespace smartCubes.ViewModels.Activity
                 await Application.Current.MainPage.DisplayAlert("Atención", "El tamaño máximo es de 20 bytes", "Aceptar");
             }
 
-            addMessageActivityViewModel.Size = totalSize.ToString();
+            AddMessageActivityViewModel.Size = totalSize.ToString();
             await PopupNavigation.Instance.PopAsync();
         }
 

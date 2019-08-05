@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using smartCubes.Enum;
+﻿using System.Collections.ObjectModel;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 
@@ -10,11 +8,11 @@ namespace smartCubes.Models
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-        public String UserName { get; set; }
-        public String Password { get; set; }
-        public String Role { get; set; }
-        public String Email { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+        public string Email { get; set; }
         [ManyToOne(CascadeOperations = CascadeOperation.All)]
-        public ObservableCollection<SessionModel> sessions { get; set; }
+        public ObservableCollection<SessionModel> Sessions { get; set; }
     }
 }

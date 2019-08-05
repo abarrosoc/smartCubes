@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -32,9 +30,9 @@ namespace smartCubes.ViewModels.Configuration
             }
         }
 
-        private String _SelectItem;
+        private string _SelectItem;
 
-        public String SelectItem
+        public string SelectItem
         {
             get
             {
@@ -60,7 +58,7 @@ namespace smartCubes.ViewModels.Configuration
             if (answer)
             {
                 App.Database.ResetDataBase();
-                Json.loadActivities();
+                Json.LoadActivities();
                 App.Current.MainPage = new LoginView();
 
             }

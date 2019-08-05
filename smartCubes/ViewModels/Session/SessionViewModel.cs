@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Input;
 using smartCubes.Models;
 using smartCubes.Utils;
 using smartCubes.View.Session;
 using Syncfusion.XlsIO;
-using Syncfusion.Drawing;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Linq;
@@ -31,7 +29,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private ObservableCollection<SessionModel> _lSessions;
-
         public ObservableCollection<SessionModel> lSessions
         {
             get
@@ -46,7 +43,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private SessionModel _SelectItem;
-
         public SessionModel SelectItem
         {
             get
@@ -61,7 +57,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private bool _isRefreshing = false;
-
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -73,7 +68,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private bool _isVisibleList = false;
-
         public bool isVisibleList
         {
             get { return _isVisibleList; }
@@ -85,7 +79,6 @@ namespace smartCubes.ViewModels.Session
         } 
 
         private bool _isVisibleLabel = false;
-
         public bool isVisibleLabel
         {
             get { return _isVisibleLabel; }
@@ -117,7 +110,6 @@ namespace smartCubes.ViewModels.Session
 
         private async void ExportCommandExecute(SessionModel session)
         {
-
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 Loading = true;
@@ -158,7 +150,7 @@ namespace smartCubes.ViewModels.Session
                         bodyStyle.EndUpdate();
 
                         //Access first worksheet from the workbook instance.
-                        ActivityModel activity = Json.getActivityByName(session.ActivityName);
+                        ActivityModel activity = Json.GetActivityByName(session.ActivityName);
 
                         int cont = 0;
                         foreach (SessionInit sessionInit in lSessionInit)
@@ -211,17 +203,10 @@ namespace smartCubes.ViewModels.Session
                             }
 
                             List<SessionData> sessionsData = App.Database.GetSessionData(sessionInit.ID);
-                            /*
-                            List<SessionData> s20 = new List<SessionData>();
-                            s20  =  sessionsData.FindAll(s => s.Data.Length == 20);
 
-                            List<SessionData> s9 = new List<SessionData>();
-                            s9 = sessionsData.FindAll(s => s.Data.Length == 9);
-                            */
                             int row = 10;
                             column = 1;
                             int numByte = 0;
-
 
                             for (int j = 0; j < sessionsData.Count; j++)
                             {
@@ -248,7 +233,7 @@ namespace smartCubes.ViewModels.Session
                                         numByte = 0;
                                         foreach (FieldMessage field in messageType1.Fields)
                                         {
-                                            String m = Convert.ToInt32(string.Concat(messageTemp.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
+                                            string m = Convert.ToInt32(string.Concat(messageTemp.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
                                             if (field.Format.Equals("Tiempo"))
                                             {
                                                 double millis = Convert.ToDouble(m);
@@ -272,7 +257,7 @@ namespace smartCubes.ViewModels.Session
                                     numByte = 0;
                                     foreach (FieldMessage field in messageType1.Fields)
                                     {
-                                        String m = Convert.ToInt32(string.Concat(sessionsData[j].Data.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
+                                        string m = Convert.ToInt32(string.Concat(sessionsData[j].Data.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
                                         worksheet[row, column].Value = m;
 
                                         column++;
@@ -285,13 +270,10 @@ namespace smartCubes.ViewModels.Session
                             worksheet.UsedRange.AutofitColumns();
                         }
 
-
-                        //Save the workbook to stream in xlsx format. 
                         MemoryStream stream = new MemoryStream();
                         workbook.SaveAs(stream);
                         workbook.Close();
 
-                        //Save the stream as a file in the device and invoke it for viewing
                         string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ", "") + ".xlsx", "application/msexcel", stream);
 
                         Mail mail = new Mail(filepath, user);
@@ -303,7 +285,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private ICommand _DeleteCommand;
-
         public ICommand DeleteCommand
         {
             get { return _DeleteCommand ?? (_DeleteCommand = new Command<SessionModel>((session) => DeleteCommandExecute(session))); }
@@ -323,7 +304,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private ICommand _NewSessionCommand;
-
         public ICommand NewSessionCommand
         {
             get { return _NewSessionCommand ?? (_NewSessionCommand = new Command(() => NewSessionCommandExecute())); }
@@ -336,7 +316,6 @@ namespace smartCubes.ViewModels.Session
         }
 
         private ICommand _OnItemTapped;
-
         public ICommand OnItemTapped
         {
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
@@ -358,9 +337,7 @@ namespace smartCubes.ViewModels.Session
                 return new Command(() =>
                 {
                     IsRefreshing = true;
-
                     RefreshData();
-
                     IsRefreshing = false;
                 });
             }

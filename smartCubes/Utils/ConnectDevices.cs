@@ -12,19 +12,18 @@ using Plugin.BLE.Abstractions.Exceptions;
 using smartCubes.Models;
 using System.Reactive.Linq;
 using Xamarin.Forms;
-using System.Threading;
 
 namespace smartCubes.Utils
 {
     public class ConnectDevices
     {
-        private DateTime datetime;
         private IAdapter adapter;
         private IBluetoothLE ble;
         private static List<DeviceData> lDeviceData;
         private List<IDevice> lDevicesConnected;
 
-        public String StudentCode { get; set; }
+        public string StudentCode { get; set; }
+
         public ConnectDevices()
         {
             InitBLE();
@@ -62,17 +61,14 @@ namespace smartCubes.Utils
 
             if (ble.IsAvailable && ble.IsOn)
             {
-                datetime = DateTime.Now;
-
                 try
                 {
-
                    adapter.DeviceDiscovered += async (s, a) =>
                     {
                         ActivityModel currentActivity = null;
                         try
                         {
-                            currentActivity = (ActivityModel) await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
+                            currentActivity = await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
                         }
                         catch(Exception e)
                         {
@@ -103,17 +99,15 @@ namespace smartCubes.Utils
                         ActivityModel currentActivity = null;
                         try
                         {
-                            currentActivity = (ActivityModel) await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
+                            currentActivity = await BlobCache.UserAccount.GetObject<ActivityModel>("currentActivity");
                         }
                         catch (Exception e)
                         {
                             Debug.WriteLine("Error al recuperar la actividad de la sesion: " + e.Message);
                         }
 
-                        if (!isAllConnectedDevices(currentActivity.Devices))
+                        if (!IsAllConnectedDevices(currentActivity.Devices))
                           await Application.Current.MainPage.DisplayAlert("Atención", "No se ha podido establecer conexión con el/los dispositivo/s. Compruebe que están disponibles y vuelva a intentarlo", "Aceptar");
-
-
                     };
                 }
                 catch (DeviceConnectionException er)
@@ -134,7 +128,7 @@ namespace smartCubes.Utils
             }
         }
 
-        public bool isAllConnectedDevices(List<DeviceModel> lDevicesActivity)
+        public bool IsAllConnectedDevices(List<DeviceModel> lDevicesActivity)
         {
             if (adapter.ConnectedDevices.Count() == lDevicesActivity.Count())
             {
@@ -144,8 +138,8 @@ namespace smartCubes.Utils
             {
                 return false;
             }
-                
         }
+
         private async Task ConnectDevice(IDevice deviceConnected, string service)
         {
             Debug.WriteLine("Intentando conexion con: " + deviceConnected.Name);
@@ -168,13 +162,12 @@ namespace smartCubes.Utils
                             customerService = iService;
                         }
                     }
-                    //if customerservice == null
-
 
                     var characteristics = await customerService.GetCharacteristicsAsync();
                     UnicodeEncoding uniencoding = new UnicodeEncoding();
                     byte[] one = uniencoding.GetBytes("0");
                     ICharacteristic characteristicRW = null;
+
                     //Buscamos la caracteristica que permite escribir, leer y actualizar
                     foreach (ICharacteristic characteristic in characteristics)
                     {
@@ -189,7 +182,7 @@ namespace smartCubes.Utils
                     {
                         byte[] valueBytes = a.Characteristic.Value;
 
-                        String data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
+                        string data = string.Concat(valueBytes.Select(b => b.ToString("X2")));
  
                         DeviceData deviceData = new DeviceData();
                         deviceData.DeviceName = deviceConnected.Name;
@@ -224,10 +217,12 @@ namespace smartCubes.Utils
 
             foreach (DeviceData deviceData in lDeviceData)
             {
-                SessionData sessionData = new SessionData();
-                sessionData.SessionInitId = sessionInit.ID;
-                sessionData.DeviceName = deviceData.DeviceName;
-                sessionData.Data = deviceData.Data;
+                SessionData sessionData = new SessionData
+                {
+                    SessionInitId = sessionInit.ID,
+                    DeviceName = deviceData.DeviceName,
+                    Data = deviceData.Data
+                };
                 App.Database.SaveSessionData(sessionData);
             }
         }

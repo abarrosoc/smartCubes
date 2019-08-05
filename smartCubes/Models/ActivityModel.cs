@@ -7,11 +7,10 @@ namespace smartCubes.Models
     public class ActivityModel
     {
         public long Id { get; set; }
-        public String Name { get; set; }
-        public String Description { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public List<DeviceModel> Devices { get; set; }
         public List<MessageDevice> Messages { get; set; }
-
 
     }
 }

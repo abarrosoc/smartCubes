@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace smartCubes.ViewModels
 {
@@ -11,10 +9,7 @@ namespace smartCubes.ViewModels
         {
         }
 
-        #region INotifyPropertyChanged implementation
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (PropertyChanged != null)
@@ -22,12 +17,7 @@ namespace smartCubes.ViewModels
                     new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
-
-        #region IsBusy
-
         private bool _IsBusy;
-
         public bool IsBusy
         {
             get
@@ -40,10 +30,6 @@ namespace smartCubes.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        #endregion
-
-        #region Title
 
         private string _Title;
 
@@ -59,9 +45,6 @@ namespace smartCubes.ViewModels
                 RaisePropertyChanged("Title");
             }
         }
-
-        #endregion
-
     }
 }
 

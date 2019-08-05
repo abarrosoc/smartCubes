@@ -5,7 +5,7 @@ namespace smartCubes.Models
 {
     public class MessageDevice
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
         public List<FieldMessage> Fields { get; set; }
     }
 }

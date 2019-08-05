@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using smartCubes.Enum;
 using smartCubes.Models;
@@ -15,18 +12,17 @@ namespace smartCubes.ViewModels.User
     {
         public INavigation Navigation { get; set; }
 
-        private UserModel userLogin { get; set; }
+        private UserModel UserLogin { get; set; }
         public UserViewModel(INavigation navigation, UserModel userLogin)
         {
-            this.Navigation = navigation;
-            this.userLogin = userLogin;
+            Navigation = navigation;
+            UserLogin = userLogin;
             Title = "Usuarios";
 
             RefreshData();
         }
 
         private ObservableCollection<UserModel> _lUsers;
-
         public ObservableCollection<UserModel> lUsers
         {
             get
@@ -49,10 +45,10 @@ namespace smartCubes.ViewModels.User
 
         private async void DeleteCommandExecute(UserModel user)
         {
-            if (user.Role.Equals(Role.Admin) && !userLogin.Role.Equals(Role.Admin)){
+            if (user.Role.Equals(Role.Admin) && !UserLogin.Role.Equals(Role.Admin)){
                 await Application.Current.MainPage.DisplayAlert("Advertencia", "No tiene permisos para eliminar este usuario", "Aceptar");
             }
-            else if(user.ID == userLogin.ID)
+            else if(user.ID == UserLogin.ID)
             {
                 await Application.Current.MainPage.DisplayAlert("Advertencia", "No puede eliminar su propio usuario", "Aceptar");
             }
@@ -69,8 +65,8 @@ namespace smartCubes.ViewModels.User
             }
            
         }
-        private UserModel _SelectItem;
 
+        private UserModel _SelectItem;
         public UserModel SelectItem
         {
             get
@@ -85,7 +81,6 @@ namespace smartCubes.ViewModels.User
         }
 
         private bool _isRefreshing = false;
-
         public bool IsRefreshing
         {
             get { return _isRefreshing; }
@@ -95,8 +90,8 @@ namespace smartCubes.ViewModels.User
                 RaisePropertyChanged(nameof(IsRefreshing));
             }
         }
-        private bool _isVisibleList = false;
 
+        private bool _isVisibleList = false;
         public bool isVisibleList
         {
             get { return _isVisibleList; }
@@ -108,7 +103,6 @@ namespace smartCubes.ViewModels.User
         } 
 
         private bool _isVisibleLabel = false;
-
         public bool isVisibleLabel
         {
             get { return _isVisibleLabel; }
@@ -120,7 +114,6 @@ namespace smartCubes.ViewModels.User
         } 
 
         private ICommand _NewUserCommand;
-
         public ICommand NewUserCommand
         {
             get { return _NewUserCommand ?? (_NewUserCommand = new Command(() => NewUserCommandExecute())); }
@@ -128,28 +121,29 @@ namespace smartCubes.ViewModels.User
 
         private void NewUserCommandExecute()
         {
-                Navigation.PushAsync(new NewUserView(Navigation, userLogin, false, null));
+                Navigation.PushAsync(new NewUserView(Navigation, UserLogin, false, null));
         }
 
         private ICommand _OnItemTapped;
-
         public ICommand OnItemTapped
         {
             get { return _OnItemTapped ?? (_OnItemTapped = new Command(() => OnItemTappedExecute())); }
         }
+
         private void OnItemTappedExecute()
         {
-            if (SelectItem.Role.Equals(Role.Admin) && !userLogin.Role.Equals(Role.Admin))
+            if (SelectItem.Role.Equals(Role.Admin) && !UserLogin.Role.Equals(Role.Admin))
             {
                 Application.Current.MainPage.DisplayAlert("Atención", "No tiene permisos para modificar este usuario", "Aceptar");
             }
             else
             {
-                Navigation.PushAsync(new NewUserView(Navigation, userLogin, true, SelectItem));
+                Navigation.PushAsync(new NewUserView(Navigation, UserLogin, true, SelectItem));
                 SelectItem = null;
             }
 
         }
+
         public ICommand RefreshCommand
         {
             get
@@ -157,9 +151,7 @@ namespace smartCubes.ViewModels.User
                 return new Command(() =>
                 {
                     IsRefreshing = true;
-
                     RefreshData();
-
                     IsRefreshing = false;
                 });
             }

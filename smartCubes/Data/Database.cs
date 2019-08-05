@@ -81,7 +81,11 @@ namespace smartCubes.Data
         }
 
 
-
+        /*---------------------------------------------------------------------
+         * 
+         *                              USERS
+         * 
+         ----------------------------------------------------------------------*/
         public List<UserModel> GetUsers()
         {
             return database.Table<UserModel>().ToList();
@@ -139,7 +143,11 @@ namespace smartCubes.Data
             return database.Table<SessionData>().ToList();
         }
 
-
+        /*---------------------------------------------------------------------
+        * 
+        *                              SESSION DATA
+        * 
+        ----------------------------------------------------------------------*/
         public int SaveSessionData(SessionData item)
         {
             if (item.ID != 0)
@@ -152,8 +160,11 @@ namespace smartCubes.Data
             }
         }
 
-
-
+        /*---------------------------------------------------------------------
+        * 
+        *                              SESSION INIT
+        * 
+        ----------------------------------------------------------------------*/
         public int DeleteSessionInit(SessionInit item)
         {
             DeleteSessionDataById(GetSessionData(item.ID));

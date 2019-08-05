@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using smartCubes.Models;
 using smartCubes.Utils;
@@ -173,7 +172,7 @@ namespace smartCubes.ViewModels.Activity
                     {
                         Activity.Messages.Add(message);
                     }
-                    Json.updateActivity(Activity);
+                    Json.UpdateActivity(Activity);
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha modificado correctamente", "Aceptar");
                 }
                 else
@@ -183,7 +182,7 @@ namespace smartCubes.ViewModels.Activity
                     {
                         Activity.Messages.Add(message);
                     }
-                    Json.addActivity(Activity);
+                    Json.AddActivity(Activity);
                     await Application.Current.MainPage.DisplayAlert("Información", "La actividad se ha creado correctamente", "Aceptar");
                 }
                 
