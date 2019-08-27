@@ -18,13 +18,11 @@ namespace smartCubes.ViewModels.Login
         {
             this.Navigation = navigation;
             Loading = false;
-
-          
         } 
 
-        private String _User;
+        private string _User;
 
-        public String User
+        public string User
         {
             get
             {
@@ -37,9 +35,9 @@ namespace smartCubes.ViewModels.Login
             }
         }
 
-        private String _Password;
+        private string _Password;
 
-        public String Password
+        public string Password
         {
             get
             {
@@ -84,7 +82,6 @@ namespace smartCubes.ViewModels.Login
                     statusLocation = requestedPermissionsLocation[Permission.Location];
                 }
 
-
                 if (statusLocation == PermissionStatus.Granted)
                 {
                     var statusStorage = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
@@ -110,7 +107,6 @@ namespace smartCubes.ViewModels.Login
                 {
                     await Application.Current.MainPage.DisplayAlert("Acceso denegado", "Es necesario aceptar los permisos para poder continuar", "Aceptar");
                     return;
-
                 }
             }
             catch (Exception ex)
@@ -128,6 +124,7 @@ namespace smartCubes.ViewModels.Login
                     if (App.Database.GetUsers().Count == 0)
                     {
                         App.Database.ResetDataBase();
+                        Json.LoadActivities();
                     }
                   //  UserModel user = App.Database.GetUsers()[0];
                   //  Application.Current.MainPage = new MainPage(user);
@@ -137,16 +134,16 @@ namespace smartCubes.ViewModels.Login
                         UserModel UserDb = App.Database.GetUser(User);
                         if (UserDb != null)
                         {
-                            String userPass = Crypt.Decrypt(UserDb.Password, "uah2019");
+                            string userPass = Crypt.Decrypt(UserDb.Password, "uah2019");
                             if (Password.Equals(userPass))
                             {
                                 Application.Current.MainPage = new MainPage(UserDb);
                                 login = true;
-                            }
-                           
+                            } 
                         }
                     }
                 });
+
                 if(login== false)
                 {
                     await Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");

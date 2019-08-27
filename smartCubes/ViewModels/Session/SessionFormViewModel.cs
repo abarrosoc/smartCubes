@@ -160,9 +160,9 @@ namespace smartCubes.ViewModels.Session
 
         private async void SaveCommandExecuteAsync()
         {
-            if (SelectedActivity != null)
+            if (SelectedActivity == null)
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar los campos obligatorios", "Aceptar");
             }
             else
             {

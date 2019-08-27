@@ -416,8 +416,6 @@ namespace smartCubes.ViewModels.Session
             {
                 await Task.Run(async () =>
                  {
-  
-
                      await ConnectDevice(device, token);
                  });
             }

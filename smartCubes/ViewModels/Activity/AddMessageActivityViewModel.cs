@@ -116,7 +116,7 @@ namespace smartCubes.ViewModels.Activity
             }
             else if (String.IsNullOrEmpty(Name) || String.IsNullOrEmpty(Size))
             {
-                Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
+                Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar los campos obligatorios", "Aceptar");
             }
             else if (!Modify && lMessagesTemp.Find( m => m.Name.Equals(Name)) !=  null)
             {

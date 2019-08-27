@@ -86,7 +86,7 @@ namespace smartCubes.ViewModels.Activity
         {
             if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Description))
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar los campos obligatorios", "Aceptar");
             } else if (!Modify && Json.GetActivityByName(Name) != null)
             {
                 await Application.Current.MainPage.DisplayAlert("Atención", "Ya existe una actividad con el mismo nombre", "Aceptar");

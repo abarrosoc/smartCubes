@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
+using smartCubes.Enum;
 using smartCubes.Models;
 using smartCubes.View.Session;
 using Xamarin.Forms;
@@ -119,7 +120,9 @@ namespace smartCubes.ViewModels.Menu
                 await Task.Delay(200);
                 SessionModel item = SelectItem;
                 SelectItem = null;
+
                 await Navigation.PushModalAsync(new PlaySessionView(item));
+                
                 Loading = false;
             }
         }
@@ -140,7 +143,15 @@ namespace smartCubes.ViewModels.Menu
         public void RefreshData()
         {
             lSessions = new ObservableCollection<SessionModel>();
-            List<SessionModel> listSessions = App.Database.GetSessionsByUser(User);
+            List<SessionModel> listSessions = null;
+            if (User.Role == Role.Admin)
+            {
+                listSessions = App.Database.GetSessions();
+            }
+            else
+            {
+                listSessions = App.Database.GetSessionsByUser(User);
+            }
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);

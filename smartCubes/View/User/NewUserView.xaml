@@ -24,7 +24,7 @@
                                 <Entry Placeholder="Contraseña" Text="{Binding Password}" Margin="0,30,0,0" Keyboard="Text" IsPassword="{Binding ViewPassword}" />
                             </StackLayout>
                             <StackLayout Orientation="Vertical" HorizontalOptions="End">
-                                <Image Source="eye.png"  VerticalOptions="EndAndExpand"  HorizontalOptions="EndAndExpand" Margin="40,0,0,0">
+                                <Image Source="{Binding Eye}"  VerticalOptions="EndAndExpand"  HorizontalOptions="EndAndExpand" Margin="40,0,0,0">
                                     <Image.GestureRecognizers>
                                         <TapGestureRecognizer
                                             Command="{Binding  OnTapGestureRecognizerTappedViewPassword}"

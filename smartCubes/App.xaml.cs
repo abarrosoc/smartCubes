@@ -45,7 +45,7 @@ namespace smartCubes
                 if (database == null)
                 {
                     database = new Database(
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DataBaseSQLite.db3"));
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SmartGamesDB.db3"));
                 }
                 return database;
             }

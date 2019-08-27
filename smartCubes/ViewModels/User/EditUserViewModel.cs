@@ -16,15 +16,13 @@ namespace smartCubes.ViewModels.User
 
         private bool Modify{ get; set; }
         private UserModel User{ get; set; }
-        private UserModel UserLogin { get; set; }
 
         public EditUserViewModel(INavigation navigation,UserModel userLogin, bool modify, UserModel user)
         {
             Navigation = navigation;
             Modify = modify;
             User = user;
-            UserLogin = userLogin;
-
+            Eye = "noeye.png";
             lRoles = new ObservableCollection<String>();
 
             if (userLogin.Role.Equals(Role.Admin))
@@ -104,8 +102,8 @@ namespace smartCubes.ViewModels.User
             }
         }
 
-        private String _SelectedRole;
-        public String SelectedRole
+        private string _SelectedRole;
+        public string SelectedRole
         {
             get
             {
@@ -118,8 +116,21 @@ namespace smartCubes.ViewModels.User
             }
         }
 
-        private ObservableCollection<String> _lRoles;
-        public ObservableCollection<String> lRoles
+        private string _Eye;
+        public string Eye
+        {
+            get
+            {
+                return _Eye;
+            }
+            set
+            {
+                _Eye = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableCollection<string> _lRoles;
+        public ObservableCollection<string> lRoles
         {
             get
             {
@@ -141,9 +152,9 @@ namespace smartCubes.ViewModels.User
         private async void SaveCommandExecuteAsync()
         {
 
-            if (String.IsNullOrEmpty(UserName) || String.IsNullOrEmpty(Password) || SelectedRole == null)
+            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password) || SelectedRole == null)
             {
-                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos lo campos", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar los campos obligatorios", "Aceptar");
             }
             else if (!Modify && App.Database.GetUsers().Find(u => u.UserName.Equals(UserName)) != null)
             {
@@ -189,10 +200,12 @@ namespace smartCubes.ViewModels.User
             if (ViewPassword)
             {
                 ViewPassword = false;
+                Eye = "eye.png";
             }
             else
             {
                 ViewPassword = true;
+                Eye = "noeye.png";
             }
         }
             private bool validateEmail(String email){

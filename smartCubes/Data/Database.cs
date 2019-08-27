@@ -29,8 +29,8 @@ namespace smartCubes.Data
             database.CreateTable<SessionInit>();
 
             UserModel user = new UserModel();
-            user.UserName = "Admin";
-            user.Password = Crypt.Encrypt("Admin", "uah2019");
+            user.UserName = "admin";
+            user.Password = Crypt.Encrypt("admin", "uah2019");
             user.Role = "Administrador";
             user.Email = "admin@uah.es";
             SaveUser(user);

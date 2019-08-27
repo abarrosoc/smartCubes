@@ -4,6 +4,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace smartCubes.Models
 {
+    [Table("Users")]
     public class UserModel
     {
         [PrimaryKey, AutoIncrement]

@@ -24,9 +24,8 @@ namespace smartCubes.ViewModels.Activity
 
             lFormats = new ObservableCollection<string>
             {
-                "",
-                "Tiempo",
-                "Fecha"
+                "S/F",
+                "ms",
             };
 
             this.AddMessageActivityViewModel = addMessageActivityViewModel;

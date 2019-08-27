@@ -123,7 +123,7 @@ namespace smartCubes.ViewModels.User
 
             if(string.IsNullOrEmpty(NameDevice) || string.IsNullOrEmpty(Uuid) || string.IsNullOrEmpty(UuidService))
             {
-                Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar todos los campos", "Aceptar");
+                Application.Current.MainPage.DisplayAlert("Atención", "Debe rellenar los campos obligatorios", "Aceptar");
             }
             else if (!Modify && lDevicesTemp.Find( d => d.Name.Equals(NameDevice)) != null)
             {

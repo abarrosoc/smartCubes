@@ -59,7 +59,7 @@ namespace smartCubes.ViewModels.Configuration
             {
                 App.Database.ResetDataBase();
                 Json.LoadActivities();
-                App.Current.MainPage = new LoginView();
+                Application.Current.MainPage = new LoginView();
 
             }
             

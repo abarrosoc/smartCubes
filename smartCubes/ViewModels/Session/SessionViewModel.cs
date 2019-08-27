@@ -10,18 +10,19 @@ using Syncfusion.XlsIO;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Linq;
+using smartCubes.Enum;
 
 namespace smartCubes.ViewModels.Session
 {
     public class SessionViewModel : BaseViewModel
     {
-        private UserModel user;
+        private UserModel User;
         public INavigation Navigation { get; set; }
 
         public SessionViewModel(INavigation navigation, UserModel user)
         {
-            this.Navigation = navigation;
-            this.user = user;
+            Navigation = navigation;
+            User = user;
 
             Title = "Sesiones";
             Loading = false;
@@ -234,7 +235,7 @@ namespace smartCubes.ViewModels.Session
                                         foreach (FieldMessage field in messageType1.Fields)
                                         {
                                             string m = Convert.ToInt32(string.Concat(messageTemp.Skip(numByte).Take(field.Bytes).ToArray().Select(b => b.ToString("X2"))), 16).ToString();
-                                            if (field.Format.Equals("Tiempo"))
+                                            if (field.Format.Equals("ms"))
                                             {
                                                 double millis = Convert.ToDouble(m);
                                                 worksheet[row, column].NumberFormat = "###,###,##0.0#########";
@@ -268,15 +269,16 @@ namespace smartCubes.ViewModels.Session
                             }
 
                             worksheet.UsedRange.AutofitColumns();
+                            cont++;
                         }
 
                         MemoryStream stream = new MemoryStream();
                         workbook.SaveAs(stream);
                         workbook.Close();
 
-                        string filepath = Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView(session.Name.Replace(" ", "") + ".xlsx", "application/msexcel", stream);
+                        string filepath = DependencyService.Get<ISave>().SaveAndView("SmartGames_" + session.Name.Replace(" ", "") + ".xlsx", "application/msexcel", stream);
 
-                        Mail mail = new Mail(filepath, user);
+                        Mail mail = new Mail(filepath, User);
                 }
                 });
                 Loading = false;
@@ -312,7 +314,7 @@ namespace smartCubes.ViewModels.Session
         private void NewSessionCommandExecute()
         {
 
-            Navigation.PushAsync(new SessionEditView(Navigation, user,false,null));
+            Navigation.PushAsync(new SessionEditView(Navigation, User, false,null));
         }
 
         private ICommand _OnItemTapped;
@@ -325,7 +327,7 @@ namespace smartCubes.ViewModels.Session
         {
             Loading = true;
             Task.Delay(200);
-            Navigation.PushAsync(new SessionFormView(Navigation, user, true, SelectItem));
+            Navigation.PushAsync(new SessionFormView(Navigation, User, true, SelectItem));
             SelectItem = null;
             Loading = false;
         }
@@ -346,7 +348,15 @@ namespace smartCubes.ViewModels.Session
         public void  RefreshData()
         {
             lSessions = new ObservableCollection<SessionModel>();
-            List<SessionModel> listSessions = App.Database.GetSessions();
+            List<SessionModel> listSessions = null;
+            if (User.Role == Role.Admin)
+            {
+                listSessions = App.Database.GetSessions();
+            }
+            else
+            {
+                listSessions = App.Database.GetSessionsByUser(User);
+            }
 
             foreach (SessionModel session in listSessions)
                 lSessions.Add(session);

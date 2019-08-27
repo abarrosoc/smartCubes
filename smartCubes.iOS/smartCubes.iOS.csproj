@@ -180,4 +180,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\eye.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\noeye.png" />
+  </ItemGroup>
 </Project>
