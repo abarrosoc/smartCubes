@@ -424,7 +424,7 @@ namespace smartCubes.ViewModels.Session
         {
             try
             {
-                if(adapter.ConnectedDevices.ToList().Find(d => d.Name != null && d.Name.Equals(device.Name)) == null)
+                if(adapter.ConnectedDevices.ToList().Find(d => d.Id != null && d.Id.Equals(device.Uuid)) == null)
                 {
                     var connectedDevice = await adapter.ConnectToKnownDeviceAsync(Guid.Parse(device.Uuid), new ConnectParameters(false,false), cancellationToken);
                     var service = await connectedDevice.GetServiceAsync(Guid.Parse(device.Service));
@@ -530,9 +530,9 @@ namespace smartCubes.ViewModels.Session
         {
             foreach (IDevice device in adapter.ConnectedDevices)
             {
-                if (device.State == DeviceState.Connected && lDevices.Find(d => d.Name.Equals(device.Name))!=null)
+                if (device.State == DeviceState.Connected && lDevices.Find(d => d.Uuid.Equals(device.Id.ToString()))!=null)
                 {
-                    string serviceDevice = currentActivity.Devices.Find(d => d.Name.Equals(device.Name)).Service;
+                    string serviceDevice = currentActivity.Devices.Find(d => d.Uuid.Equals(device.Id.ToString())).Service;
 
                     var services = await device.GetServicesAsync();
                     IService customerService = null;

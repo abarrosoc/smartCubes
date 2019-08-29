@@ -147,6 +147,8 @@ namespace smartCubes.ViewModels.Login
                 if(login== false)
                 {
                     await Application.Current.MainPage.DisplayAlert("Login", "Usuario o contraseña incorrecto", "Aceptar");
+                    User = "";
+                    Password = "";
                 }
 
                 Loading = false;
