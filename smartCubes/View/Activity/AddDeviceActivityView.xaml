@@ -79,6 +79,7 @@
                                     </StackLayout>
                                     <Label Text="{Binding Path=Uuid, StringFormat='UUID: {0}'}" TextColor="Gray" FontSize="Small" FontAttributes="Italic" HorizontalOptions="StartAndExpand" Margin="20,10,0,0" />
                                     <Label Text="{Binding Path=Service, StringFormat='UUID Servicio: {0}'}" TextColor="Gray" FontSize="Small" FontAttributes="Italic" HorizontalOptions="StartAndExpand" Margin="20,0,0,0" />
+                                    <Label Text="{Binding Path=Characteristic, StringFormat='UUID Caracteristica: {0}'}" TextColor="Gray" FontSize="Small" FontAttributes="Italic" HorizontalOptions="StartAndExpand" Margin="20,0,0,0" />
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

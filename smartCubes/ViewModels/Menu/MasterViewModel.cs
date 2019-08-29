@@ -148,7 +148,7 @@ namespace smartCubes.ViewModels.Menu
 
                 if (answer)
                 {
-                    App.Current.MainPage = new LoginView();
+                    Application.Current.MainPage = new LoginView();
                 }
 
                 SelectedItem = null;

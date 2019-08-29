@@ -13,7 +13,5 @@ namespace smartCubes.Models
         public string Password { get; set; }
         public string Role { get; set; }
         public string Email { get; set; }
-        [ManyToOne(CascadeOperations = CascadeOperation.All)]
-        public ObservableCollection<SessionModel> Sessions { get; set; }
     }
 }

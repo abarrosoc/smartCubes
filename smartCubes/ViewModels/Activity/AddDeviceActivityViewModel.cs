@@ -135,19 +135,19 @@ namespace smartCubes.ViewModels.User
 
                 if (!Regex.IsMatch(Uuid, regexUuid))
                 {
-                    Application.Current.MainPage.DisplayAlert("Atención", "El Uuid del dispositivo no cumple con el formato", "Aceptar");
+                    Application.Current.MainPage.DisplayAlert("Atención", "El UUID del dispositivo no cumple con el formato", "Aceptar");
                     return;
                 }
 
                 if (!Regex.IsMatch(UuidService, regexUuid))
                 {
-                    Application.Current.MainPage.DisplayAlert("Atención", "El Uuid del servicio no cumple con el formato", "Aceptar");
+                    Application.Current.MainPage.DisplayAlert("Atención", "El UUID del servicio no cumple con el formato", "Aceptar");
                     return;
                 }
 
                 if (!Regex.IsMatch(UuidCharacteristic, regexUuid))
                 {
-                    Application.Current.MainPage.DisplayAlert("Atención", "El Uuid de ña característica no cumple con el formato", "Aceptar");
+                    Application.Current.MainPage.DisplayAlert("Atención", "El UUID de la característica no cumple con el formato", "Aceptar");
                     return;
                 }
 
@@ -161,6 +161,7 @@ namespace smartCubes.ViewModels.User
                 NameDevice = null;
                 Uuid = null;
                 UuidService = null;
+                UuidCharacteristic = null;
             }
         }
 
