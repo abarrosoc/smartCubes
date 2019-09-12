@@ -279,7 +279,7 @@ namespace smartCubes.ViewModels.Session
                         workbook.SaveAs(stream);
                         workbook.Close();
 
-                        string filepath = DependencyService.Get<ISave>().SaveAndView("SmartGames_" + session.Name.Replace(" ", "") + ".xlsx", "application/msexcel", stream);
+                        string filepath = DependencyService.Get<ISave>().Save("SmartGames_" + session.Name.Replace(" ", "") + ".xlsx", "application/msexcel", stream);
 
                         Mail mail = new Mail(filepath, User);
                 }
@@ -317,7 +317,7 @@ namespace smartCubes.ViewModels.Session
         private void NewSessionCommandExecute()
         {
 
-            Navigation.PushAsync(new SessionEditView(Navigation, User, false,null));
+            Navigation.PushAsync(new NewSessionView(Navigation, User, false,null));
         }
 
         private ICommand _OnItemTapped;

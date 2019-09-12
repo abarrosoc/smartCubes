@@ -1,11 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Plugin.BLE;
-using Plugin.BLE.Abstractions.Contracts;
 using smartCubes.Models;
-using smartCubes.Utils;
 using smartCubes.ViewModels.Session;
 using Xamarin.Forms;
 
@@ -17,7 +13,6 @@ namespace smartCubes.View.Session
         public PlaySessionView()
         {
             InitializeComponent();
-        
         }
 
         public PlaySessionView(SessionModel session)
@@ -26,7 +21,16 @@ namespace smartCubes.View.Session
 
             BindingContext = new PlaySessionViewModel(session, Navigation);
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Task.Run(async () => {
+                CancellationTokenSource source = new CancellationTokenSource();
+                var vm = BindingContext as PlaySessionViewModel;
+                await vm.InitBLEConexion(source);
+            });
 
+        }
         protected override void OnDisappearing()
         {
             Device.BeginInvokeOnMainThread(async () =>

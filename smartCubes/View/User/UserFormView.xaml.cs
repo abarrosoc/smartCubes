@@ -6,13 +6,13 @@ using Xamarin.Forms;
 
 namespace smartCubes.View.User
 {
-    public partial class NewUserView : ContentPage
+    public partial class UserFormView : ContentPage
     {
-        public NewUserView(){
+        public UserFormView(){
             InitializeComponent();
         }
 
-        public NewUserView(INavigation navigation,UserModel userLogin, bool modify, UserModel user)
+        public UserFormView(INavigation navigation,UserModel userLogin, bool modify, UserModel user)
         {
             InitializeComponent();
             BindingContext = new EditUserViewModel(navigation,userLogin,modify,user);

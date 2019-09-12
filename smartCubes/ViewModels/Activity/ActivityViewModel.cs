@@ -115,7 +115,7 @@ namespace smartCubes.ViewModels.Activity
 
         private void NewActivityCommandExecute()
         {
-            Navigation.PushAsync(new NewActivityView(false,null));
+            Navigation.PushAsync(new ActivityFormView(false,null));
         }
 
         private ICommand _OnItemTapped;
@@ -127,7 +127,7 @@ namespace smartCubes.ViewModels.Activity
 
         private void OnItemTappedExecute()
         {
-            Navigation.PushAsync(new NewActivityView(true, SelectItem));
+            Navigation.PushAsync(new ActivityFormView(true, SelectItem));
             SelectItem = null;
         }
 

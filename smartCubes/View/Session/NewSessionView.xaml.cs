@@ -5,13 +5,13 @@ using Xamarin.Forms;
 
 namespace smartCubes.View.Session
 {
-    public partial class SessionEditView : ContentPage
+    public partial class NewSessionView : ContentPage
     {
-        public SessionEditView()
+        public NewSessionView()
         {
             InitializeComponent();
         }
-        public SessionEditView(INavigation navigation, UserModel user, bool modify, SessionModel session)
+        public NewSessionView(INavigation navigation, UserModel user, bool modify, SessionModel session)
         {
             InitializeComponent();
 

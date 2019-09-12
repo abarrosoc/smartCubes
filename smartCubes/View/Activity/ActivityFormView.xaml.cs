@@ -13,13 +13,13 @@ using smartCubes.Models;
 
 namespace smartCubes.View.Activity
 {
-    public partial class NewActivityView : ContentPage
+    public partial class ActivityFormView : ContentPage
     {
-        public NewActivityView(){
+        public ActivityFormView(){
             InitializeComponent();
             
         }
-        public NewActivityView(bool modify, ActivityModel activity)
+        public ActivityFormView(bool modify, ActivityModel activity)
         {
             InitializeComponent();
 

@@ -48,11 +48,8 @@
     <Folder Include="View\Menu\" />
     <Folder Include="Models\" />
     <Folder Include="ViewModels\Menu\" />
-    <Folder Include="View\Session\" />
-    <Folder Include="View\User\" />
     <Folder Include="Utils\" />
     <Folder Include="Data\" />
-    <Folder Include="ViewModels\User\" />
     <Folder Include="View\Login\" />
     <Folder Include="ViewModels\Login\" />
     <Folder Include="Interface\" />
@@ -70,9 +67,18 @@
     <Compile Update="View\Activity\AddFieldsPopUp.xaml.cs">
       <DependentUpon>AddFieldsPopUp.xaml</DependentUpon>
     </Compile>
+    <Compile Update="View\Activity\ActivityFormView.xaml.cs">
+      <DependentUpon>ActivityFormView.xaml</DependentUpon>
+    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="View\Session\NewSessionView.xaml %28copia%29.cs">
       <DependentUpon>SessionFormView.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Session\NewSessionView.xaml.cs">
+      <DependentUpon>NewSessionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\User\UserFormView.xaml.cs">
+      <DependentUpon>UserFormView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

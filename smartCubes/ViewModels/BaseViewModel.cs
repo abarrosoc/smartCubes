@@ -12,23 +12,10 @@ namespace smartCubes.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (PropertyChanged != null)
+            if (PropertyChanged != null) { 
                 PropertyChanged(this,
                     new PropertyChangedEventArgs(propertyName));
-        }
-
-        private bool _IsBusy;
-        public bool IsBusy
-        {
-            get
-            {
-                return _IsBusy;
-            }
-            set
-            {
-                _IsBusy = value;
-                RaisePropertyChanged();
-            }
+             }
         }
 
         private string _Title;

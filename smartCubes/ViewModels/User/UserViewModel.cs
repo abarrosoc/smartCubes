@@ -121,7 +121,7 @@ namespace smartCubes.ViewModels.User
 
         private void NewUserCommandExecute()
         {
-                Navigation.PushAsync(new NewUserView(Navigation, UserLogin, false, null));
+                Navigation.PushAsync(new UserFormView(Navigation, UserLogin, false, null));
         }
 
         private ICommand _OnItemTapped;
@@ -138,7 +138,7 @@ namespace smartCubes.ViewModels.User
             }
             else
             {
-                Navigation.PushAsync(new NewUserView(Navigation, UserLogin, true, SelectItem));
+                Navigation.PushAsync(new UserFormView(Navigation, UserLogin, true, SelectItem));
                 SelectItem = null;
             }
 

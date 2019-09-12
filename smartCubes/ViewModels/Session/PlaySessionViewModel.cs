@@ -43,7 +43,6 @@ namespace smartCubes.ViewModels.Session
         private List<ICharacteristic> characteristics;
         private ActivityModel currentActivity;
 
-
         public PlaySessionViewModel(SessionModel session, INavigation navigation)
         {
             this.session = session;
@@ -58,27 +57,29 @@ namespace smartCubes.ViewModels.Session
             lDeviceData = new List<DeviceData>();
             characteristics = new List<ICharacteristic>();
 
-            source = new CancellationTokenSource();
+            /*source = new CancellationTokenSource();
             token.WaitHandle.WaitOne(TimeSpan.FromSeconds(5));
-            token = source.Token;
+            token = source.Token;*/
 
             Title = session.Name;
             ActivityName = session.ActivityName;
 
             ResetChronometer();
+            Task.Run(() =>
+            {
+                currentActivity = Json.GetActivityByName(session.ActivityName);
+                BlobCache.UserAccount.InsertObject("currentActivity", currentActivity);
+                lDevices = new List<DeviceModel>(currentActivity.Devices);
+            });
 
-            currentActivity = Json.GetActivityByName(session.ActivityName);
-
-            lDevices = new List<DeviceModel>(currentActivity.Devices);
-         
-            BlobCache.UserAccount.InsertObject("currentActivity", currentActivity);
             adapter = CrossBluetoothLE.Current.Adapter;
 
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                await InitBLEConexion(token);
-            });
+            /*  Device.BeginInvokeOnMainThread(async () =>
+              {
+                  await InitBLEConexion(token);
+              });*/
         }
+
 
         private bool _StudentCodeEntry;
         public bool StudentCodeEntry
@@ -385,8 +386,12 @@ namespace smartCubes.ViewModels.Session
          * 
          * _________________________________________________________________________________________*/
 
-        private async Task InitBLEConexion(CancellationToken token )
+        public async Task InitBLEConexion(CancellationTokenSource source)
         {
+            this.source = source;
+            token = this.source.Token;
+            token.WaitHandle.WaitOne(TimeSpan.FromSeconds(5));
+
             IBluetoothLE ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             adapter.ScanTimeout = 10000;
@@ -424,7 +429,7 @@ namespace smartCubes.ViewModels.Session
         {
             try
             {
-                if(adapter.ConnectedDevices.ToList().Find(d => d.Id != null && d.Id.Equals(device.Uuid)) == null)
+                if (adapter.ConnectedDevices.ToList().Find(d => d.Id != null && d.Id.Equals(device.Uuid)) == null)
                 {
                     var connectedDevice = await adapter.ConnectToKnownDeviceAsync(Guid.Parse(device.Uuid), new ConnectParameters(false,false), cancellationToken);
                     var service = await connectedDevice.GetServiceAsync(Guid.Parse(device.Service));
@@ -530,7 +535,7 @@ namespace smartCubes.ViewModels.Session
         {
             foreach (IDevice device in adapter.ConnectedDevices)
             {
-                if (device.State == DeviceState.Connected && lDevices.Find(d => d.Uuid.Equals(device.Id.ToString()))!=null)
+                if (device.State == DeviceState.Connected && lDevices.Find(d => d.Uuid.Equals(device.Id.ToString())) != null)
                 {
                     string serviceDevice = currentActivity.Devices.Find(d => d.Uuid.Equals(device.Id.ToString())).Service;
 

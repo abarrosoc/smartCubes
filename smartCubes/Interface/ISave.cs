@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 public interface ISave
 {
-    string SaveAndView(string filename, string contentType, MemoryStream stream);
+    string Save(string filename, string contentType, MemoryStream stream);
 }
 
