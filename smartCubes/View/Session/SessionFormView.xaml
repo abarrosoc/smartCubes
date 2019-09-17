@@ -49,16 +49,15 @@
                                 <StackLayout BackgroundColor="White" Orientation="Vertical" VerticalOptions="CenterAndExpand">
                                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
                                         <Label Text="{Binding StudentCode}" TextColor="Black" FontSize="Medium" HorizontalOptions="StartAndExpand" />
-                                        </StackLayout>
+                                    </StackLayout>
                                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
                                         <Label Text="{Binding Path=Time, StringFormat='Duración: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" />
-                                        </StackLayout>
+                                    </StackLayout>
                                     <StackLayout BackgroundColor="White" Orientation="Horizontal" Margin="20,0">
                                         <Label Text="{Binding Path=Date, StringFormat='Fecha: {0}'}" TextColor="Gray" FontSize="Small" HorizontalOptions="StartAndExpand" Margin="0,5,0,0" />
                                     </StackLayout>
                                 </StackLayout>
                             </StackLayout>
-                          
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
